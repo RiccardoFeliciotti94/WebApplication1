@@ -1,0 +1,143 @@
+﻿@model RegisterViewModel
+@{
+    Layout = null;
+}
+
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Register page | Nifty - Admin Template</title>
+
+
+    <!--STYLESHEET-->
+    <!--=================================================-->
+    <!--Open Sans Font [ OPTIONAL ]-->
+ 
+
+
+    <!--Bootstrap Stylesheet [ REQUIRED ]-->
+    <!--Nifty Stylesheet [ REQUIRED ]-->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/nifty/css/nifty.min.css" rel="stylesheet">
+
+
+    <!--Nifty Premium Icon [ DEMONSTRATION ]-->
+    <!--=================================================-->
+    <!--Pace - Page Load Progress Par [OPTIONAL]-->
+    <!--=================================================
+
+    REQUIRED
+    You must include this in your project.
+
+
+    RECOMMENDED
+    This category must be included but you may modify which plugins or components which should be included in your project.
+
+
+    OPTIONAL
+    Optional plugins. You may choose whether to include it in your project or not.
+
+
+    DEMONSTRATION
+    This is to be removed, used for demonstration purposes only. This category must not be included in your project.
+
+
+    SAMPLE
+    Some script samples which explain how to initialize plugins or components. This category should not be included in your project.
+
+
+    Detailed information and more samples can be found in the document.
+
+    =================================================-->
+
+
+</head>
+<body class=" pace-done">
+    <div class="pace  pace-inactive">
+        <div class="pace-progress" style="width: 100%;" data-progress-text="100%" data-progress="99">
+            <div class="pace-progress-inner"></div>
+        </div>
+        <div class="pace-activity"></div>
+    </div>
+
+    <div id="container" class="cls-container">
+
+
+        <!-- BACKGROUND IMAGE -->
+        <!--===================================================-->
+        <div id="bg-overlay"></div>
+
+
+        <!-- REGISTRATION FORM -->
+        <!--===================================================-->
+        <div class="cls-content">
+            <div class="cls-content-lg panel">
+                <div class="panel-body">
+                    <div class="mar-ver pad-btm">
+                        <h1 class="h3">Create a New Account</h1>
+                        <p>Come join the WebApp community! Let's set up your account.</p>
+                    </div>
+                    <form asp-controller="Register" asp-action="Register" enctype="multipart/form-data" method="post">
+                        <div class="row">
+                            <div class="col-sm-6">
+
+                                <div class="form-group">
+                                    <input asp-for="Email" type="text" class="form-control" placeholder="E-mail" name="email">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="Password" type="password" class="form-control" placeholder="Password" name="password">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input asp-for="Username" type="text" class="form-control" placeholder="Username" name="username">
+                                    <span asp-validation-for="Username" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="Password2" type="password" class="form-control" placeholder="Repeat Password" name="password2">
+                                    <span asp-validation-for="Password2" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <!--===================================================-->
+        <!-- DEMO PURPOSE ONLY -->
+        <!--===================================================-->
+        <!--===================================================-->
+
+
+
+    </div>
+    <!--===================================================-->
+    <!-- END OF CONTAINER -->
+    <!--JAVASCRIPT-->
+    <!--=================================================-->
+    <!--jQuery [ REQUIRED ]-->
+    <!--BootstrapJS [ RECOMMENDED ]-->
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+
+
+    <!--NiftyJS [ RECOMMENDED ]-->
+    <script src="~/lib/nifty/js/nifty.min.js"></script>
+
+
+
+
+    <!--=================================================-->
+    <!--Background Image [ DEMONSTRATION ]-->
+    <script src="js/demo/bg-images.js"></script>
+
+</body>
+

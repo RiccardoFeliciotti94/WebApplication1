@@ -1,0 +1,32 @@
+﻿@model PostMessageViewModel
+    <div id="page-head">
+        <div class="pad-all text-center">
+            <h3>Pagina Post Messaggi</h3>
+        </div>
+    </div>
+    <div id="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Post Message</h3>
+                    </div>
+
+                    <!--No Label Form-->
+                    <!--===================================================-->
+                    <form asp-controller="PostMessage" asp-action="PostMessage" enctype="multipart/form-data" method="post" class="form-horizontal">
+                        <div class="panel-body">
+                            <textarea asp-for="Message" placeholder="Message" rows="10" class="form-control"></textarea>
+                            <span asp-validation-for="Message" class="text-danger"></span>
+                        </div>
+                        <div class="panel-footer text-right">
+                            <button class="btn btn-default" type="submit">Send message</button>
+                        </div>
+                    </form>
+                    <!--===================================================-->
+                    <!--End No Label Form-->
+
+                </div>
+            </div>
+        </div>
+    </div>

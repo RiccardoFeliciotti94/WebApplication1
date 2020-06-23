@@ -1,0 +1,184 @@
+﻿@using WebApplication1.Models.Utentes
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpCOntexttAccessor
+@{ 
+    var user = new UtenteModel(httpCOntexttAccessor.HttpContext);
+    
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApp</title>
+    <link rel="icon" type="image/x-icon" href="~/img/minilogo.png">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/nifty/css/nifty.min.css" />
+    <link rel="stylesheet" href="~/lib/demo/css/nifty-demo-icons.min.css" />
+    <link rel="stylesheet" href="~/lib/demo/css/nifty-demo.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+</head>
+<body>
+    <div id="container" class="effect aside-float aside-bright mainnav-lg">
+        <header id="navbar">
+            <div id="navbar-container" class="boxed">
+                <!--Brand logo & name-->
+                <!--================================-->
+                <div class="navbar-header">
+                    <a href="index.html" class="navbar-brand">
+                        <img id="pj20_logo" src="~/img/logo_PJ20.svg" alt="PJ20" class="brand-icon" style="width: 60%;height: 65%;position: relative;top:8px;left:35px">
+                    </a>
+                </div>
+                <div class="navbar-content">
+                    <ul class="nav navbar-top-links">
+
+                        <!--Navigation toogle button-->
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <li class="tgl-menu-btn">
+                            <a class="mainnav-toggle" href="#">
+                                <i class="fas fa-bars"></i>
+                            </a>
+                        </li>
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <!--End Navigation toogle button-->
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                    </ul>
+                    <ul class="nav navbar-top-links">
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <!--User dropdown-->
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+                        <li id="dropdown-user" class="dropdown">
+
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                                <span class="ic-user pull-right">
+                                    <i class="demo-pli-male"></i>
+                                </span>
+
+                                <div class="username hidden-xs">@user.Nome (@user.Ruolo)</div>
+
+                            </a>
+
+
+                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right panel-default">
+                                <ul class="head-list">
+                                    <li>
+                                        <a href="/signout"><i class="demo-pli-unlock icon-lg icon-fw"></i> Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <!--End user dropdown-->
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <div class="boxed">
+            <main role="main" id="content-container">
+                @RenderBody()
+            </main>
+
+            <nav id="mainnav-container">
+                <div id="mainnav">
+                    <div id="mainnav-menu-wrap">
+                        <div class="nano has-scrollbar">
+                            <div class="nano-content" tabindex="0" style="right: -17px;">
+                                <div id="mainnav-profile" class="mainnav-profile">
+                                    <div class="profile-wrap text-center">
+                                        <div class="pad-btm">
+                                            <img class="img-circle img-md" src="~/img/profile-photos/1.png" alt="Profile Picture">
+                                        </div>
+                                        <a href="#profile-nav" class="box-block collapsed" data-toggle="collapse" aria-expanded="true">
+                                            <span class="pull-right dropdown-toggle">
+                                                <i class="dropdown-caret"></i>
+                                            </span>
+                                            <p id="userNameCon" class="mnp-name">@user.Nome</p>
+                                            <span id="emailUtenteCon" class="mnp-desc">@user.Email</span>
+                                        </a>
+                                    </div>
+                                    <div class="list-group bg-trans" aria-expanded="true">
+                                        <a href="/" class="list-group-item">
+                                            <i class="demo-pli-unlock icon-lg icon-fw"></i> Logout
+                                        </a>
+                                    </div>
+                                </div>
+
+
+                                <ul id="mainnav-menu" class="list-group">
+                                    <!--Category name-->
+                                    <li class="list-header">Menu</li>
+                                    <!--Menu list item-->
+                                    <li class="active-sub active">
+                                        <a href="/home">
+
+                                            <span class="menu-title">Home</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/postmessage">
+
+                                            <span class="menu-title">Messaggi</span>
+                                        </a>
+                                    </li>
+                                    @if (user.Ruolo == "Admin")
+                                    {
+                                        <li>
+                                            <a href="/adminpanel">
+
+                                                <span class="menu-title">AdminPanel</span>
+                                            </a>
+                                        </li>
+                                    }
+
+
+
+                                </ul>
+                            </div>
+                            <div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 1784px; transform: translate(0px, 0px);"></div></div>
+                        </div>
+                    </div>
+                    <!--================================-->
+                    <!--End menu-->
+
+                </div>
+            </nav>
+        </div>
+
+        <footer id="footer">
+
+            <p style="margin-top:2px; font-size:0.8em;padding-left:75px;" class="pad-lft">© 2020 IWH srl</p>
+        </footer>
+    </div>
+
+
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/nifty/js/nifty.min.js"></script>
+    <script src="~/lib/demo/js/nifty-demo.min.js"></script>
+    <script src="~/lib/demo/js/ui-buttons.js"></script>
+
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/like.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+
+<script>
+    $(function () {
+        $('.mainnav-toggle').on("click", function (e) {
+            if ($('#container').hasClass('mainnav-sm')) {
+
+                $('#pj20_logo').css({ "top": "11px", "left": "13px" });
+                $('#pj20_logo').attr("src", "/img/logo_PJ20_mini.svg");
+            } else {
+                $('#pj20_logo').css({ "top": "8px", "left": "35px" });
+                $('#pj20_logo').attr("src", "/img/logo_PJ20.svg");
+
+            }
+        })
+    });
+</script>

@@ -1,0 +1,368 @@
+﻿@using WebApplication1.Models.Utentes
+@model WebApplication1.Models.HttpResponse.HttpResponseModel
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpCOntexttAccessor
+@{
+    var user = new UtenteModel(httpCOntexttAccessor.HttpContext);
+   
+
+}
+
+<div id="page-head">
+    <div class="pad-all text-center">
+        <h3>Admin Panel</h3>
+    </div>
+</div>
+<div id="page-content">
+
+    <div class="row">
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">GetUser</h3>
+            </div>
+            <div class="pad-btm form-inline">
+
+                <div class="row">
+                    <div class="col-sm-6 table-toolbar-left">
+                        <form asp-controller="AdminPanel" asp-action="GetUser" enctype="multipart/form-data" method="post" class="form-horizontal">
+
+                            <div class="panel-footer">
+                                <input asp-for="Email" type="text" class="form-control" placeholder="Email">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                                <button class="btn btn-default" type="submit">Submit</button>
+                                <span class="text-danger">@Html.ValidationMessage("CustomError") </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--No Label Form-->
+            <!--===================================================-->
+
+            <div class="table-responsive">
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Nome</th>
+                            <th class="text-center">Ruolo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListUser != null)
+                        {
+                            @foreach (var utente in Model.ListUser)
+                            {
+                                <tr>
+                                    <td>@utente.Email</td>
+                                    <td>@utente.Nome</td>
+                                    <td class="text-center">
+                                        @if (utente.Ruolo == 1)
+                                        {
+                                            <div class="label label-table label-info">Viewer</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="label label-table label-danger">Admin</div>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">GetMessage</h3>
+            </div>
+
+            <div class="pad-btm form-inline">
+
+                <div class="row">
+                    <div class="col-sm-6 table-toolbar-left">
+                        <form asp-controller="AdminPanel" asp-action="GetMessage" enctype="multipart/form-data" method="post" class="form-horizontal">
+
+                            <div class="panel-footer">
+                                <input asp-for="IDMes" type="text" class="form-control" placeholder="ID">
+                                <span asp-validation-for="IDMes" class="text-danger"></span>
+                                <button class="btn btn-default" type="submit">Submit</button>
+                                <span class="text-danger">@Html.ValidationMessage("CustomErrorIDMes") </span>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="table-responsive">
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>IDMessaggio</th>
+                            <th>Email</th>
+                            <th>Messaggio</th>
+                            <th>Data</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListMessage != null)
+                        {
+                            @foreach (var messaggio in Model.ListMessage)
+                            {
+
+                                <tr>
+                                    <td>@messaggio.IDMessaggio</td>
+                                    <td>@messaggio.Email</td>
+                                    <td>
+                                        <form enctype="multipart/form-data" method="post" class="form-horizontal">
+                                            <input asp-for="NewMessage" type="text" value="@messaggio.Testo" style="border: none; border-color: transparent;" />
+
+                                            <button asp-controller="AdminPanel" asp-action="PutMessage" type="submit" style="display: none;" asp-route-id="@messaggio.IDMessaggio"></button>
+                                            @{/* <script type="text/javascript">
+                                                           $(document).ready(function () {
+                                                               $(function () {
+                                                                   $('#btnSubmit').click(function (event) {
+                                                                       event.preventDefault();
+                                                                       var Student = {
+                                                                           ID: '10001',
+                                                                           Name: 'Shashangka',
+                                                                           Age: 31
+                                                                       };
+                                                                       $.ajax({
+                                                                           type: "POST",
+                                                                           url: "/Home",
+                                                                           success: function () {
+                                                                               alert();
+                                                                           },
+                                                                           error: function () {
+                                                                               alert()
+                                                                           }
+                                                                       });
+                                                                   });
+                                                               });
+                                                           });
+                                                       </script>*/
+                                            }
+
+
+
+
+                                        </form>
+                                    </td>
+                                    <td>@messaggio.Data</td>
+                                    <td>
+
+                                        <form enctype="multipart/form-data" method="post" class="form-horizontal">
+                                            <button asp-controller="AdminPanel" asp-action="DeleteMessage" class="btn btn-danger btn-rounded" type="submit" asp-route-id="@messaggio.IDMessaggio">X</button>
+                                        </form>
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+
+            <!--===================================================-->
+            <!--End No Label Form-->
+
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">PutMessage</h3>
+            </div>
+
+            <div class="pad-btm form-inline">
+
+                <div class="row">
+                    <div class="col-sm-6 table-toolbar-left">
+                        <form asp-controller="AdminPanel" asp-action="PutMessage" enctype="multipart/form-data" method="put" class="form-horizontal">
+
+                            <div class="panel-footer">
+                                <input asp-for="IDMes" type="text" class="form-control" placeholder="ID">
+                                <span asp-validation-for="IDMes" class="text-danger"></span>
+                                <input asp-for="NewMessage" type="text" class="form-control" placeholder="NewMessage">
+                                <span asp-validation-for="NewMessage" class="text-danger"></span>
+                                <button class="btn btn-default" type="submit">Submit</button>
+                                <span class="text-danger">@Html.ValidationMessage("CustomErrorIDMes") </span>
+
+                            </div>
+                        </form>
+                        @if (Model.NewMessage != null)
+                        {
+
+                            <p>Esito: @((int)Model.Code) @Model.NewMessage</p>
+                        }
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!--===================================================-->
+            <!--End No Label Form-->
+
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">PutUtente</h3>
+            </div>
+
+            <div class="pad-btm form-inline">
+
+                <div class="row">
+                    <div class="col-sm-6 table-toolbar-left">
+                        <form asp-controller="AdminPanel" asp-action="PutUtente" enctype="multipart/form-data" method="put" class="form-horizontal">
+
+                            <div class="panel-footer">
+                                <input asp-for="Email" type="text" class="form-control" placeholder="Email">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                                <input asp-for="NewName" type="text" class="form-control" placeholder="NewName">
+                                <span asp-validation-for="NewName" class="text-danger"></span>
+                                <button class="btn btn-default" type="submit">Submit</button>
+                                <span class="text-danger">@Html.ValidationMessage("CustomErrorNewNome") </span>
+
+                            </div>
+                        </form>
+                        @if (Model.NewName != null)
+                        {
+
+                            <p>Esito: @((int)Model.Code) @Model.NewName</p>
+                        }
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!--===================================================-->
+            <!--End No Label Form-->
+
+
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">PostUtente</h3>
+            </div>
+
+            <div class="pad-btm form-inline">
+
+                <div class="row">
+                    <div class="col-sm-6 table-toolbar-left">
+                        <form asp-controller="AdminPanel" asp-action="PostUtente" enctype="multipart/form-data" method="put" class="form-horizontal">
+
+                            <div class="panel-footer">
+                                <input asp-for="Email" type="text" class="form-control" placeholder="Email">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                                <input asp-for="NewName" type="text" class="form-control" placeholder="Name">
+                                <span asp-validation-for="NewName" class="text-danger"></span>
+                                <input asp-for="Pass" type="text" class="form-control" placeholder="Password">
+                                <span asp-validation-for="Pass" class="text-danger"></span>
+                                <input asp-for="Ruolo" type="number" min="1" max="2" value="1" class="form-control" placeholder="Role">
+                                <span asp-validation-for="Ruolo" class="text-danger"></span>
+                                <button class="btn btn-default" type="submit">Submit</button>
+                                <span class="text-danger">@Html.ValidationMessage("CustomErrorNewNome") </span>
+
+                            </div>
+                        </form>
+                        @if (Model.NewName != null)
+                        {
+
+                            <p>Esito: @((int)Model.Code) @Model.NewName</p>
+                        }
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!--===================================================-->
+            <!--End No Label Form-->
+
+
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">PostMessaggio</h3>
+            </div>
+
+            <div class="pad-btm form-inline">
+
+                <div class="row">
+                    <div class="col-sm-6 table-toolbar-left">
+                        <form asp-controller="AdminPanel" asp-action="PostMessaggio" enctype="multipart/form-data" method="put" class="form-horizontal">
+
+                            <div class="panel-footer">
+                                <input asp-for="NewMessage" type="text" class="form-control" placeholder="Message">
+                                <span asp-validation-for="NewMessage" class="text-danger"></span>
+                                <input asp-for="Email" type="text" class="form-control" placeholder="Email">
+                                <span asp-validation-for="Email" class="text-danger"></span>                                
+                                <button class="btn btn-default" type="submit">Submit</button>
+                                <span class="text-danger">@Html.ValidationMessage("CustomErrorNewNome") </span>
+
+                            </div>
+                        </form>
+                        @if (Model.NewName != null)
+                        {
+
+                            <p>Esito: @((int)Model.Code) @Model.NewName</p>
+                        }
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!--===================================================-->
+            <!--End No Label Form-->
+
+
+        </div>
+
+    </div>
+
+</div>
+
+

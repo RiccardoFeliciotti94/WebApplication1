@@ -1,0 +1,12 @@
+﻿@model WebApplication1.Models.Error.ErrorModel
+@{
+    Layout = null;
+}
+@if(Model.Excep!=null)
+{
+    <p>@Model.Excep</p>
+} else
+{
+    <p>Generic Error</p>
+}
+

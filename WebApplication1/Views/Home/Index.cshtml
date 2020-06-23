@@ -1,0 +1,51 @@
+﻿@model WebApplication1.Models.ListaMessaggi.ListaMessaggiModel
+
+<div id="page-head">
+    <div class="pad-all text-center">
+        <h3>Welcome to PostMessage Web!!!</h3>
+    </div>
+</div>
+<div id="page-content">
+    <div class="col-xs-12">
+        <div class="panel">
+            @foreach (var a in Model.ListMessage)
+            { var lk = (a.SetLike == 0) ? "Like" : "Dislike";
+
+
+                <div class="panel-body bord-btm">
+
+                    <div class="panel panel-trans">
+                        <div class="pad-all">
+                            <div class="media mar-btm">
+
+                                <div class="media-body">
+                                    <p class="text-lg text-main text-semibold mar-no">@a.Nome</p>
+                                    <p>@a.Data</p>
+
+                                </div>
+                            </div>
+                            <blockquote class="bq-sm bq-open bq-close">@a.Testo</blockquote>
+                        </div>
+
+                    </div>
+                    <div class="panel panel-trans">
+                        <div class="demo-icon">
+
+                            <button class="btn btn-info btn-rounded btn-labeled test" id="@a.IDMessaggio" name="@Model.Email">
+                                <p class="btn-label">@a.Like</p>
+                                @lk
+                            </button>
+
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+
+
+        </div>
+    </div>
+
+</div>
+
