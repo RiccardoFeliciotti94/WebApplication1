@@ -63,9 +63,7 @@ namespace WebApplication.IdentityServer
                 .AddInMemoryApiResources(Config.GetApiResources())           
                 .AddInMemoryClients(Config.GetClients())                
                 .AddProfileService<CustomProfileServices>()
-                .AddResourceOwnerValidator<CustomResourceOwnerPasswordValidator>()
-                
-                //.AddTestUsers(Config.GetUsers())                
+                .AddResourceOwnerValidator<CustomResourceOwnerPasswordValidator>()              
                 .AddDeveloperSigningCredential();
 
             services.AddControllersWithViews();       

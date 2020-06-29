@@ -80,13 +80,10 @@ namespace WebApplication.IdentityServer
 
             AllowedGrantTypes = GrantTypes.Code,
             RequireConsent = false,
-            
 
-            // where to redirect to after login
             RedirectUris = { "https://localhost:44330/signin-oidc" },
-
-            // where to redirect to after logout
-            //PostLogoutRedirectUris = { "https://localhost:44330/signout-callback-oidc" },
+          
+            PostLogoutRedirectUris = { "https://localhost:44330/signout-callback-oidc" },
 
             AllowedScopes = { "api1.get","profile", IdentityServerConstants.StandardScopes.OpenId }
         }

@@ -136,14 +136,6 @@ namespace WebApplication1.Api.Services
                 Console.WriteLine(disco.Error);
                 return false;
             }
-            // request token
-            /* var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
-             {
-                 Address = disco.TokenEndpoint,
-                 ClientId = "client",
-                 ClientSecret = "secret",
-                 Scope = "api1.get"
-             });*/
             
             var tokenResponse = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
             {
@@ -166,21 +158,6 @@ namespace WebApplication1.Api.Services
             Console.WriteLine("\n\n");
             Token = tokenResponse.AccessToken;
             return true;
-            // call api
-           /* var apiClient = new HttpClient();
-            apiClient.SetBearerToken(tokenResponse.AccessToken);
-            
-
-            var response = await apiClient.GetAsync("https://localhost:44330/identity");
-            if (!response.IsSuccessStatusCode)
-            {
-                Console.WriteLine(response.StatusCode);
-            }
-            else
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(JArray.Parse(content));
-            }*/
         }
     }
 }

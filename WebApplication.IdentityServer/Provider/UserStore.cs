@@ -88,12 +88,7 @@ namespace WebApplication.IdentityServer.Provider
         }
 
         public Task<string> GetPasswordHashAsync(Utente user, CancellationToken cancellationToken)
-        {
-           
-          /*  byte[] bytes = Encoding.ASCII.GetBytes(user.Password);
-            string a = Convert.ToBase64String(bytes);
-            var z =Convert.FromBase64String(a);*/
-            
+        {            
             return Task.FromResult(user.Password);
         }
 

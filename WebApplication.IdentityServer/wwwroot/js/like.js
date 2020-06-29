@@ -2,14 +2,6 @@
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/likeHub").build();
 
-//Disable send button until connection is established
-//document.getElementById("sendButton").disabled = true;
-/*connection.on("SendLike", function (val) {
-    var z = document.getElementById("numberLike").textContent;
-    var num = parseInt(z);
-    num++;
-    document.getElementById("numberLike").textContent = num;
-});*/
 
 connection.on("SendLike", function (val) {
     var z = document.getElementById(val).firstElementChild.textContent;
@@ -26,7 +18,7 @@ connection.on("DisLike", function (val) {
 });
 
 connection.start().then(function () {
-    //document.getElementById("sendButton").disabled = false;
+   
 }).catch(function (err) {
     return console.error(err.toString());
 });
@@ -53,10 +45,3 @@ for (var i = 0; i < buttons.length; i++) {
         event.preventDefault();
     });
 };
-/*document.getElementById("sendButton").addEventListener("click", function (event) {
-    var user = document.getElementById("userName").value;
-    connection.invoke("SendLike", user).catch(function (err) {
-        return console.error(err.toString());
-    });
-    event.preventDefault();
-});*/

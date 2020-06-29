@@ -60,7 +60,6 @@ namespace WebApplication1.Controllers
             if(result.Succeeded)
             {
                 await _events.RaiseAsync(new UserLoginSuccessEvent(model.Email, model.Email, model.Email, clientId: "mvc"));
-                //var z3 = HttpContext.User.Identity.IsAuthenticated;
                 return Redirect(model.ReturnUrl);
             }
             ModelState.AddModelError("CustomErrorInputNotCorrect", "Password o Email non corretta");

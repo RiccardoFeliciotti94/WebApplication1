@@ -56,9 +56,6 @@ namespace WebApplication.DataAccess.SQL.Providers
         public Utente GetUtenteWithMailandPassword(string Email, string pass)
         {
             var user = _DbContext.Utente.FirstOrDefault(utente => utente.Email == Email);
-            /* byte[] bytes = Encoding.ASCII.GetBytes(user.Password);
-             string a = Convert.ToBase64String(bytes);
-             var z = Convert.FromBase64String(user.Password); */
             var z = Convert.FromBase64String(user.Password);
             string passEncoded = Encoding.ASCII.GetString(z);
             if (passEncoded == pass) return user;
