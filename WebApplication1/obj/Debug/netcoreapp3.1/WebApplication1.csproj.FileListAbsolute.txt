@@ -465,4 +465,3 @@ C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication1\bin\Debug\
 C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp3.1\WebApplication1.csproj.CoreCompileInputs.cache
 C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp3.1\WebApplication1.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp3.1\WebApplication1.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\Login\Secret.cshtml.g.cs

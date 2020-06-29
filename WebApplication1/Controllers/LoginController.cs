@@ -24,11 +24,9 @@ namespace WebApplication1.Controllers
             _httpContextAccessor = httpContextAccessor;
             _userProvider = userProvider;
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
             return View();
-
         }
         
         [HttpPost]

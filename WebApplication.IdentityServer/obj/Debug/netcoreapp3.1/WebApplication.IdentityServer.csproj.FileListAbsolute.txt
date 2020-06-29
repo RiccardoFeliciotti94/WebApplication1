@@ -94,3 +94,4 @@ C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication.IdentitySer
 C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication.IdentityServer\obj\Debug\netcoreapp3.1\WebApplication.IdentityServer.RazorTargetAssemblyInfo.cs
 C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication.IdentityServer\obj\Debug\netcoreapp3.1\WebApplication.IdentityServer.Views.pdb
 C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication.IdentityServer\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication.IdentityServer\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs

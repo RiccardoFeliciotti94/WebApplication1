@@ -26,18 +26,23 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
-            var z1 =User.Claims.Where(x => x.Type == "email").Select(k => k.Value).First();
-            var z2 = User.Claims.Where(x => x.Type == "nome").Select(k => k.Value).First();
-            var z3 = User.Claims.Where(x => x.Type == "ruolo").Select(k => k.Value).First();
-            z3 = (z3 == "1") ? "Guest" : "Admin";
-            _httpContextAccessor.HttpContext.Session.SetString("nome", z2);
-            _httpContextAccessor.HttpContext.Session.SetString("email", z1);
-            _httpContextAccessor.HttpContext.Session.SetString("ruolo", z3);
-            //var userEmail = _httpContextAccessor.HttpContext.Session.GetString("email");
-            var listMsgUser = _msgProvider.GetAllMessage(z1);
+            var k = _httpContextAccessor.HttpContext.Session.GetString("nome");
+            if (k == null)
+            {
+                var z1 = User.Claims.Where(x => x.Type == "email").Select(k => k.Value).First();
+                var z2 = User.Claims.Where(x => x.Type == "nome").Select(k => k.Value).First();
+                var z3 = User.Claims.Where(x => x.Type == "ruolo").Select(k => k.Value).First();
+                z3 = (z3 == "1") ? "Guest" : "Admin";
+                _httpContextAccessor.HttpContext.Session.SetString("nome", z2);
+                _httpContextAccessor.HttpContext.Session.SetString("email", z1);
+                _httpContextAccessor.HttpContext.Session.SetString("ruolo", z3);
+            }
+
+            var userEmail = _httpContextAccessor.HttpContext.Session.GetString("email");
+            var listMsgUser = _msgProvider.GetAllMessage(userEmail);
             ListaMessaggiModel model = new ListaMessaggiModel();
             model.ListMessage = listMsgUser;
-            model.Email = z1;
+            model.Email = userEmail;
             return View(model);
         }
 

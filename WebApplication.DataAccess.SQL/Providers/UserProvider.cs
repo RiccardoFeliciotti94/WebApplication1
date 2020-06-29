@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,7 +56,12 @@ namespace WebApplication.DataAccess.SQL.Providers
         public Utente GetUtenteWithMailandPassword(string Email, string pass)
         {
             var user = _DbContext.Utente.FirstOrDefault(utente => utente.Email == Email);
-            if (user.Password == pass) return user;
+            /* byte[] bytes = Encoding.ASCII.GetBytes(user.Password);
+             string a = Convert.ToBase64String(bytes);
+             var z = Convert.FromBase64String(user.Password); */
+            var z = Convert.FromBase64String(user.Password);
+            string passEncoded = Encoding.ASCII.GetString(z);
+            if (passEncoded == pass) return user;
             else return null;
         }
 
@@ -63,7 +69,9 @@ namespace WebApplication.DataAccess.SQL.Providers
         {
             var user = _DbContext.Utente.FirstOrDefault(utente => utente.Email == email);
             if (user == null) return Task.FromResult(false);
-            if (user.Password != password) return Task.FromResult(false);
+            var z = Convert.FromBase64String(user.Password);
+            string passEncoded = Encoding.ASCII.GetString(z);
+            if (passEncoded != password) return Task.FromResult(false);
             return Task.FromResult(true);
         }
 

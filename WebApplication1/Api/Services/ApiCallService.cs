@@ -29,13 +29,14 @@ namespace WebApplication1.Api.Services
     public class ApiCallService : IApiCallService
     {
         private readonly IHttpClientFactory _clientFactory;
-
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private string Token;
 
-        public ApiCallService(IHttpClientFactory clientFactory)
+        public ApiCallService(IHttpClientFactory clientFactory, IHttpContextAccessor httpContextAccessor)
         {
             _clientFactory = clientFactory;
-     
+            _httpContextAccessor = httpContextAccessor;
+
         }
 
         private async Task<HttpResponseModel> CallHttpRequest(string name, HttpMethod method,string param, string body = null)
@@ -143,7 +144,7 @@ namespace WebApplication1.Api.Services
                  ClientSecret = "secret",
                  Scope = "api1.get"
              });*/
-           
+            
             var tokenResponse = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
             {
                 Address = disco.TokenEndpoint,

@@ -54,34 +54,44 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            var result = await _userProvider.ConnectWithPassword(model.Email, model.Password);
-            // if (!result)
-            // {                 
-            //     return View(new LoginViewModel { ReturnUrl = model.ReturnUrl });
-         //    }  
-            // var user = _userProvider.GetUserMail(model.Email);
 
-            var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
-            /* Utente user = new Utente { Email = model.Email, Password = model.Password, Nome= "Franco",Ruolo = 1 };
-              var z = await _userManager.CreateAsync(user,user.Password);
-             List<Claim> claims = new List<Claim>();
-              if(z.Succeeded)
-              {
-                claims.Add(new Claim("email", user.Email));
-                claims.Add(new Claim("ruolo", user.Ruolo.ToString()));
-
+            var result = await _signInManager.PasswordSignInAsync(model.Email,model.Password, false, false);
+           
+            if(result.Succeeded)
+            {
+                await _events.RaiseAsync(new UserLoginSuccessEvent(model.Email, model.Email, model.Email, clientId: "mvc"));
+                //var z3 = HttpContext.User.Identity.IsAuthenticated;
+                return Redirect(model.ReturnUrl);
             }
-              await _userManager.AddClaimsAsync(user, claims);
-               await _signInManager.SignInAsync(user,false);*/
-
-            await _signInManager.PasswordSignInAsync(model.Email,model.Password, false, false);
-
-             //await _events.RaiseAsync(new UserLoginSuccessEvent(us.UserName, user.Email, user.Email, clientId: "mvc"));
-            await _events.RaiseAsync(new UserLoginSuccessEvent(model.Email, model.Email, model.Email, clientId: "mvc"));
-            var z3 = HttpContext.User.Identity.IsAuthenticated;
+            ModelState.AddModelError("CustomErrorInputNotCorrect", "Password o Email non corretta");
+            return View(model);
             
-            return Redirect(model.ReturnUrl);
-            
+        }
+
+        [HttpGet]
+        public IActionResult Register(string returnUrl)
+        {
+            return View(new RegisterViewModel { ReturnUrl = returnUrl });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (model.Password != model.Password2)
+            {
+                ModelState.AddModelError("CustomErrorDiffPass", "Password non corrispondono tra loro");
+                return View(model);
+            }
+            Utente user = new Utente { Email = model.Email, Password = model.Password, Nome = model.Username, Ruolo = 1 };
+            var z = await _userManager.CreateAsync(user, user.Password);
+            if( z.Succeeded)
+            {
+                await _signInManager.SignInAsync(user, false);
+                return Redirect(model.ReturnUrl);
+            }
+            ModelState.AddModelError("CustomErrorEmailAlready", "Email già usata");
+            return View(model);
+
         }
     }
 }

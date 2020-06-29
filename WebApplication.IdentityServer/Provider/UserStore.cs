@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,13 @@ namespace WebApplication.IdentityServer.Provider
 
         public async Task<IdentityResult> CreateAsync(Utente user, CancellationToken cancellationToken)
         {
-            _DbContext.Add(user);
+            var msgList=_DbContext.Messaggio.Select(x => x.IDMessaggio).ToList();
+            _DbContext.Add(user);            
+            foreach( var mes in msgList)
+            {
+                UtenteLikeMessaggio ulm = new UtenteLikeMessaggio { Email = user.Email, IDMessaggio = mes, SetLike = 0 };
+                _DbContext.UtenteLikeMessaggio.Add(ulm);
+            }
             await _DbContext.SaveChangesAsync(cancellationToken);
 
             return await Task.FromResult(IdentityResult.Success);

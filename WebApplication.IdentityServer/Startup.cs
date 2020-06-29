@@ -1,4 +1,3 @@
-
 using System.Net;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
@@ -35,24 +34,18 @@ namespace WebApplication.IdentityServer
             services.AddScoped<IProfileService, CustomProfileServices>();
             services.AddScoped<IResourceOwnerPasswordValidator, CustomResourceOwnerPasswordValidator>();
             services.AddTransient<IUserProvider, UserProvider>();
-            /* services.AddIdentity<Utente, IdentityRole>(config =>
-             {
-                 config.Password.RequiredLength = 4;
-                 config.Password.RequireDigit = false;
-                 config.Password.RequireNonAlphanumeric = false;
-                 config.Password.RequireUppercase = false;
-             })*/
-            //.AddEntityFrameworkStores<ApplicationDbContext>()
-            //.AddDefaultTokenProviders();
 
-
-            services.AddIdentity<Utente, Ruolo>()
+            services.AddIdentity<Utente, Ruolo>(config =>
+            {
+                config.Password.RequiredLength = 4;
+                config.Password.RequireDigit = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
+            })
             .AddDefaultTokenProviders();
 
-
-
-              services.AddTransient <IUserStore<Utente>, UserStore>();
-              services.AddTransient<IRoleStore<Ruolo>, RoleStore>();
+             services.AddTransient <IUserStore<Utente>, UserStore>();
+             services.AddTransient<IRoleStore<Ruolo>, RoleStore>();
 
             services.ConfigureApplicationCookie(config =>
             {
@@ -75,8 +68,7 @@ namespace WebApplication.IdentityServer
                 //.AddTestUsers(Config.GetUsers())                
                 .AddDeveloperSigningCredential();
 
-            services.AddControllersWithViews();
-            
+            services.AddControllersWithViews();       
             
         }
 
@@ -92,6 +84,7 @@ namespace WebApplication.IdentityServer
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseStaticFiles();
             app.UseRouting();
             app.UseIdentityServer();
 
