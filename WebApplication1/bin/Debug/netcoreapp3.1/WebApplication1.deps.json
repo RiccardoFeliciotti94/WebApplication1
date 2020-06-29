@@ -24,16 +24,19 @@
     ".NETCoreApp,Version=v3.1": {
       "WebApplication1/1.0.0": {
         "dependencies": {
-          "IdentityServer4": "4.0.0",
+          "IdentityModel": "4.3.0",
+          "IdentityServer4.AccessTokenValidation": "3.0.1",
           "Microsoft.AspNet.SignalR.Core": "2.4.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.5",
+          "Microsoft.AspNetCore.Authentication.OpenIdConnect": "3.1.5",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.5",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "3.1.5",
           "Microsoft.AspNetCore.SignalR": "1.1.0",
-          "Microsoft.EntityFrameworkCore.Sqlite": "3.1.4",
-          "Microsoft.EntityFrameworkCore.Tools": "3.1.4",
+          "Microsoft.EntityFrameworkCore.Sqlite": "3.1.5",
+          "Microsoft.EntityFrameworkCore.Tools": "3.1.5",
           "Microsoft.IdentityModel.Tokens": "6.6.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.3",
-          "Swashbuckle.AspNetCore": "5.4.1",
+          "Swashbuckle.AspNetCore": "5.5.0",
           "System.IdentityModel.Tokens.Jwt": "6.6.0",
           "WebApplication.DataAccess.SQL": "1.0.0",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
@@ -52,8 +55,6 @@
           "Microsoft.AspNetCore.Connections.Abstractions.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.CookiePolicy": "3.1.0.0",
           "Microsoft.AspNetCore.Cors": "3.1.0.0",
-          "Microsoft.AspNetCore.Cryptography.Internal": "3.1.0.0",
-          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "3.1.0.0",
           "Microsoft.AspNetCore.DataProtection.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.DataProtection": "3.1.0.0",
           "Microsoft.AspNetCore.DataProtection.Extensions": "3.1.0.0",
@@ -132,8 +133,6 @@
           "Microsoft.Extensions.Hosting.Abstractions.Reference": "3.1.0.0",
           "Microsoft.Extensions.Hosting": "3.1.0.0",
           "Microsoft.Extensions.Http": "3.1.0.0",
-          "Microsoft.Extensions.Identity.Core": "3.1.0.0",
-          "Microsoft.Extensions.Identity.Stores": "3.1.0.0",
           "Microsoft.Extensions.Localization.Abstractions": "3.1.0.0",
           "Microsoft.Extensions.Localization": "3.1.0.0",
           "Microsoft.Extensions.Logging.Configuration": "3.1.0.0",
@@ -337,7 +336,7 @@
       },
       "IdentityModel/4.3.0": {
         "dependencies": {
-          "Newtonsoft.Json": "12.0.2",
+          "Newtonsoft.Json": "11.0.2",
           "System.Text.Encodings.Web": "4.7.0"
         },
         "runtime": {
@@ -350,36 +349,33 @@
           "lib/netstandard2.0/IdentityModel.dll": {}
         }
       },
-      "IdentityServer4/4.0.0": {
-        "dependencies": {
-          "IdentityModel": "4.3.0",
-          "IdentityServer4.Storage": "4.0.0",
-          "Microsoft.AspNetCore.Authentication.OpenIdConnect": "3.1.0",
-          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "5.6.0",
-          "Newtonsoft.Json": "12.0.2"
-        },
-        "runtime": {
-          "lib/netcoreapp3.1/IdentityServer4.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.0.0.0"
-          }
-        },
-        "compile": {
-          "lib/netcoreapp3.1/IdentityServer4.dll": {}
-        }
-      },
-      "IdentityServer4.Storage/4.0.0": {
+      "IdentityModel.AspNetCore.OAuth2Introspection/4.0.1": {
         "dependencies": {
           "IdentityModel": "4.3.0"
         },
         "runtime": {
-          "lib/netstandard2.0/IdentityServer4.Storage.dll": {
+          "lib/netcoreapp3.0/IdentityModel.AspNetCore.OAuth2Introspection.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.0.0.0"
+            "fileVersion": "4.0.1.0"
           }
         },
         "compile": {
-          "lib/netstandard2.0/IdentityServer4.Storage.dll": {}
+          "lib/netcoreapp3.0/IdentityModel.AspNetCore.OAuth2Introspection.dll": {}
+        }
+      },
+      "IdentityServer4.AccessTokenValidation/3.0.1": {
+        "dependencies": {
+          "IdentityModel.AspNetCore.OAuth2Introspection": "4.0.1",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.5"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/IdentityServer4.AccessTokenValidation.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.1.0"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.0/IdentityServer4.AccessTokenValidation.dll": {}
         }
       },
       "Microsoft.AspNet.SignalR.Core/2.4.1": {
@@ -402,7 +398,7 @@
       },
       "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.5": {
         "dependencies": {
-          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "5.6.0"
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "5.5.0"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
@@ -414,14 +410,14 @@
           "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Authentication.OpenIdConnect/3.1.0": {
+      "Microsoft.AspNetCore.Authentication.OpenIdConnect/3.1.5": {
         "dependencies": {
-          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "5.6.0"
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "5.5.0"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll": {
-            "assemblyVersion": "3.1.0.0",
-            "fileVersion": "3.100.19.56601"
+            "assemblyVersion": "3.1.5.0",
+            "fileVersion": "3.100.520.27105"
           }
         },
         "compile": {
@@ -444,6 +440,31 @@
         "dependencies": {
           "Microsoft.AspNetCore.Http.Features": "2.2.0",
           "System.IO.Pipelines": "4.5.2"
+        }
+      },
+      "Microsoft.AspNetCore.Cryptography.Internal/3.1.5": {
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.Internal.dll": {
+            "assemblyVersion": "3.1.5.0",
+            "fileVersion": "3.100.520.27105"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.Internal.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Cryptography.KeyDerivation/3.1.5": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Cryptography.Internal": "3.1.5"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {
+            "assemblyVersion": "3.1.5.0",
+            "fileVersion": "3.100.520.27105"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {}
         }
       },
       "Microsoft.AspNetCore.Hosting.Abstractions/2.2.0": {
@@ -487,14 +508,14 @@
           "Microsoft.AspNetCore.Http.Connections.Common": "1.1.0",
           "Microsoft.AspNetCore.Routing": "2.2.0",
           "Microsoft.AspNetCore.WebSockets": "2.2.0",
-          "Newtonsoft.Json": "12.0.2",
+          "Newtonsoft.Json": "11.0.2",
           "System.Security.Principal.Windows": "4.7.0"
         }
       },
       "Microsoft.AspNetCore.Http.Connections.Common/1.1.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Connections.Abstractions": "2.2.0",
-          "Newtonsoft.Json": "12.0.2",
+          "Newtonsoft.Json": "11.0.2",
           "System.Buffers": "4.5.0"
         }
       },
@@ -509,6 +530,21 @@
       "Microsoft.AspNetCore.Http.Features/2.2.0": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "3.1.5"
+        }
+      },
+      "Microsoft.AspNetCore.Identity.EntityFrameworkCore/3.1.5": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "3.1.5",
+          "Microsoft.Extensions.Identity.Stores": "3.1.5"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {
+            "assemblyVersion": "3.1.5.0",
+            "fileVersion": "3.100.520.27105"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {}
         }
       },
       "Microsoft.AspNetCore.Mvc.Razor.Extensions/3.1.5": {
@@ -588,7 +624,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Connections.Abstractions": "2.2.0",
           "Microsoft.Extensions.Options": "3.1.5",
-          "Newtonsoft.Json": "12.0.2",
+          "Newtonsoft.Json": "11.0.2",
           "System.Buffers": "4.5.0"
         }
       },
@@ -606,7 +642,7 @@
       "Microsoft.AspNetCore.SignalR.Protocols.Json/1.1.0": {
         "dependencies": {
           "Microsoft.AspNetCore.SignalR.Common": "1.1.0",
-          "Newtonsoft.Json": "12.0.2"
+          "Newtonsoft.Json": "11.0.2"
         }
       },
       "Microsoft.AspNetCore.WebSockets/2.2.0": {
@@ -926,25 +962,25 @@
           "ref/netcoreapp2.1/Microsoft.Data.SqlClient.dll": {}
         }
       },
-      "Microsoft.Data.Sqlite.Core/3.1.4": {
+      "Microsoft.Data.Sqlite.Core/3.1.5": {
         "dependencies": {
           "SQLitePCLRaw.core": "2.0.2"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Data.Sqlite.dll": {
-            "assemblyVersion": "3.1.4.0",
-            "fileVersion": "3.100.420.21503"
+            "assemblyVersion": "3.1.5.0",
+            "fileVersion": "3.100.520.27007"
           }
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.Data.Sqlite.dll": {}
         }
       },
-      "Microsoft.DotNet.PlatformAbstractions/3.1.4": {
+      "Microsoft.DotNet.PlatformAbstractions/3.1.5": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.DotNet.PlatformAbstractions.dll": {
-            "assemblyVersion": "3.1.4.0",
-            "fileVersion": "3.100.420.21405"
+            "assemblyVersion": "3.1.5.0",
+            "fileVersion": "3.100.520.27005"
           }
         },
         "compile": {
@@ -986,15 +1022,15 @@
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/3.1.5": {},
-      "Microsoft.EntityFrameworkCore.Design/3.1.4": {
+      "Microsoft.EntityFrameworkCore.Design/3.1.5": {
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
           "Microsoft.EntityFrameworkCore.Relational": "3.1.5"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.dll": {
-            "assemblyVersion": "3.1.4.0",
-            "fileVersion": "3.100.420.21503"
+            "assemblyVersion": "3.1.5.0",
+            "fileVersion": "3.100.520.27007"
           }
         }
       },
@@ -1012,23 +1048,23 @@
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Relational.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Sqlite/3.1.4": {
+      "Microsoft.EntityFrameworkCore.Sqlite/3.1.5": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Sqlite.Core": "3.1.4",
+          "Microsoft.EntityFrameworkCore.Sqlite.Core": "3.1.5",
           "SQLitePCLRaw.bundle_e_sqlite3": "2.0.2"
         }
       },
-      "Microsoft.EntityFrameworkCore.Sqlite.Core/3.1.4": {
+      "Microsoft.EntityFrameworkCore.Sqlite.Core/3.1.5": {
         "dependencies": {
-          "Microsoft.Data.Sqlite.Core": "3.1.4",
-          "Microsoft.DotNet.PlatformAbstractions": "3.1.4",
+          "Microsoft.Data.Sqlite.Core": "3.1.5",
+          "Microsoft.DotNet.PlatformAbstractions": "3.1.5",
           "Microsoft.EntityFrameworkCore.Relational": "3.1.5",
           "Microsoft.Extensions.DependencyModel": "3.1.5"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Sqlite.dll": {
-            "assemblyVersion": "3.1.4.0",
-            "fileVersion": "3.100.420.21503"
+            "assemblyVersion": "3.1.5.0",
+            "fileVersion": "3.100.520.27007"
           }
         },
         "compile": {
@@ -1050,9 +1086,9 @@
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.SqlServer.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Tools/3.1.4": {
+      "Microsoft.EntityFrameworkCore.Tools/3.1.5": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Design": "3.1.4"
+          "Microsoft.EntityFrameworkCore.Design": "3.1.5"
         }
       },
       "Microsoft.Extensions.ApiDescription.Server/3.0.0": {},
@@ -1181,6 +1217,38 @@
           "Microsoft.Extensions.Logging.Abstractions": "3.1.5"
         }
       },
+      "Microsoft.Extensions.Identity.Core/3.1.5": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "3.1.5",
+          "Microsoft.Extensions.Logging": "3.1.5",
+          "Microsoft.Extensions.Options": "3.1.5"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Identity.Core.dll": {
+            "assemblyVersion": "3.1.5.0",
+            "fileVersion": "3.100.520.27105"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Identity.Core.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Identity.Stores/3.1.5": {
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Abstractions": "3.1.5",
+          "Microsoft.Extensions.Identity.Core": "3.1.5",
+          "Microsoft.Extensions.Logging": "3.1.5"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Identity.Stores.dll": {
+            "assemblyVersion": "3.1.5.0",
+            "fileVersion": "3.100.520.27105"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Identity.Stores.dll": {}
+        }
+      },
       "Microsoft.Extensions.Logging/3.1.5": {
         "dependencies": {
           "Microsoft.Extensions.Configuration.Binder": "3.1.5",
@@ -1279,31 +1347,31 @@
           "lib/netstandard2.0/Microsoft.IdentityModel.Logging.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Protocols/5.6.0": {
+      "Microsoft.IdentityModel.Protocols/5.5.0": {
         "dependencies": {
           "Microsoft.IdentityModel.Logging": "6.6.0",
           "Microsoft.IdentityModel.Tokens": "6.6.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.IdentityModel.Protocols.dll": {
-            "assemblyVersion": "5.6.0.0",
-            "fileVersion": "5.6.0.61018"
+            "assemblyVersion": "5.5.0.0",
+            "fileVersion": "5.5.0.60624"
           }
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.IdentityModel.Protocols.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Protocols.OpenIdConnect/5.6.0": {
+      "Microsoft.IdentityModel.Protocols.OpenIdConnect/5.5.0": {
         "dependencies": {
-          "Microsoft.IdentityModel.Protocols": "5.6.0",
-          "Newtonsoft.Json": "12.0.2",
+          "Microsoft.IdentityModel.Protocols": "5.5.0",
+          "Newtonsoft.Json": "11.0.2",
           "System.IdentityModel.Tokens.Jwt": "6.6.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll": {
-            "assemblyVersion": "5.6.0.0",
-            "fileVersion": "5.6.0.61018"
+            "assemblyVersion": "5.5.0.0",
+            "fileVersion": "5.5.0.60624"
           }
         },
         "compile": {
@@ -1362,7 +1430,7 @@
       },
       "Microsoft.VisualStudio.Web.CodeGeneration.Contracts/3.1.3": {
         "dependencies": {
-          "Newtonsoft.Json": "12.0.2"
+          "Newtonsoft.Json": "11.0.2"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll": {
@@ -1378,7 +1446,7 @@
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "3.1.5",
           "Microsoft.VisualStudio.Web.CodeGeneration.Templating": "3.1.3",
-          "Newtonsoft.Json": "12.0.2"
+          "Newtonsoft.Json": "11.0.2"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.VisualStudio.Web.CodeGeneration.Core.dll": {
@@ -1440,7 +1508,7 @@
         "dependencies": {
           "Microsoft.CodeAnalysis.CSharp.Workspaces": "3.3.1",
           "Microsoft.VisualStudio.Web.CodeGeneration.Contracts": "3.1.3",
-          "Newtonsoft.Json": "12.0.2",
+          "Newtonsoft.Json": "11.0.2",
           "NuGet.Frameworks": "4.7.0"
         },
         "runtime": {
@@ -1533,11 +1601,11 @@
           "System.Xml.XDocument": "4.3.0"
         }
       },
-      "Newtonsoft.Json/12.0.2": {
+      "Newtonsoft.Json/11.0.2": {
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {
-            "assemblyVersion": "12.0.0.0",
-            "fileVersion": "12.0.2.23222"
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.2.21924"
           }
         },
         "compile": {
@@ -1753,47 +1821,47 @@
           "lib/netstandard2.0/SQLitePCLRaw.provider.dynamic_cdecl.dll": {}
         }
       },
-      "Swashbuckle.AspNetCore/5.4.1": {
+      "Swashbuckle.AspNetCore/5.5.0": {
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "3.0.0",
-          "Swashbuckle.AspNetCore.Swagger": "5.4.1",
-          "Swashbuckle.AspNetCore.SwaggerGen": "5.4.1",
-          "Swashbuckle.AspNetCore.SwaggerUI": "5.4.1"
+          "Swashbuckle.AspNetCore.Swagger": "5.5.0",
+          "Swashbuckle.AspNetCore.SwaggerGen": "5.5.0",
+          "Swashbuckle.AspNetCore.SwaggerUI": "5.5.0"
         }
       },
-      "Swashbuckle.AspNetCore.Swagger/5.4.1": {
+      "Swashbuckle.AspNetCore.Swagger/5.5.0": {
         "dependencies": {
           "Microsoft.OpenApi": "1.1.4"
         },
         "runtime": {
           "lib/netcoreapp3.0/Swashbuckle.AspNetCore.Swagger.dll": {
-            "assemblyVersion": "5.4.1.0",
-            "fileVersion": "5.4.1.0"
+            "assemblyVersion": "5.5.0.0",
+            "fileVersion": "5.5.0.0"
           }
         },
         "compile": {
           "lib/netcoreapp3.0/Swashbuckle.AspNetCore.Swagger.dll": {}
         }
       },
-      "Swashbuckle.AspNetCore.SwaggerGen/5.4.1": {
+      "Swashbuckle.AspNetCore.SwaggerGen/5.5.0": {
         "dependencies": {
-          "Swashbuckle.AspNetCore.Swagger": "5.4.1"
+          "Swashbuckle.AspNetCore.Swagger": "5.5.0"
         },
         "runtime": {
           "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {
-            "assemblyVersion": "5.4.1.0",
-            "fileVersion": "5.4.1.0"
+            "assemblyVersion": "5.5.0.0",
+            "fileVersion": "5.5.0.0"
           }
         },
         "compile": {
           "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {}
         }
       },
-      "Swashbuckle.AspNetCore.SwaggerUI/5.4.1": {
+      "Swashbuckle.AspNetCore.SwaggerUI/5.5.0": {
         "runtime": {
           "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {
-            "assemblyVersion": "5.4.1.0",
-            "fileVersion": "5.4.1.0"
+            "assemblyVersion": "5.5.0.0",
+            "fileVersion": "5.5.0.0"
           }
         },
         "compile": {
@@ -2820,12 +2888,13 @@
       "WebApplication.DataAccess.SQL/1.0.0": {
         "dependencies": {
           "EntityFramework": "6.4.4",
-          "IdentityServer4": "4.0.0",
+          "IdentityModel": "4.3.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.5",
           "Microsoft.AspNetCore.SignalR": "1.1.0",
           "Microsoft.EntityFrameworkCore": "3.1.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.5",
           "Microsoft.IdentityModel.Tokens": "6.6.0",
-          "Swashbuckle.AspNetCore": "5.4.1",
+          "Swashbuckle.AspNetCore": "5.5.0",
           "System.IdentityModel.Tokens.Jwt": "6.6.0"
         },
         "runtime": {
@@ -2928,18 +2997,6 @@
       "Microsoft.AspNetCore.Cors/3.1.0.0": {
         "compile": {
           "Microsoft.AspNetCore.Cors.dll": {}
-        },
-        "compileOnly": true
-      },
-      "Microsoft.AspNetCore.Cryptography.Internal/3.1.0.0": {
-        "compile": {
-          "Microsoft.AspNetCore.Cryptography.Internal.dll": {}
-        },
-        "compileOnly": true
-      },
-      "Microsoft.AspNetCore.Cryptography.KeyDerivation/3.1.0.0": {
-        "compile": {
-          "Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {}
         },
         "compileOnly": true
       },
@@ -3408,18 +3465,6 @@
       "Microsoft.Extensions.Http/3.1.0.0": {
         "compile": {
           "Microsoft.Extensions.Http.dll": {}
-        },
-        "compileOnly": true
-      },
-      "Microsoft.Extensions.Identity.Core/3.1.0.0": {
-        "compile": {
-          "Microsoft.Extensions.Identity.Core.dll": {}
-        },
-        "compileOnly": true
-      },
-      "Microsoft.Extensions.Identity.Stores/3.1.0.0": {
-        "compile": {
-          "Microsoft.Extensions.Identity.Stores.dll": {}
         },
         "compileOnly": true
       },
@@ -4465,19 +4510,19 @@
       "path": "identitymodel/4.3.0",
       "hashPath": "identitymodel.4.3.0.nupkg.sha512"
     },
-    "IdentityServer4/4.0.0": {
+    "IdentityModel.AspNetCore.OAuth2Introspection/4.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-jzXbhomPUG+k/XDKjVHJvL/7X0af+jlyCYmaPu4HGe8XSreL+cKBNat92qxrNtoJASA+69+QgL14Fm4cNcRjzA==",
-      "path": "identityserver4/4.0.0",
-      "hashPath": "identityserver4.4.0.0.nupkg.sha512"
+      "sha512": "sha512-ZNdMZMaj9fqR3j50vYsu+1U3QGd6n8+fqwf+a8mCTcmXGor+HgFDfdq0mM34bsmD6uEgAQup7sv2ZW5kR36dbA==",
+      "path": "identitymodel.aspnetcore.oauth2introspection/4.0.1",
+      "hashPath": "identitymodel.aspnetcore.oauth2introspection.4.0.1.nupkg.sha512"
     },
-    "IdentityServer4.Storage/4.0.0": {
+    "IdentityServer4.AccessTokenValidation/3.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-4TH/U5mSp/8UK2unoJYXqOZChHodtIH+nhAeAjX5S08QSbJatzZCYmOkj735SdewweJvyvKffISJYqvFPBgBmA==",
-      "path": "identityserver4.storage/4.0.0",
-      "hashPath": "identityserver4.storage.4.0.0.nupkg.sha512"
+      "sha512": "sha512-qu/M6UyN4o9NVep7q545Ms7hYAnsQqSdLbN1Fjjrn4m35lyBfeQPSSNzDryAKHbodyWOQfHaOqKEyMEJQ5Rpgw==",
+      "path": "identityserver4.accesstokenvalidation/3.0.1",
+      "hashPath": "identityserver4.accesstokenvalidation.3.0.1.nupkg.sha512"
     },
     "Microsoft.AspNet.SignalR.Core/2.4.1": {
       "type": "package",
@@ -4500,12 +4545,12 @@
       "path": "microsoft.aspnetcore.authentication.jwtbearer/3.1.5",
       "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.3.1.5.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Authentication.OpenIdConnect/3.1.0": {
+    "Microsoft.AspNetCore.Authentication.OpenIdConnect/3.1.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-O1cAQYUTU8EfRqwc5/rfTns4E4hKlFlg59fuKRrST+PzsxI6H07KqRN/JjdYhAuVYxF8jPnIGbj+zuc5paOWUw==",
-      "path": "microsoft.aspnetcore.authentication.openidconnect/3.1.0",
-      "hashPath": "microsoft.aspnetcore.authentication.openidconnect.3.1.0.nupkg.sha512"
+      "sha512": "sha512-smiwzu/SKFh6Tc0Hb4/NTtOBcsv6zqolGbLwAWTBOHlkbSFzxp4+iZc9t+NkHHJOr/xVxoUo/jahSau3yDdkgw==",
+      "path": "microsoft.aspnetcore.authentication.openidconnect/3.1.5",
+      "hashPath": "microsoft.aspnetcore.authentication.openidconnect.3.1.5.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authorization/2.2.0": {
       "type": "package",
@@ -4527,6 +4572,20 @@
       "sha512": "sha512-Aqr/16Cu5XmGv7mLKJvXRxhhd05UJ7cTTSaUV4MZ3ynAzfgWjsAdpIU8FWuxwAjmVdmI8oOWuVDrbs+sRkhKnA==",
       "path": "microsoft.aspnetcore.connections.abstractions/2.2.0",
       "hashPath": "microsoft.aspnetcore.connections.abstractions.2.2.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Cryptography.Internal/3.1.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-oLOay0PH+b0x9mTAFAZswlDuoZYOO2Is6eeDoN8pzx31zzpNL2RvEY343s8yaTVEzydymRduTyff4htRJgt6IA==",
+      "path": "microsoft.aspnetcore.cryptography.internal/3.1.5",
+      "hashPath": "microsoft.aspnetcore.cryptography.internal.3.1.5.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Cryptography.KeyDerivation/3.1.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-v74WSHk+DzJlmeu6ysTNHYLer8Dpfni+4rS7kk077uj0qM7FTsgvfDepqatMqiAoXVjjNTmR2SWC1bxNP5cpVg==",
+      "path": "microsoft.aspnetcore.cryptography.keyderivation/3.1.5",
+      "hashPath": "microsoft.aspnetcore.cryptography.keyderivation.3.1.5.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Hosting.Abstractions/2.2.0": {
       "type": "package",
@@ -4590,6 +4649,13 @@
       "sha512": "sha512-ziFz5zH8f33En4dX81LW84I6XrYXKf9jg6aM39cM+LffN9KJahViKZ61dGMSO2gd3e+qe5yBRwsesvyqlZaSMg==",
       "path": "microsoft.aspnetcore.http.features/2.2.0",
       "hashPath": "microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore/3.1.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZikbOBan8GAvgzJKCuy38hm5vuESzWN7v99BrRvN66wa/dWYanyzNzSX3buw20wV+WdH1kE+YOwjgGBG9TAd9Q==",
+      "path": "microsoft.aspnetcore.identity.entityframeworkcore/3.1.5",
+      "hashPath": "microsoft.aspnetcore.identity.entityframeworkcore.3.1.5.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Mvc.Razor.Extensions/3.1.5": {
       "type": "package",
@@ -4752,19 +4818,19 @@
       "path": "microsoft.data.sqlclient/1.0.19269.1",
       "hashPath": "microsoft.data.sqlclient.1.0.19269.1.nupkg.sha512"
     },
-    "Microsoft.Data.Sqlite.Core/3.1.4": {
+    "Microsoft.Data.Sqlite.Core/3.1.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-bicm19o4CBh1jH6MKRhpzlBsNvKL1sa19Q6vs4goIxKk0WVUXk/nljW6tdo5t6lVD54k6OJrfFqTJsaR6WqEug==",
-      "path": "microsoft.data.sqlite.core/3.1.4",
-      "hashPath": "microsoft.data.sqlite.core.3.1.4.nupkg.sha512"
+      "sha512": "sha512-97AVbafsZQVale8l04QmrOa1fEo8eCQ4oMK1XxdKc8JVYY4r9nMiYZiNwEDa9VHVY/Hug9YIawghzg6o+0E+fw==",
+      "path": "microsoft.data.sqlite.core/3.1.5",
+      "hashPath": "microsoft.data.sqlite.core.3.1.5.nupkg.sha512"
     },
-    "Microsoft.DotNet.PlatformAbstractions/3.1.4": {
+    "Microsoft.DotNet.PlatformAbstractions/3.1.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-H0aQg1SVS2OsdWQ/x7SXpg+/9Ji0NLqLeQ8lJrVvNGgUkxiPcxv2COE94iZYhs0yabDRyyE60v5eGH1xnTre/Q==",
-      "path": "microsoft.dotnet.platformabstractions/3.1.4",
-      "hashPath": "microsoft.dotnet.platformabstractions.3.1.4.nupkg.sha512"
+      "sha512": "sha512-2jxam7bgOxELzk8m8iwRg+e42x7G6WigtWCk6d9MXQEiZSl5FZMGpEk/8AXvl4ybogu1OgBkT5G+g94O9/lelQ==",
+      "path": "microsoft.dotnet.platformabstractions/3.1.5",
+      "hashPath": "microsoft.dotnet.platformabstractions.3.1.5.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore/3.1.5": {
       "type": "package",
@@ -4787,12 +4853,12 @@
       "path": "microsoft.entityframeworkcore.analyzers/3.1.5",
       "hashPath": "microsoft.entityframeworkcore.analyzers.3.1.5.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Design/3.1.4": {
+    "Microsoft.EntityFrameworkCore.Design/3.1.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-vfY9sV3zJW/kwV9VBXAQlj5rky+bEI217WfurB8fct8YkQCtl+L5MCr0ej2NUOs/rpQyYsAocKU2379AyMtbVQ==",
-      "path": "microsoft.entityframeworkcore.design/3.1.4",
-      "hashPath": "microsoft.entityframeworkcore.design.3.1.4.nupkg.sha512"
+      "sha512": "sha512-Bo5IVeCueESgeADKth/w9+IIwhMb1FgNrgB/egnHoTudnoZFffxPo/HVp8R5uyDIkBkEkfD7pTLy5szMyc8c1w==",
+      "path": "microsoft.entityframeworkcore.design/3.1.5",
+      "hashPath": "microsoft.entityframeworkcore.design.3.1.5.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/3.1.5": {
       "type": "package",
@@ -4801,19 +4867,19 @@
       "path": "microsoft.entityframeworkcore.relational/3.1.5",
       "hashPath": "microsoft.entityframeworkcore.relational.3.1.5.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Sqlite/3.1.4": {
+    "Microsoft.EntityFrameworkCore.Sqlite/3.1.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-tA3enPOXq1Id+MMsJTXeP7iCLMO6qh9exzQhswnExAyNPXpoQLSPHZn97U3pPA6BC2g37Be/InnHtevzT9nRdQ==",
-      "path": "microsoft.entityframeworkcore.sqlite/3.1.4",
-      "hashPath": "microsoft.entityframeworkcore.sqlite.3.1.4.nupkg.sha512"
+      "sha512": "sha512-HZn8UjdzfrvAK3xoqj65PZKprMXXev6NVNDEe/PAU6dcW1KXuSxU8cg2LB68ltEI1dLx8JaiKF/yWAq7H4pUQQ==",
+      "path": "microsoft.entityframeworkcore.sqlite/3.1.5",
+      "hashPath": "microsoft.entityframeworkcore.sqlite.3.1.5.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Sqlite.Core/3.1.4": {
+    "Microsoft.EntityFrameworkCore.Sqlite.Core/3.1.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ywyu2+qIVT1eIvj2iRwg7SkyACh/TtMTJjyUX1UUV/IH/QYe7csVZ2MQq3kcRJTaKHRPBFwNg61j8gvNItMG0g==",
-      "path": "microsoft.entityframeworkcore.sqlite.core/3.1.4",
-      "hashPath": "microsoft.entityframeworkcore.sqlite.core.3.1.4.nupkg.sha512"
+      "sha512": "sha512-Rb9It33lD2x6ODF4i0M3quadEPJOEHsANSNqctBnUnLbZX8HshGmEml3jQZELpJ1lhV0aEuATrFLDWT8EUdbiQ==",
+      "path": "microsoft.entityframeworkcore.sqlite.core/3.1.5",
+      "hashPath": "microsoft.entityframeworkcore.sqlite.core.3.1.5.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.SqlServer/3.1.5": {
       "type": "package",
@@ -4822,12 +4888,12 @@
       "path": "microsoft.entityframeworkcore.sqlserver/3.1.5",
       "hashPath": "microsoft.entityframeworkcore.sqlserver.3.1.5.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Tools/3.1.4": {
+    "Microsoft.EntityFrameworkCore.Tools/3.1.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-aJ1TGflH7aFOh+oPppIzx7NoC8QXw6lY4YH8PAa67tTlh40GJvWbhkNVqDCyuzrvUl9U1I3i4so/N6TtCK11uw==",
-      "path": "microsoft.entityframeworkcore.tools/3.1.4",
-      "hashPath": "microsoft.entityframeworkcore.tools.3.1.4.nupkg.sha512"
+      "sha512": "sha512-8vv6M1/HyoQuuvPZ9aL0HycCJdxEWLULMxFA9oRjRLBg70oo4Y2lKt7VpZT/zIOi/BFyq+H25JFT6+S7vYxakQ==",
+      "path": "microsoft.entityframeworkcore.tools/3.1.5",
+      "hashPath": "microsoft.entityframeworkcore.tools.3.1.5.nupkg.sha512"
     },
     "Microsoft.Extensions.ApiDescription.Server/3.0.0": {
       "type": "package",
@@ -4906,6 +4972,20 @@
       "path": "microsoft.extensions.hosting.abstractions/2.2.0",
       "hashPath": "microsoft.extensions.hosting.abstractions.2.2.0.nupkg.sha512"
     },
+    "Microsoft.Extensions.Identity.Core/3.1.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IIgCUsSYCpvhq3nDOY1qrXazT+xiNJnJPL7ZeT0e9l/2i6vF+zd/bvpfoKSAMTvCPkf3Ikgif0ZFBxG0YOjeMQ==",
+      "path": "microsoft.extensions.identity.core/3.1.5",
+      "hashPath": "microsoft.extensions.identity.core.3.1.5.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Identity.Stores/3.1.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6TvcOR2uMMJznfQNsOG3B0lTWIuJaFDPuJ4b2ustbtengrN/wZg01VGLBSi7BZ5ouRmchAUQ1rJBQFOETkUeLA==",
+      "path": "microsoft.extensions.identity.stores/3.1.5",
+      "hashPath": "microsoft.extensions.identity.stores.3.1.5.nupkg.sha512"
+    },
     "Microsoft.Extensions.Logging/3.1.5": {
       "type": "package",
       "serviceable": true,
@@ -4962,19 +5042,19 @@
       "path": "microsoft.identitymodel.logging/6.6.0",
       "hashPath": "microsoft.identitymodel.logging.6.6.0.nupkg.sha512"
     },
-    "Microsoft.IdentityModel.Protocols/5.6.0": {
+    "Microsoft.IdentityModel.Protocols/5.5.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ei7YqYx0pIFL6JjK8ZnPK0MXZRWUNHtJPUl3KqSvj9+2f5CMa6GRSEC+BMDHr17tP6yujYUg0IQOcKzmC7qN5g==",
-      "path": "microsoft.identitymodel.protocols/5.6.0",
-      "hashPath": "microsoft.identitymodel.protocols.5.6.0.nupkg.sha512"
+      "sha512": "sha512-m1gwAQwZjUxzRBC+4H40vYSo9Cms9yUbMdW492rQoXHU77G/ItiKxpk2+W9bWYcdsKUDKudye7im3T3MlVxEkg==",
+      "path": "microsoft.identitymodel.protocols/5.5.0",
+      "hashPath": "microsoft.identitymodel.protocols.5.5.0.nupkg.sha512"
     },
-    "Microsoft.IdentityModel.Protocols.OpenIdConnect/5.6.0": {
+    "Microsoft.IdentityModel.Protocols.OpenIdConnect/5.5.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-yh3n+uXiwpBy/5+t67tYcmRxb9kwQdaKRyG/DNipRMF37bg5Jr0vENOo1BQz6OySMl5WIK544SzPjtr7/KkucA==",
-      "path": "microsoft.identitymodel.protocols.openidconnect/5.6.0",
-      "hashPath": "microsoft.identitymodel.protocols.openidconnect.5.6.0.nupkg.sha512"
+      "sha512": "sha512-21F4QlbaD5CXNs2urNRCO6vljbbrhv3gmGT8P18SKGKZ9IYBCn29extoJriHiPfhABd5b8S7RcdKU50XhERkYg==",
+      "path": "microsoft.identitymodel.protocols.openidconnect/5.5.0",
+      "hashPath": "microsoft.identitymodel.protocols.openidconnect.5.5.0.nupkg.sha512"
     },
     "Microsoft.IdentityModel.Tokens/6.6.0": {
       "type": "package",
@@ -5095,12 +5175,12 @@
       "path": "netstandard.library/1.6.1",
       "hashPath": "netstandard.library.1.6.1.nupkg.sha512"
     },
-    "Newtonsoft.Json/12.0.2": {
+    "Newtonsoft.Json/11.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-rTK0s2EKlfHsQsH6Yx2smvcTCeyoDNgCW7FEYyV01drPlh2T243PR2DiDXqtC5N4GDm4Ma/lkxfW5a/4793vbA==",
-      "path": "newtonsoft.json/12.0.2",
-      "hashPath": "newtonsoft.json.12.0.2.nupkg.sha512"
+      "sha512": "sha512-IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ==",
+      "path": "newtonsoft.json/11.0.2",
+      "hashPath": "newtonsoft.json.11.0.2.nupkg.sha512"
     },
     "NuGet.Frameworks/4.7.0": {
       "type": "package",
@@ -5277,33 +5357,33 @@
       "path": "sqlitepclraw.provider.dynamic_cdecl/2.0.2",
       "hashPath": "sqlitepclraw.provider.dynamic_cdecl.2.0.2.nupkg.sha512"
     },
-    "Swashbuckle.AspNetCore/5.4.1": {
+    "Swashbuckle.AspNetCore/5.5.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-5EA++Cg8nzw1GCOM+7gWqrXJtylH8XMu+ixkFrbRIhRSMiZLzVPCFnSgAvJn+hCyi+AipUoJbBYv1BjvugieSw==",
-      "path": "swashbuckle.aspnetcore/5.4.1",
-      "hashPath": "swashbuckle.aspnetcore.5.4.1.nupkg.sha512"
+      "sha512": "sha512-u5M8VbX2Y9CETPJNXAYrpuWrji6ehEAWrrgbRh9tHjhql7a2vhJfKV1O48FwhdOAxAQk0Jxm7BqXix5NW2LRKg==",
+      "path": "swashbuckle.aspnetcore/5.5.0",
+      "hashPath": "swashbuckle.aspnetcore.5.5.0.nupkg.sha512"
     },
-    "Swashbuckle.AspNetCore.Swagger/5.4.1": {
+    "Swashbuckle.AspNetCore.Swagger/5.5.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-EY9ILzyXCAdAOmbbBM1LCTGO/T/hcRv16GrmwHWLqcBTOzZQ1lX6hUG+0BDu0xt1ti6TWMTfqEGOojsGYE5rbg==",
-      "path": "swashbuckle.aspnetcore.swagger/5.4.1",
-      "hashPath": "swashbuckle.aspnetcore.swagger.5.4.1.nupkg.sha512"
+      "sha512": "sha512-eB9DeUjIsHgYujVe9Mb4aweEcHvJbHwWlLq3fel5ZYe138sTKx0YLtWs80sWseZiN+CX7cfK/nD1mdWEBOfVsQ==",
+      "path": "swashbuckle.aspnetcore.swagger/5.5.0",
+      "hashPath": "swashbuckle.aspnetcore.swagger.5.5.0.nupkg.sha512"
     },
-    "Swashbuckle.AspNetCore.SwaggerGen/5.4.1": {
+    "Swashbuckle.AspNetCore.SwaggerGen/5.5.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-HH98jkSlJX16xyt/GRzjYs9SHekQTxT6Orok29smdrQ9usBkO8B2dBlUBxCLuupsch8ol46Oq/Apx3wve0LJTg==",
-      "path": "swashbuckle.aspnetcore.swaggergen/5.4.1",
-      "hashPath": "swashbuckle.aspnetcore.swaggergen.5.4.1.nupkg.sha512"
+      "sha512": "sha512-2VGdEG5dXUBSLJ+XIDgMbugyjMWqqzUSWTlQK0yGm+EtKIXFvuP/O4GmJDUBxBx5yOG1muRePti9gL1WjHoB5w==",
+      "path": "swashbuckle.aspnetcore.swaggergen/5.5.0",
+      "hashPath": "swashbuckle.aspnetcore.swaggergen.5.5.0.nupkg.sha512"
     },
-    "Swashbuckle.AspNetCore.SwaggerUI/5.4.1": {
+    "Swashbuckle.AspNetCore.SwaggerUI/5.5.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-YhRB2iqO/DILvWWxgzckPefxTwjJc9jPT1NjqEW/DPcYLP8CeR4/wII0h4mnV92pDcItPD5FVFT8yNotGmWViw==",
-      "path": "swashbuckle.aspnetcore.swaggerui/5.4.1",
-      "hashPath": "swashbuckle.aspnetcore.swaggerui.5.4.1.nupkg.sha512"
+      "sha512": "sha512-/R8g2jUigyM9Z3ZL21ODRrY63qEabCXqGXsOn1DQbWqqAp2hXT7hY5TvaiE0Dlr+20zIo6j8odpwT8zirZL6CQ==",
+      "path": "swashbuckle.aspnetcore.swaggerui/5.5.0",
+      "hashPath": "swashbuckle.aspnetcore.swaggerui.5.5.0.nupkg.sha512"
     },
     "System.AppContext/4.3.0": {
       "type": "package",
@@ -6048,16 +6128,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.AspNetCore.Cryptography.Internal/3.1.0.0": {
-      "type": "referenceassembly",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Microsoft.AspNetCore.Cryptography.KeyDerivation/3.1.0.0": {
-      "type": "referenceassembly",
-      "serviceable": false,
-      "sha512": ""
-    },
     "Microsoft.AspNetCore.DataProtection.Abstractions/3.1.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
@@ -6444,16 +6514,6 @@
       "sha512": ""
     },
     "Microsoft.Extensions.Http/3.1.0.0": {
-      "type": "referenceassembly",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Microsoft.Extensions.Identity.Core/3.1.0.0": {
-      "type": "referenceassembly",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Microsoft.Extensions.Identity.Stores/3.1.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

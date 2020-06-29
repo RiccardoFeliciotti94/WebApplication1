@@ -11,17 +11,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApplication.DataAccess.SQL;
 using WebApplication.DataAccess.SQL.Providers;
-using Swashbuckle.AspNetCore.Swagger;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using WebApplication1.Api.Middleware;
 using Microsoft.AspNetCore.Identity;
 using WebApplication1.Policy;
 using Microsoft.AspNetCore.Authorization;
 using WebApplication1.Api.Services;
 using WebApplication1.Hubs;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication;
 
 namespace WebApplication1
 {
@@ -49,7 +46,38 @@ namespace WebApplication1
             services.AddSingleton<IApiCallService, ApiCallService>();
             
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            services.AddTokenAuthentication(_Configuration);
+           // services.AddTokenAuthentication(_Configuration);
+            //
+            JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "Cookies";
+                options.DefaultChallengeScheme = "oidc";
+            })
+                .AddCookie("Cookies")
+                .AddOpenIdConnect("oidc", options =>
+                {
+                    options.Authority = "http://localhost:5000";
+                    options.RequireHttpsMetadata = false;
+
+                    options.ClientId = "mvc";
+                    options.ClientSecret = "secret";
+                    options.ResponseType = "code";
+
+                    options.SaveTokens = true;
+
+                    options.Scope.Add("api1.get");
+                    options.Scope.Add("profile");
+                    options.Scope.Add("openid");
+                    options.GetClaimsFromUserInfoEndpoint = true;
+                    options.ClaimActions.DeleteClaim("sid");
+                    options.ClaimActions.DeleteClaim("idp");
+                    options.ClaimActions.MapJsonKey("email", "email");
+                    options.ClaimActions.MapJsonKey("nome", "nome");
+                    options.ClaimActions.MapJsonKey("ruolo", "ruolo");
+                });
+            //
             services.AddSingleton<IJwtService, JwtService>();
             services.AddAuthorization(options =>
             {
@@ -57,10 +85,10 @@ namespace WebApplication1
             });
             services.AddSingleton<IAuthorizationHandler, PolicyAuthorizationHandler>();
 
-            services.AddSwaggerGen(c =>
+          /*  services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-            });
+            });*/
 
         }
 
@@ -74,19 +102,19 @@ namespace WebApplication1
             {
                 app.UseExceptionHandler("/Error");
             }
-            app.UseStatusCodePagesWithRedirects("/Error/{0}");
-            app.UseExceptionHandler("/Error");
+            //app.UseStatusCodePagesWithRedirects("/Error/{0}");
+            //app.UseExceptionHandler("/Error");
             app.UseSession();
        
             app.UseStaticFiles();
-            app.UseSwagger();
+           // app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
             // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
+           /* app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
+            });*/
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -94,7 +122,9 @@ namespace WebApplication1
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",pattern: "{controller=Login}/{action=Index}/{id?}");
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                 ).RequireAuthorization();
                 endpoints.MapHub<LikeHub>("/likeHub");
             });
             

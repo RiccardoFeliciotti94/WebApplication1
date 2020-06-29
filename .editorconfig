@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS0114: Il membro nasconde il membro ereditato. Manca la parola chiave override
+dotnet_diagnostic.CS0114.severity = none

@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IdentityModel;
+using IdentityModel.Client;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -30,13 +31,12 @@ namespace WebApplication1.Api.Services
         private readonly IHttpClientFactory _clientFactory;
 
         private string Token;
-        private DateTime Time;
+
         public ApiCallService(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
      
         }
-
 
         private async Task<HttpResponseModel> CallHttpRequest(string name, HttpMethod method,string param, string body = null)
         {
@@ -55,22 +55,8 @@ namespace WebApplication1.Api.Services
             HttpResponseModel md = new HttpResponseModel { Response = responseStream, Code = response.StatusCode, Operation = name };
             return md;
         }
-        private async Task SetToken()
-        {
-            DateTime time = DateTime.Now;
-            TimeSpan diff = time.Subtract(Time);
-            if(diff.TotalHours >= 24)
-            {
-                HttpResponseModel md = await GetToken();
-                Time = time;
-                Token = md.Response;
-            }
-        }
-        private async Task<HttpResponseModel> GetToken()
-        {
-            var md = await CallHttpRequest("token", HttpMethod.Get,"");
-            return md;
-        }
+    
+
 
         public async Task<HttpResponseModel> GetAllUser()
         {
@@ -100,7 +86,7 @@ namespace WebApplication1.Api.Services
         public async Task<HttpResponseModel> DeleteMessage(string id)
         {
             await SetToken();
-            var md = await CallHttpRequest("Messaggio/" + id, HttpMethod.Delete, "");
+            await CallHttpRequest("Messaggio/" + id, HttpMethod.Delete, "");
             var md2 = await CallHttpRequest("Messaggio", HttpMethod.Get, "");
             return md2;
         }
@@ -137,6 +123,63 @@ namespace WebApplication1.Api.Services
             string body = Newtonsoft.Json.JsonConvert.SerializeObject(msg);
             var md = await CallHttpRequest("Messaggio", HttpMethod.Post, "", body);
             return md;
+        }
+
+        private async Task<bool> SetToken()
+        {
+         
+            var client = new HttpClient();            
+            var disco = await client.GetDiscoveryDocumentAsync("http://localhost:5000");
+            if (disco.IsError)
+            {
+                Console.WriteLine(disco.Error);
+                return false;
+            }
+            // request token
+            /* var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
+             {
+                 Address = disco.TokenEndpoint,
+                 ClientId = "client",
+                 ClientSecret = "secret",
+                 Scope = "api1.get"
+             });*/
+           
+            var tokenResponse = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
+            {
+                Address = disco.TokenEndpoint,
+
+                ClientId = "ro.client",
+                ClientSecret = "secret",
+                Scope = "api1.get",
+
+                UserName = "carlo@cr.it",
+                Password = "Abc123456789!"
+            });
+            
+            if (tokenResponse.IsError)
+            {
+                Console.WriteLine(tokenResponse.Error);
+                return false;
+            }
+            Console.WriteLine(tokenResponse.Json);
+            Console.WriteLine("\n\n");
+            Token = tokenResponse.AccessToken;
+            return true;
+            // call api
+           /* var apiClient = new HttpClient();
+            apiClient.SetBearerToken(tokenResponse.AccessToken);
+            
+
+            var response = await apiClient.GetAsync("https://localhost:44330/identity");
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine(response.StatusCode);
+            }
+            else
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(JArray.Parse(content));
+            }*/
         }
     }
 }

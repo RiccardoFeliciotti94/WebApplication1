@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.DataAccess.SQL.DataModels;
@@ -10,6 +12,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     public class LoginController : Controller
     {
 
@@ -21,12 +24,13 @@ namespace WebApplication1.Controllers
             _httpContextAccessor = httpContextAccessor;
             _userProvider = userProvider;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
             return View();
 
         }
-
+        
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
@@ -46,5 +50,7 @@ namespace WebApplication1.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+  
     }
 }

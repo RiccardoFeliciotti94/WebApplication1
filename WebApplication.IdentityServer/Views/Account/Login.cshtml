@@ -1,0 +1,20 @@
+﻿@model LoginViewModel
+@{
+    Layout = null;
+}
+
+    <form asp-controller="Account" asp-action="Login" enctype="multipart/form-data" method="post">
+        <input type="hidden"  asp-for="ReturnUrl" />
+        <div>
+            <input asp-for="Email" type="text" placeholder="Email">
+          
+
+        </div>
+        <div >
+            <input asp-for="Password" type="password"  placeholder="Password">
+            
+        </div>
+     
+        <button type="submit">Sign In</button>
+
+    </form>
