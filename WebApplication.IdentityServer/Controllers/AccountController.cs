@@ -46,6 +46,13 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();                 
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
         public IActionResult Login(string returnUrl)
         {
             return View( new LoginViewModel { ReturnUrl = returnUrl });

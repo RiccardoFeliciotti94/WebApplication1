@@ -37,7 +37,6 @@ namespace WebApplication.IdentityServer
                      _clock.UtcNow.UtcDateTime
                 );
             }
-
             return Task.CompletedTask;
         }
     }

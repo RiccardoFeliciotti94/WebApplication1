@@ -46,6 +46,11 @@ namespace WebApplication1.Controllers
             return View(model);
         }
 
+        public IActionResult Logout ()
+        {
+            return SignOut("Cookie", "oidc");
+        }
+
         
     }
 }
