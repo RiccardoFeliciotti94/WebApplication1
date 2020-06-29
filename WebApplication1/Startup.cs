@@ -19,6 +19,7 @@ using WebApplication1.Api.Services;
 using WebApplication1.Hubs;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace WebApplication1
 {
@@ -30,8 +31,7 @@ namespace WebApplication1
         {
             _Configuration = configuration;
         }
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+
         public void ConfigureServices(IServiceCollection services)
         {
             
@@ -47,7 +47,7 @@ namespace WebApplication1
             
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
            // services.AddTokenAuthentication(_Configuration);
-            //
+
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
             services.AddAuthentication(options =>
@@ -76,6 +76,12 @@ namespace WebApplication1
                     options.ClaimActions.MapJsonKey("email", "email");
                     options.ClaimActions.MapJsonKey("nome", "nome");
                     options.ClaimActions.MapJsonKey("ruolo", "ruolo");
+                }).AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = "http://localhost:5000";
+                    options.RequireHttpsMetadata = false;
+                    options.ApiName = "api1";
+
                 });
             //
             services.AddSingleton<IJwtService, JwtService>();
@@ -84,11 +90,6 @@ namespace WebApplication1
                 options.AddPolicy("Admin", policy => policy.Requirements.Add(new PolicyRequirement("Admin")));
             });
             services.AddSingleton<IAuthorizationHandler, PolicyAuthorizationHandler>();
-
-          /*  services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-            });*/
 
         }
 
@@ -107,14 +108,7 @@ namespace WebApplication1
             app.UseSession();
        
             app.UseStaticFiles();
-           // app.UseSwagger();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            // specifying the Swagger JSON endpoint.
-           /* app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });*/
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

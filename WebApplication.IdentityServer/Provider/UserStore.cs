@@ -62,9 +62,9 @@ namespace WebApplication.IdentityServer.Provider
             }
         }
 
-        public Task<Utente> FindByIdAsync(string userId, CancellationToken cancellationToken)
+        public async Task<Utente> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _DbContext.Utente.FirstOrDefaultAsync(op => op.Email == userId);
         }
 
         public Task<Utente> FindByLoginAsync(string loginProvider, string providerKey, CancellationToken cancellationToken)
@@ -89,11 +89,6 @@ namespace WebApplication.IdentityServer.Provider
 
         public Task<string> GetPasswordHashAsync(Utente user, CancellationToken cancellationToken)
         {
-           
-          /*  byte[] bytes = Encoding.ASCII.GetBytes(user.Password);
-            string a = Convert.ToBase64String(bytes);
-            var z =Convert.FromBase64String(a);*/
-            
             return Task.FromResult(user.Password);
         }
 
@@ -141,10 +136,12 @@ namespace WebApplication.IdentityServer.Provider
 
         public Task<IList<Claim>> GetClaimsAsync(Utente user, CancellationToken cancellationToken)
         {
-            List<Claim> claimList =  new List<Claim>();
-            claimList.Add(new Claim("email", user.Email));
-            claimList.Add(new Claim("pass", user.Password));
-            claimList.Add(new Claim("ruolo", user.Ruolo.ToString()));
+            List<Claim> claimList = new List<Claim>
+            {
+                new Claim("email", user.Email),
+                new Claim("pass", user.Password),
+                new Claim("ruolo", user.Ruolo.ToString())
+            };
 
             IList<Claim> IClaimList = claimList;
             return Task.FromResult(IClaimList);

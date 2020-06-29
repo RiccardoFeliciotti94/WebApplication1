@@ -21,26 +21,18 @@ namespace WebApplication1.Controllers
 
     public class AccountController : Controller
     {
-        private readonly IUserProvider _userProvider;
-
         private readonly UserManager<Utente> _userManager;
         private readonly SignInManager<Utente> _signInManager;
-        private readonly IIdentityServerInteractionService _interaction;
-        private readonly IClientStore _clientStore;
         private readonly IEventService _events;
 
 
-        public AccountController( IUserProvider userProvider,
-              UserManager<Utente> userManager,
+        public AccountController(UserManager<Utente> userManager,
             SignInManager<Utente> signInManager,
-            IIdentityServerInteractionService interaction,
             IEventService events
            )
         {
-            _userProvider = userProvider;
             _userManager = userManager;
             _signInManager = signInManager;
-            _interaction = interaction;
             _events = events;
      
         }
@@ -67,7 +59,6 @@ namespace WebApplication1.Controllers
             if(result.Succeeded)
             {
                 await _events.RaiseAsync(new UserLoginSuccessEvent(model.Email, model.Email, model.Email, clientId: "mvc"));
-                //var z3 = HttpContext.User.Identity.IsAuthenticated;
                 return Redirect(model.ReturnUrl);
             }
             ModelState.AddModelError("CustomErrorInputNotCorrect", "Password o Email non corretta");

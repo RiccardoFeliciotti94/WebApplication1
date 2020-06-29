@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using WebApplication.DataAccess.SQL.DataModels;
+using WebApplication.DataAccess.SQL.Providers;
 using WebApplication1.Models.HttpResponse;
 
 namespace WebApplication1.Api.Services
@@ -29,14 +30,11 @@ namespace WebApplication1.Api.Services
     public class ApiCallService : IApiCallService
     {
         private readonly IHttpClientFactory _clientFactory;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private string Token;
 
-        public ApiCallService(IHttpClientFactory clientFactory, IHttpContextAccessor httpContextAccessor)
+        public ApiCallService(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
-            _httpContextAccessor = httpContextAccessor;
-
         }
 
         private async Task<HttpResponseModel> CallHttpRequest(string name, HttpMethod method,string param, string body = null)
@@ -136,14 +134,6 @@ namespace WebApplication1.Api.Services
                 Console.WriteLine(disco.Error);
                 return false;
             }
-            // request token
-            /* var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
-             {
-                 Address = disco.TokenEndpoint,
-                 ClientId = "client",
-                 ClientSecret = "secret",
-                 Scope = "api1.get"
-             });*/
             
             var tokenResponse = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
             {
@@ -153,7 +143,7 @@ namespace WebApplication1.Api.Services
                 ClientSecret = "secret",
                 Scope = "api1.get",
 
-                UserName = "carlo@cr.it",
+                UserName = "gino@gino.it",
                 Password = "Abc123456789!"
             });
             
@@ -166,21 +156,6 @@ namespace WebApplication1.Api.Services
             Console.WriteLine("\n\n");
             Token = tokenResponse.AccessToken;
             return true;
-            // call api
-           /* var apiClient = new HttpClient();
-            apiClient.SetBearerToken(tokenResponse.AccessToken);
-            
-
-            var response = await apiClient.GetAsync("https://localhost:44330/identity");
-            if (!response.IsSuccessStatusCode)
-            {
-                Console.WriteLine(response.StatusCode);
-            }
-            else
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(JArray.Parse(content));
-            }*/
         }
     }
 }

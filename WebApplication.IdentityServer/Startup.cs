@@ -19,18 +19,18 @@ namespace WebApplication.IdentityServer
     {
 
         private readonly IConfiguration _Configuration;
- 
+
 
         public Startup(IConfiguration configuration)
         {
             _Configuration = configuration;
-         
+
         }
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                          options.UseSqlServer(_Configuration.GetConnectionString("SqlLocal")));
-           
+
             services.AddScoped<IProfileService, CustomProfileServices>();
             services.AddScoped<IResourceOwnerPasswordValidator, CustomResourceOwnerPasswordValidator>();
             services.AddTransient<IUserProvider, UserProvider>();
@@ -44,8 +44,8 @@ namespace WebApplication.IdentityServer
             })
             .AddDefaultTokenProviders();
 
-             services.AddTransient <IUserStore<Utente>, UserStore>();
-             services.AddTransient<IRoleStore<Ruolo>, RoleStore>();
+            services.AddTransient<IUserStore<Utente>, UserStore>();
+            services.AddTransient<IRoleStore<Ruolo>, RoleStore>();
 
             services.ConfigureApplicationCookie(config =>
             {
@@ -53,27 +53,23 @@ namespace WebApplication.IdentityServer
                 config.LoginPath = "/Account/Login";
             });
 
-            // var assembly = typeof(Startup).Assembly.GetName().Name;
-
             services.AddIdentityServer()
-                
+
                 .AddAspNetIdentity<Utente>()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddInMemoryApiScopes(Config.GetApiScopes())       
-                .AddInMemoryApiResources(Config.GetApiResources())           
-                .AddInMemoryClients(Config.GetClients())                
+                .AddInMemoryApiScopes(Config.GetApiScopes())
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddInMemoryClients(Config.GetClients())
                 .AddProfileService<CustomProfileServices>()
                 .AddResourceOwnerValidator<CustomResourceOwnerPasswordValidator>()
-                
-                //.AddTestUsers(Config.GetUsers())                
                 .AddDeveloperSigningCredential();
 
-            services.AddControllersWithViews();       
-            
+            services.AddControllersWithViews();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env )
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
             ServicePointManager.Expect100Continue = true;
