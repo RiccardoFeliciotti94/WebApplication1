@@ -26,29 +26,31 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
-            var k = _httpContextAccessor.HttpContext.Session.GetString("email");
-            var z1 = User.Claims.Where(x => x.Type == "email").Select(k => k.Value).First();
-            if (k == null || z1 != k)
+            var emailSession = _httpContextAccessor.HttpContext.Session.GetString("email");
+
+            if (emailSession == null)
             {
-                //var z1 = User.Claims.Where(x => x.Type == "email").Select(k => k.Value).First();
-                var z2 = User.Claims.Where(x => x.Type == "nome").Select(k => k.Value).First();
-                var z3 = User.Claims.Where(x => x.Type == "ruolo").Select(k => k.Value).First();
-                z3 = (z3 == "1") ? "Guest" : "Admin";
-                _httpContextAccessor.HttpContext.Session.SetString("nome", z2);
-                _httpContextAccessor.HttpContext.Session.SetString("email", z1);
-                _httpContextAccessor.HttpContext.Session.SetString("ruolo", z3);
+                var emailClaim = User.Claims.Where(x => x.Type == "email").Select(k => k.Value).First();
+                var nameClaim = User.Claims.Where(x => x.Type == "nome").Select(k => k.Value).First();
+                var roleClaim = User.Claims.Where(x => x.Type == "ruolo").Select(k => k.Value).First();
+                roleClaim = (roleClaim == "1") ? "Guest" : "Admin";
+                _httpContextAccessor.HttpContext.Session.SetString("nome", nameClaim);
+                _httpContextAccessor.HttpContext.Session.SetString("email", emailClaim);
+                _httpContextAccessor.HttpContext.Session.SetString("ruolo", roleClaim);
+
+                emailSession = emailClaim;
             }
 
-            var userEmail = _httpContextAccessor.HttpContext.Session.GetString("email");
-            var listMsgUser = _msgProvider.GetAllMessage(userEmail);
+            var listMsgUser = _msgProvider.GetAllMessage(emailSession);
             ListaMessaggiModel model = new ListaMessaggiModel();
             model.ListMessage = listMsgUser;
-            model.Email = userEmail;
+            model.Email = emailSession;
             return View(model);
         }
 
         public IActionResult Logout ()
         {
+            _httpContextAccessor.HttpContext.Session.Clear();
             return SignOut("Cookies", "oidc");
         }
 
