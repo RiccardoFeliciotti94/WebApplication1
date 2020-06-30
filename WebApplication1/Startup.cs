@@ -37,6 +37,7 @@ namespace WebApplication1
             
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession();
+
             services.AddHttpClient();
             services.AddSignalR();
             services.AddDbContext<ApplicationDbContext>(options =>
