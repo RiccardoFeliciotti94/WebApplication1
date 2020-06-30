@@ -10,7 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "WebAppli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication.DataAccess.SQL", "WebApplication.DataAccess.SQL\WebApplication.DataAccess.SQL.csproj", "{D371B896-67CB-44B4-BBA1-D0B202452365}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication.IdentityServer", "WebApplication.IdentityServer\WebApplication.IdentityServer.csproj", "{9839D533-F81F-48CB-A287-CFC86D1E3823}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication.IdentityServer", "WebApplication.IdentityServer\WebApplication.IdentityServer.csproj", "{9839D533-F81F-48CB-A287-CFC86D1E3823}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

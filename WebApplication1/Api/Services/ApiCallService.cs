@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IdentityModel;
+using IdentityModel.Client;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using WebApplication.DataAccess.SQL.DataModels;
+using WebApplication.DataAccess.SQL.Providers;
 using WebApplication1.Models.HttpResponse;
 
 namespace WebApplication1.Api.Services
@@ -28,15 +30,12 @@ namespace WebApplication1.Api.Services
     public class ApiCallService : IApiCallService
     {
         private readonly IHttpClientFactory _clientFactory;
-
         private string Token;
-        private DateTime Time;
+
         public ApiCallService(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
-     
         }
-
 
         private async Task<HttpResponseModel> CallHttpRequest(string name, HttpMethod method,string param, string body = null)
         {
@@ -55,22 +54,8 @@ namespace WebApplication1.Api.Services
             HttpResponseModel md = new HttpResponseModel { Response = responseStream, Code = response.StatusCode, Operation = name };
             return md;
         }
-        private async Task SetToken()
-        {
-            DateTime time = DateTime.Now;
-            TimeSpan diff = time.Subtract(Time);
-            if(diff.TotalHours >= 24)
-            {
-                HttpResponseModel md = await GetToken();
-                Time = time;
-                Token = md.Response;
-            }
-        }
-        private async Task<HttpResponseModel> GetToken()
-        {
-            var md = await CallHttpRequest("token", HttpMethod.Get,"");
-            return md;
-        }
+    
+
 
         public async Task<HttpResponseModel> GetAllUser()
         {
@@ -100,7 +85,7 @@ namespace WebApplication1.Api.Services
         public async Task<HttpResponseModel> DeleteMessage(string id)
         {
             await SetToken();
-            var md = await CallHttpRequest("Messaggio/" + id, HttpMethod.Delete, "");
+            await CallHttpRequest("Messaggio/" + id, HttpMethod.Delete, "");
             var md2 = await CallHttpRequest("Messaggio", HttpMethod.Get, "");
             return md2;
         }
@@ -137,6 +122,40 @@ namespace WebApplication1.Api.Services
             string body = Newtonsoft.Json.JsonConvert.SerializeObject(msg);
             var md = await CallHttpRequest("Messaggio", HttpMethod.Post, "", body);
             return md;
+        }
+
+        private async Task<bool> SetToken()
+        {
+         
+            var client = new HttpClient();            
+            var disco = await client.GetDiscoveryDocumentAsync("http://localhost:5000");
+            if (disco.IsError)
+            {
+                Console.WriteLine(disco.Error);
+                return false;
+            }
+            
+            var tokenResponse = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
+            {
+                Address = disco.TokenEndpoint,
+
+                ClientId = "ro.client",
+                ClientSecret = "secret",
+                Scope = "api1.get",
+
+                UserName = "gino@gino.it",
+                Password = "Abc123456789!"
+            });
+            
+            if (tokenResponse.IsError)
+            {
+                Console.WriteLine(tokenResponse.Error);
+                return false;
+            }
+            Console.WriteLine(tokenResponse.Json);
+            Console.WriteLine("\n\n");
+            Token = tokenResponse.AccessToken;
+            return true;
         }
     }
 }
