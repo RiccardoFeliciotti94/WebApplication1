@@ -65,15 +65,12 @@
                             <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right panel-default">
                                 <ul class="head-list">
                                     <li>
-                                        <a asp-controller="Home" asp-action="Logout" class="demo-pli-unlock icon-lg icon-fw">Logout</a>   
-                                    </li>
-                                    <li>
-                                        <a href="/Logout" class="demo-pli-unlock icon-lg icon-fw">Logout2</a>
+                                        <a href="/Home/Logout" class="demo-pli-unlock">Logout</a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
-                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <!--<a asp-controller="Home" asp-action="Logout" class="demo-pli-unlock icon-lg icon-fw">Logout</a> -->
                         <!--End user dropdown-->
                     </ul>
                 </div>
@@ -104,8 +101,8 @@
                                         </a>
                                     </div>
                                     <div class="list-group bg-trans" aria-expanded="true">
-                                        <a href="/" class="list-group-item">
-                                            <i class="demo-pli-unlock icon-lg icon-fw"></i> Logout
+                                        <a asp-controller="Home" asp-action="Logout" class="list-group-item">
+                                            <i class="demo-pli-unlock"></i> Logout
                                         </a>
                                     </div>
                                 </div>

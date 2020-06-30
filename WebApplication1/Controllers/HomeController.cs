@@ -26,10 +26,11 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
-            var k = _httpContextAccessor.HttpContext.Session.GetString("nome");
-            if (k == null)
+            var k = _httpContextAccessor.HttpContext.Session.GetString("email");
+            var z1 = User.Claims.Where(x => x.Type == "email").Select(k => k.Value).First();
+            if (k == null || z1 != k)
             {
-                var z1 = User.Claims.Where(x => x.Type == "email").Select(k => k.Value).First();
+                //var z1 = User.Claims.Where(x => x.Type == "email").Select(k => k.Value).First();
                 var z2 = User.Claims.Where(x => x.Type == "nome").Select(k => k.Value).First();
                 var z3 = User.Claims.Where(x => x.Type == "ruolo").Select(k => k.Value).First();
                 z3 = (z3 == "1") ? "Guest" : "Admin";
@@ -48,7 +49,7 @@ namespace WebApplication1.Controllers
 
         public IActionResult Logout ()
         {
-            return SignOut("Cookie", "oidc");
+            return SignOut("Cookies", "oidc");
         }
 
         

@@ -24,24 +24,31 @@ namespace WebApplication1.Controllers
         private readonly UserManager<Utente> _userManager;
         private readonly SignInManager<Utente> _signInManager;
         private readonly IEventService _events;
+        private readonly IIdentityServerInteractionService _interactionService;
 
 
-        public AccountController(UserManager<Utente> userManager,
+        public AccountController(
+            UserManager<Utente> userManager,
             SignInManager<Utente> signInManager,
-            IEventService events
-           )
+            IEventService events,
+            IIdentityServerInteractionService interactionService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _events = events;
-     
+            _interactionService = interactionService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout(string logoutId)
         {
-            await _signInManager.SignOutAsync();                 
-            return RedirectToAction("Index", "Home");
+            await _signInManager.SignOutAsync();
+            var logoutReq = await  _interactionService.GetLogoutContextAsync(logoutId);
+            if(string.IsNullOrEmpty(logoutReq.PostLogoutRedirectUri))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return Redirect(logoutReq.PostLogoutRedirectUri);
         }
 
         [HttpGet]

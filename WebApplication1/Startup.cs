@@ -64,18 +64,22 @@ namespace WebApplication1
                     options.ClientId = "mvc";
                     options.ClientSecret = "secret";
                     options.ResponseType = "code";
-
                     options.SaveTokens = true;
+
+                    options.SignedOutCallbackPath = "/Home/Index";
 
                     options.Scope.Add("api1.get");
                     options.Scope.Add("profile");
                     options.Scope.Add("openid");
+
+                    //claims handle
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.ClaimActions.DeleteClaim("sid");
                     options.ClaimActions.DeleteClaim("idp");
                     options.ClaimActions.MapJsonKey("email", "email");
                     options.ClaimActions.MapJsonKey("nome", "nome");
                     options.ClaimActions.MapJsonKey("ruolo", "ruolo");
+
                 }).AddIdentityServerAuthentication(options =>
                 {
                     options.Authority = "http://localhost:5000";
