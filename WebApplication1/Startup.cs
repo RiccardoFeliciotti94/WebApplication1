@@ -46,7 +46,6 @@ namespace WebApplication1
             services.AddSingleton<IApiCallService, ApiCallService>();
             
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-           // services.AddTokenAuthentication(_Configuration);
 
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
