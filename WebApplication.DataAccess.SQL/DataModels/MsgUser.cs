@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Policy;
 using System.Text;
 
 namespace WebApplication.DataAccess.SQL.DataModels
@@ -12,5 +13,8 @@ namespace WebApplication.DataAccess.SQL.DataModels
         public string Data { get; set; }
         public int Like { get; set; }
         public int SetLike { get; set; }
+
+        public List<Commento> Commenti { get; set; }
+        public List<Commento> SubCommenti { get; set; }
     }
 }

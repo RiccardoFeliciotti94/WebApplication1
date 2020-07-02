@@ -11,7 +11,7 @@ namespace WebApplication.DataAccess.SQL.Providers
 {
     public interface IMsgProvider
     {
-        public bool AddMessage(Messaggio msg);
+        public bool AddMessage(string testo , string email);
         public List<Messaggio> GetMsg();
         public List<MsgUser> GetAllMessage(string name);
         public void AddLike(string id, string email);
@@ -26,8 +26,10 @@ namespace WebApplication.DataAccess.SQL.Providers
         {
             _DbContext = DbContext;
         }
-        public bool AddMessage(Messaggio msg)
+        public bool AddMessage(string testo, string email)
         {
+            string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            Messaggio msg = new Messaggio { IDMessaggio = Guid.NewGuid().ToString(), Testo = testo, Data = time, Email = email };
             _DbContext.Add(msg);
             var nUser = _DbContext.Utente.Select(o => o.Email).ToList();
             foreach(var z in nUser)
@@ -53,7 +55,7 @@ namespace WebApplication.DataAccess.SQL.Providers
         public List<MsgUser> GetAllMessage(string ut = null)
         {
 
-            var z = _DbContext.UtenteLikeMessaggio.Where(ulm=> ulm.Email==ut).Join(_DbContext.Messaggio,
+            var msgList = _DbContext.UtenteLikeMessaggio.Where(ulm=> ulm.Email==ut).Join(_DbContext.Messaggio,
                       ulm => ulm.IDMessaggio , m => m.IDMessaggio,
                       (ulm,m) => new {
                           IDMessaggio = ulm.IDMessaggio,
@@ -61,8 +63,7 @@ namespace WebApplication.DataAccess.SQL.Providers
                           Testo = m.Testo,
                           Email = m.Email,
                           Data = m.Data,
-                          Like = m.NLike,
-
+                          Like = m.NLike
                       }).Join(_DbContext.Utente,
                       msg => msg.Email , u=> u.Email,
                       (msg,u) => new MsgUser {
@@ -72,10 +73,32 @@ namespace WebApplication.DataAccess.SQL.Providers
                           Nome = u.Nome,
                           Data = msg.Data,
                           Like = msg.Like
+                         /* Commenti = new List<Commento>(_DbContext.Commento.Where(x=> x.IDMessaggio == msg.IDMessaggio && x.IDComRef == null )
+                                      .OrderBy(x=> x.Data).ToList()),
+                          SubCommenti = new List<Commento>(_DbContext.Commento.Where(x => x.IDMessaggio == msg.IDMessaggio && x.IDComRef != null)
+                                      .OrderBy(x => x.IDComRef).ThenBy(x=> x.Data).ToList())*/
                       }).OrderByDescending(s => s.Data).ToList();
+
+            var comments = _DbContext.Commento.Where(x => x.IDComRef == null).OrderBy(x => x.Data);
+            var subcomments = _DbContext.Commento.Where(x => x.IDComRef != null)
+                                      .OrderBy(x => x.IDComRef).ThenByDescending(x => x.Data);
+
+            foreach (var msg in msgList)
+            {
+                /*  var z = _DbContext.Commento.Where(x => x.IDMessaggio == msg.IDMessaggio && x.IDComRef == null)
+                                        .OrderBy(x => x.Data).ToList();
+                  var ki = _DbContext.Commento.Where(x => x.IDMessaggio == msg.IDMessaggio && x.IDComRef != null)
+                                        .OrderBy(x => x.IDComRef).ThenBy(x => x.Data).ToList();*/
+               var com=  comments.Where(x => x.IDMessaggio == msg.IDMessaggio).ToList();
+               foreach(var sub in subcomments.Where(x => x.IDMessaggio == msg.IDMessaggio).ToList())
+                {
+                    int i= com.IndexOf(com.FirstOrDefault(x => x.IDCommento == sub.IDComRef));
+                    com.Insert(i+1, sub);
+                }
+                msg.Commenti = com;
+            }
        
-            return z;
-            
+            return msgList;           
           
         }
 

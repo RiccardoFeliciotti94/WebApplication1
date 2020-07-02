@@ -7,44 +7,78 @@
 </div>
 <div id="page-content">
     <div class="col-xs-12">
-        <div class="panel">
+        
             @foreach (var a in Model.ListMessage)
             { var lk = (a.SetLike == 0) ? "Like" : "Dislike";
 
+        <div class="panel">
+            <div class="panel-body bord-btm">
 
-                <div class="panel-body bord-btm">
+                <div class="panel panel-trans">
+                    <div class="pad-all">
+                        <div class="media mar-btm">
 
-                    <div class="panel panel-trans">
-                        <div class="pad-all">
-                            <div class="media mar-btm">
+                            <div class="media-body">
+                                <p class="text-lg text-main text-semibold mar-no">@a.Nome</p>
+                                <p>@a.Data</p>
 
-                                <div class="media-body">
-                                    <p class="text-lg text-main text-semibold mar-no">@a.Nome</p>
-                                    <p>@a.Data</p>
-
-                                </div>
                             </div>
-                            <blockquote class="bq-sm bq-open bq-close">@a.Testo</blockquote>
                         </div>
-
+                        <blockquote class="bq-sm bq-open bq-close">@a.Testo</blockquote>
                     </div>
-                    <div class="panel panel-trans">
-                        <div class="demo-icon">
 
-                            <button class="btn btn-info btn-rounded btn-labeled test" id="@a.IDMessaggio" name="@Model.Email">
-                                <p class="btn-label">@a.Like</p>
-                                @lk
-                            </button>
+                </div>
+                <div class="panel panel-trans bord-btm">
+                    <div class="demo-icon">
 
-                        </div>
-
+                        <button class="btn btn-info btn-rounded btn-labeled test" id="@a.IDMessaggio" name="@Model.Email">
+                            <p class="btn-label">@a.Like</p>
+                            @lk
+                        </button>
                     </div>
                 </div>
+                <div class="panel panel-trans ">
+                    @foreach (var com in a.Commenti)
+                    {
+                        @if (com.IDComRef != null)
+                        {
+                            <p>-----------------@com.TestoCommento                 @com.Data</p>
+                        }
+                        else
+                        {
+                            <p>@com.TestoCommento                 @com.Data</p>
+                        }
+
+
+
+                    }
+                </div>
+                <div class="panel panel-trans bord-btm">
+                    
+                    <form asp-controller="Home" asp-action="PostCommento" enctype="multipart/form-data" method="post" class="form-horizontal">
+                        <input type="hidden" asp-for="IDMes" value="@a.IDMessaggio" />
+                        <input type="hidden" asp-for="Email" value="@Model.Email" />
+                        <input type="hidden" asp-for="ListMessage" value="@Model.ListMessage" />
+                        <div class="panel-body">
+                            <textarea asp-for="Testo" placeholder="Message" rows="10" class="form-control"></textarea>
+                            <span asp-validation-for="Testo" class="text-danger"></span>
+                        </div>
+                        <div class="panel-footer text-right">
+                            <button class="btn btn-default" type="submit">Send message</button>
+                        </div>
+                    </form>
+
+                </div>
+
+
+
+            </div>
+          </div>
             }
 
 
 
-        </div>
+       
     </div>
 
 </div>

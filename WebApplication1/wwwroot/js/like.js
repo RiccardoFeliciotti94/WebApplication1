@@ -2,14 +2,7 @@
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/likeHub").build();
 
-//Disable send button until connection is established
-//document.getElementById("sendButton").disabled = true;
-/*connection.on("SendLike", function (val) {
-    var z = document.getElementById("numberLike").textContent;
-    var num = parseInt(z);
-    num++;
-    document.getElementById("numberLike").textContent = num;
-});*/
+
 
 connection.on("SendLike", function (val) {
     var z = document.getElementById(val).firstElementChild.textContent;

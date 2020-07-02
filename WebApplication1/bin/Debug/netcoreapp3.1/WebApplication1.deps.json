@@ -26,7 +26,6 @@
         "dependencies": {
           "IdentityModel": "4.3.0",
           "IdentityServer4.AccessTokenValidation": "3.0.1",
-          "Microsoft.AspNet.SignalR.Core": "2.4.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.5",
           "Microsoft.AspNetCore.Authentication.OpenIdConnect": "3.1.5",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.5",
@@ -376,17 +375,6 @@
         },
         "compile": {
           "lib/netcoreapp3.0/IdentityServer4.AccessTokenValidation.dll": {}
-        }
-      },
-      "Microsoft.AspNet.SignalR.Core/2.4.1": {
-        "runtime": {
-          "lib/net45/Microsoft.AspNet.SignalR.Core.dll": {
-            "assemblyVersion": "2.4.1.0",
-            "fileVersion": "2.4.1.19093"
-          }
-        },
-        "compile": {
-          "lib/net45/Microsoft.AspNet.SignalR.Core.dll": {}
         }
       },
       "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
@@ -4523,13 +4511,6 @@
       "sha512": "sha512-qu/M6UyN4o9NVep7q545Ms7hYAnsQqSdLbN1Fjjrn4m35lyBfeQPSSNzDryAKHbodyWOQfHaOqKEyMEJQ5Rpgw==",
       "path": "identityserver4.accesstokenvalidation/3.0.1",
       "hashPath": "identityserver4.accesstokenvalidation.3.0.1.nupkg.sha512"
-    },
-    "Microsoft.AspNet.SignalR.Core/2.4.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-da5vF7ERsXAfFz2RzyXIV2VZACxsw+NxWwKtwXuHde7xuApvI/njJhpzq+LkoYpOYfzPZ8BbccaZ1yOaw1AQ4w==",
-      "path": "microsoft.aspnet.signalr.core/2.4.1",
-      "hashPath": "microsoft.aspnet.signalr.core.2.4.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
       "type": "package",

@@ -80,8 +80,10 @@ namespace WebApplication.IdentityServer
             RequireConsent = false,
 
             RedirectUris = { "https://localhost:44330/signin-oidc" },
+            //RedirectUris = { "http://localhost/WEBTest/signin-oidc" },
 
             PostLogoutRedirectUris = { "https://localhost:44330/Home/Index" },
+            //PostLogoutRedirectUris = { "http://localhost/WEBTest/Home/Index" },
 
             AllowedScopes = { "api1.get","profile", IdentityServerConstants.StandardScopes.OpenId }
         }

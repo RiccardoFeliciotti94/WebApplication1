@@ -11,15 +11,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WebApp</title>
-    <link rel="icon" type="image/x-icon" href="~/img/minilogo.png">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/nifty/css/nifty.min.css" />
-    <link rel="stylesheet" href="~/lib/demo/css/nifty-demo-icons.min.css" />
-    <link rel="stylesheet" href="~/lib/demo/css/nifty-demo.min.css">
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!--<link rel="stylesheet" href="~/lib/demo/css/nifty-demo-icons.min.css" />-->
+    <!-- <link rel="stylesheet" href="~/lib/demo/css/nifty-demo.min.css">-->
 
-</head>
+    </head>
 <body>
     <div id="container" class="effect aside-float aside-bright mainnav-lg">
         <header id="navbar">
@@ -27,9 +25,9 @@
                 <!--Brand logo & name-->
                 <!--================================-->
                 <div class="navbar-header">
-                    <a href="index.html" class="navbar-brand">
-                        <img id="pj20_logo" src="~/img/logo_PJ20.svg" alt="PJ20" class="brand-icon" style="width: 60%;height: 65%;position: relative;top:8px;left:35px">
-                    </a>
+                    <!-- <a href="index.html" class="navbar-brand">
+                           <img id="pj20_logo" src="~/img/logo_PJ20.svg" alt="PJ20" class="brand-icon" style="width: 60%;height: 65%;position: relative;top:8px;left:35px">
+                    </a>-->
                 </div>
                 <div class="navbar-content">
                     <ul class="nav navbar-top-links">
@@ -113,13 +111,13 @@
                                     <li class="list-header">Menu</li>
                                     <!--Menu list item-->
                                     <li class="active-sub active">
-                                        <a href="/home">
+                                        <a href="~/home">
 
                                             <span class="menu-title">Home</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/postmessage">
+                                        <a href="~/postmessage">
 
                                             <span class="menu-title">Messaggi</span>
                                         </a>
@@ -127,7 +125,7 @@
                                     @if (user.Ruolo == "Admin")
                                     {
                                         <li>
-                                            <a href="/adminpanel">
+                                            <a href="~/adminpanel">
 
                                                 <span class="menu-title">AdminPanel</span>
                                             </a>
@@ -154,31 +152,30 @@
         </footer>
     </div>
 
-
+    <script src="~/js/jquery.min.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/lib/nifty/js/nifty.min.js"></script>
-    <script src="~/lib/demo/js/nifty-demo.min.js"></script>
-    <script src="~/lib/demo/js/ui-buttons.js"></script>
+    <!-- <script src="~/lib/demo/js/nifty-demo.min.js"></script>-->
+    <!--<script src="~/lib/demo/js/ui-buttons.js"></script>-->
 
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
     <script src="~/js/like.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
 
-<script>
-    $(function () {
-        $('.mainnav-toggle').on("click", function (e) {
-            if ($('#container').hasClass('mainnav-sm')) {
+    <script>
+        /*$(function () {
+            $('.mainnav-toggle').on("click", function (e) {
+                if ($('#container').hasClass('mainnav-sm')) {
 
-                $('#pj20_logo').css({ "top": "11px", "left": "13px" });
-                $('#pj20_logo').attr("src", "/img/logo_PJ20_mini.svg");
-            } else {
-                $('#pj20_logo').css({ "top": "8px", "left": "35px" });
-                $('#pj20_logo').attr("src", "/img/logo_PJ20.svg");
+                    $('#pj20_logo').css({ "top": "11px", "left": "13px" });
+                    $('#pj20_logo').attr("src", "/img/logo_PJ20_mini.svg");
+                } else {
+                    $('#pj20_logo').css({ "top": "8px", "left": "35px" });
+                    $('#pj20_logo').attr("src", "/img/logo_PJ20.svg");
 
-            }
-        })
-    });
-</script>
+                }
+            })
+        });*/
+    </script>

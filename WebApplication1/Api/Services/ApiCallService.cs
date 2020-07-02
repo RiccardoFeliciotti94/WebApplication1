@@ -2,6 +2,7 @@
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
@@ -30,11 +31,13 @@ namespace WebApplication1.Api.Services
     public class ApiCallService : IApiCallService
     {
         private readonly IHttpClientFactory _clientFactory;
+        private readonly IConfiguration _Configuration;
         private string Token;
 
-        public ApiCallService(IHttpClientFactory clientFactory)
+        public ApiCallService(IHttpClientFactory clientFactory, IConfiguration configuration)
         {
             _clientFactory = clientFactory;
+            _Configuration = configuration;
         }
 
         private async Task<HttpResponseModel> CallHttpRequest(string name, HttpMethod method,string param, string body = null)
@@ -128,7 +131,7 @@ namespace WebApplication1.Api.Services
         {
          
             var client = new HttpClient();            
-            var disco = await client.GetDiscoveryDocumentAsync("http://localhost:5000");
+            var disco = await client.GetDiscoveryDocumentAsync(_Configuration.GetConnectionString("IdentityUrl"));
             if (disco.IsError)
             {
                 Console.WriteLine(disco.Error);

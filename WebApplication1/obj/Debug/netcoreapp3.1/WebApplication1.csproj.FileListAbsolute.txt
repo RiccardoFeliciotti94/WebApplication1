@@ -451,7 +451,6 @@ C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication1\obj\Debug\
 C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\Error\Index.cshtml.g.cs
 C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication1\bin\Debug\netcoreapp3.1\libman.json
 C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication1\bin\Debug\netcoreapp3.1\System.Net.WebSockets.WebSocketProtocol.dll
-C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication1\bin\Debug\netcoreapp3.1\Microsoft.AspNet.SignalR.Core.dll
 C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\Chat\Index.cshtml.g.cs
 C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication1\bin\Debug\netcoreapp3.1\IdentityModel.dll
 C:\Users\Matteo Menghini\source\repos\WebApplication1\WebApplication1\bin\Debug\netcoreapp3.1\IdentityModel.AspNetCore.OAuth2Introspection.dll
