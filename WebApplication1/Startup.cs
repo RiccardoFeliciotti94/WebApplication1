@@ -80,6 +80,7 @@ namespace WebApplication1
                     options.ClaimActions.MapJsonKey("email", "email");
                     options.ClaimActions.MapJsonKey("nome", "nome");
                     options.ClaimActions.MapJsonKey("ruolo", "ruolo");
+                    options.ClaimActions.MapJsonKey("immagine", "immagine");
 
                 }).AddIdentityServerAuthentication(options =>
                 {

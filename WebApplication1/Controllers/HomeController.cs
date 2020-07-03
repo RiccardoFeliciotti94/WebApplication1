@@ -36,9 +36,12 @@ namespace WebApplication1.Controllers
                 var nameClaim = User.Claims.Where(x => x.Type == "nome").Select(k => k.Value).First();
                 var roleClaim = User.Claims.Where(x => x.Type == "ruolo").Select(k => k.Value).First();
                 roleClaim = (roleClaim == "1") ? "Guest" : "Admin";
+                var imgClaim = User.Claims.Where(x => x.Type == "immagine").Select(k => k.Value).First();
                 _httpContextAccessor.HttpContext.Session.SetString("nome", nameClaim);
                 _httpContextAccessor.HttpContext.Session.SetString("email", emailClaim);
                 _httpContextAccessor.HttpContext.Session.SetString("ruolo", roleClaim);
+                _httpContextAccessor.HttpContext.Session.SetString("immagine", imgClaim);
+
 
                 emailSession = emailClaim;
             }

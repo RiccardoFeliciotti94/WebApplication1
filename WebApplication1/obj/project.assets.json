@@ -10521,7 +10521,6 @@
       "Microsoft.AspNetCore.Authentication.OpenIdConnect >= 3.1.5",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 3.1.5",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 3.1.5",
-      "Microsoft.AspNetCore.SignalR >= 1.1.0",
       "Microsoft.EntityFrameworkCore.Sqlite >= 3.1.5",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.5",
       "Microsoft.IdentityModel.Tokens >= 6.6.0",
@@ -10599,10 +10598,6 @@
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
             "target": "Package",
             "version": "[3.1.5, )"
-          },
-          "Microsoft.AspNetCore.SignalR": {
-            "target": "Package",
-            "version": "[1.1.0, )"
           },
           "Microsoft.EntityFrameworkCore.Sqlite": {
             "target": "Package",

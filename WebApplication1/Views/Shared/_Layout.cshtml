@@ -14,8 +14,8 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/nifty/css/nifty.min.css" />
-    <!--<link rel="stylesheet" href="~/lib/demo/css/nifty-demo-icons.min.css" />-->
-    <!-- <link rel="stylesheet" href="~/lib/demo/css/nifty-demo.min.css">-->
+    <link rel="stylesheet" href="~/lib/demo/css/nifty-demo-icons.min.css" />
+    <link rel="stylesheet" href="~/lib/demo/css/nifty-demo.min.css">
 
     </head>
 <body>
@@ -36,7 +36,7 @@
                         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                         <li class="tgl-menu-btn">
                             <a class="mainnav-toggle" href="#">
-                                <i class="fas fa-bars"></i>
+                                <i class="demo-pli-list-view"></i>
                             </a>
                         </li>
                         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -88,7 +88,7 @@
                                 <div id="mainnav-profile" class="mainnav-profile">
                                     <div class="profile-wrap text-center">
                                         <div class="pad-btm">
-                                            <img class="img-circle img-md" src="~/img/profile-photos/1.png" alt="Profile Picture">
+                                            <img class="img-circle img-md" src=@user.Img alt="Profile Picture">
                                         </div>
                                         <a href="#profile-nav" class="box-block collapsed" data-toggle="collapse" aria-expanded="true">
                                             <span class="pull-right dropdown-toggle">
@@ -155,7 +155,7 @@
     <script src="~/js/jquery.min.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/lib/nifty/js/nifty.min.js"></script>
-    <!-- <script src="~/lib/demo/js/nifty-demo.min.js"></script>-->
+    <script src="~/lib/demo/js/nifty-demo.min.js"></script>
     <!--<script src="~/lib/demo/js/ui-buttons.js"></script>-->
 
     <script src="~/js/signalr/dist/browser/signalr.js"></script>

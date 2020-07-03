@@ -33,7 +33,8 @@ namespace WebApplication.IdentityServer
                         new List<Claim> {
                             new Claim("email", user.Email),
                             new Claim("nome", user.Nome),
-                            new Claim("ruolo", user.Ruolo.ToString())
+                            new Claim("ruolo", user.Ruolo.ToString()),
+                            new Claim("immagine",user.Img)
                     });
                 }
                

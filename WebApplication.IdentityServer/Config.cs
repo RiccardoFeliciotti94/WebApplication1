@@ -19,7 +19,7 @@ namespace WebApplication.IdentityServer
                new IdentityResource(
                      name: "profile",
                      displayName: "Your profile data",
-                     userClaims: new[] { "email", "nome" , "ruolo"}
+                     userClaims: new[] { "email", "nome" , "ruolo", "immagine"}
                      )
             };
         }

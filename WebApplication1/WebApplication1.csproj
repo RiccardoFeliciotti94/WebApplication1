@@ -18,8 +18,8 @@
     <Folder Include="wwwroot\img\profile-photos\" />
     <Folder Include="wwwroot\lib\bootstrap\css\" />
     <Folder Include="wwwroot\lib\bootstrap\js\" />
+    <Folder Include="wwwroot\lib\demo\css\fonts\" />
     <Folder Include="wwwroot\lib\demo\js\" />
-    <Folder Include="wwwroot\lib\demo\css\" />
     <Folder Include="wwwroot\lib\nifty\css\" />
     <Folder Include="wwwroot\lib\nifty\js\" />
   </ItemGroup>

@@ -71,33 +71,29 @@ namespace WebApplication.DataAccess.SQL.Providers
                           SetLike = msg.SetLike,
                           Testo = msg.Testo,
                           Nome = u.Nome,
+                          Img = u.Img,
                           Data = msg.Data,
                           Like = msg.Like
-                         /* Commenti = new List<Commento>(_DbContext.Commento.Where(x=> x.IDMessaggio == msg.IDMessaggio && x.IDComRef == null )
-                                      .OrderBy(x=> x.Data).ToList()),
-                          SubCommenti = new List<Commento>(_DbContext.Commento.Where(x => x.IDMessaggio == msg.IDMessaggio && x.IDComRef != null)
-                                      .OrderBy(x => x.IDComRef).ThenBy(x=> x.Data).ToList())*/
+
                       }).OrderByDescending(s => s.Data).ToList();
 
-            var comments = _DbContext.Commento.Where(x => x.IDComRef == null).OrderBy(x => x.Data);
-            var subcomments = _DbContext.Commento.Where(x => x.IDComRef != null)
-                                      .OrderBy(x => x.IDComRef).ThenByDescending(x => x.Data);
+            var comments = _DbContext.Commento.Where(x => x.IDComRef == null).Join(_DbContext.Utente,
+                com => com.Email , u => u.Email,
+                (com,u)=> new CommentoModel { 
+                    Email = com.Email,
+                    Nome = u.Nome,
+                    IDMessaggio = com.IDMessaggio,
+                    Img = u.Img,
+                    TestoCommento = com.TestoCommento,
+                    Data = com.Data 
+                 }).OrderBy(x => x.Data);
+
 
             foreach (var msg in msgList)
             {
-                /*  var z = _DbContext.Commento.Where(x => x.IDMessaggio == msg.IDMessaggio && x.IDComRef == null)
-                                        .OrderBy(x => x.Data).ToList();
-                  var ki = _DbContext.Commento.Where(x => x.IDMessaggio == msg.IDMessaggio && x.IDComRef != null)
-                                        .OrderBy(x => x.IDComRef).ThenBy(x => x.Data).ToList();*/
                var com=  comments.Where(x => x.IDMessaggio == msg.IDMessaggio).ToList();
-               foreach(var sub in subcomments.Where(x => x.IDMessaggio == msg.IDMessaggio).ToList())
-                {
-                    int i= com.IndexOf(com.FirstOrDefault(x => x.IDCommento == sub.IDComRef));
-                    com.Insert(i+1, sub);
-                }
                 msg.Commenti = com;
-            }
-       
+            }       
             return msgList;           
           
         }
