@@ -19,6 +19,8 @@ namespace WebApplication1.Models.Utentes
 
         public string Ruolo { get { return _httpContext.Session.GetString("ruolo"); } }
 
+        public string Img { get { return _httpContext.Session.GetString("immagine"); } }
+
 
 
     }

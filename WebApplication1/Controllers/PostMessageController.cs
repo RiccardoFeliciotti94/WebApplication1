@@ -28,12 +28,8 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult PostMessage(PostMessageViewModel model)
         {
-            string message = model.Message;
-            
-            string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            string email=_httpContextAccessor.HttpContext.Session.GetString("email");
-            Messaggio msg = new Messaggio { IDMessaggio = Guid.NewGuid().ToString(), Testo = message, Data=time ,Email=email };
-            _msgProvider.AddMessage(msg);
+      
+            _msgProvider.AddMessage(model.Message, _httpContextAccessor.HttpContext.Session.GetString("email"));
             
             return RedirectToAction("Index", "Home");
         }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HY81CGcJq7vvhC5/FEX4u3+OwN6Zm7tLcOM8K7WVq/xTmCpLKknpCKnFWNwHvH1aQJivkR9UMQ+mOYK2SXb57Q==",
+  "dgSpecHash": "L28qFZec2g63rXReoR869IsRUz26GjMjmVHSXhjXz8L0rc/DGwNy2YkKhIOulPMcCazTN1GwPrbxYKoPsCUxHg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Matteo Menghini\\source\\repos\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,6 @@
     "C:\\Users\\Matteo Menghini\\.nuget\\packages\\identitymodel\\4.3.0\\identitymodel.4.3.0.nupkg.sha512",
     "C:\\Users\\Matteo Menghini\\.nuget\\packages\\identitymodel.aspnetcore.oauth2introspection\\4.0.1\\identitymodel.aspnetcore.oauth2introspection.4.0.1.nupkg.sha512",
     "C:\\Users\\Matteo Menghini\\.nuget\\packages\\identityserver4.accesstokenvalidation\\3.0.1\\identityserver4.accesstokenvalidation.3.0.1.nupkg.sha512",
-    "C:\\Users\\Matteo Menghini\\.nuget\\packages\\microsoft.aspnet.signalr.core\\2.4.1\\microsoft.aspnet.signalr.core.2.4.1.nupkg.sha512",
     "C:\\Users\\Matteo Menghini\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Matteo Menghini\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.5\\microsoft.aspnetcore.authentication.jwtbearer.3.1.5.nupkg.sha512",
     "C:\\Users\\Matteo Menghini\\.nuget\\packages\\microsoft.aspnetcore.authentication.openidconnect\\3.1.5\\microsoft.aspnetcore.authentication.openidconnect.3.1.5.nupkg.sha512",
@@ -226,16 +225,5 @@
     "C:\\Users\\Matteo Menghini\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Matteo Menghini\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Il pacchetto 'Microsoft.AspNet.SignalR.Core 2.4.1' è stato ripristinato mediante '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' e non mediante il framework di destinazione del progetto '.NETCoreApp,Version=v3.1'. Questo pacchetto potrebbe non essere completamente compatibile con il progetto.",
-      "libraryId": "Microsoft.AspNet.SignalR.Core",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    }
-  ]
+  "logs": []
 }

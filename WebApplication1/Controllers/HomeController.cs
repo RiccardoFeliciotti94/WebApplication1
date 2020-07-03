@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.SignalR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.DataAccess.SQL.Providers;
@@ -15,12 +15,14 @@ namespace WebApplication1.Controllers
     {
        
         private readonly IMsgProvider _msgProvider;
+        private readonly ICommentiProvider _commentiProvider;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public HomeController(IMsgProvider msgProvider, IHttpContextAccessor httpContextAccessor)
+        public HomeController(IMsgProvider msgProvider, IHttpContextAccessor httpContextAccessor, ICommentiProvider commentiProvider)
         {
             _httpContextAccessor = httpContextAccessor;
             _msgProvider = msgProvider;
+            _commentiProvider = commentiProvider;
         }
 
 
@@ -34,9 +36,12 @@ namespace WebApplication1.Controllers
                 var nameClaim = User.Claims.Where(x => x.Type == "nome").Select(k => k.Value).First();
                 var roleClaim = User.Claims.Where(x => x.Type == "ruolo").Select(k => k.Value).First();
                 roleClaim = (roleClaim == "1") ? "Guest" : "Admin";
+                var imgClaim = User.Claims.Where(x => x.Type == "immagine").Select(k => k.Value).First();
                 _httpContextAccessor.HttpContext.Session.SetString("nome", nameClaim);
                 _httpContextAccessor.HttpContext.Session.SetString("email", emailClaim);
                 _httpContextAccessor.HttpContext.Session.SetString("ruolo", roleClaim);
+                _httpContextAccessor.HttpContext.Session.SetString("immagine", imgClaim);
+
 
                 emailSession = emailClaim;
             }
@@ -54,6 +59,11 @@ namespace WebApplication1.Controllers
             return SignOut("Cookies", "oidc");
         }
 
+        public IActionResult PostCommento (ListaMessaggiModel model)
+        {
+            _commentiProvider.AddCommento(model.Testo,model.Email,model.IDMes);
+            return RedirectToAction("Index", "Home");
+        }
         
     }
 }

@@ -44,6 +44,7 @@ namespace WebApplication1
                          options.UseSqlServer(_Configuration.GetConnectionString("SqlLocal")));
             services.AddTransient<IUserProvider, UserProvider>();
             services.AddTransient<IMsgProvider, MsgProvider>();
+            services.AddTransient<ICommentiProvider, CommentiProvider>();
             services.AddSingleton<IApiCallService, ApiCallService>();
             
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
@@ -58,7 +59,7 @@ namespace WebApplication1
                 .AddCookie("Cookies")
                 .AddOpenIdConnect("oidc", options =>
                 {
-                    options.Authority = "http://localhost:5000";
+                    options.Authority = _Configuration.GetConnectionString("IdentityUrl");
                     options.RequireHttpsMetadata = false;
 
                     options.ClientId = "mvc";
@@ -79,10 +80,11 @@ namespace WebApplication1
                     options.ClaimActions.MapJsonKey("email", "email");
                     options.ClaimActions.MapJsonKey("nome", "nome");
                     options.ClaimActions.MapJsonKey("ruolo", "ruolo");
+                    options.ClaimActions.MapJsonKey("immagine", "immagine");
 
                 }).AddIdentityServerAuthentication(options =>
                 {
-                    options.Authority = "http://localhost:5000";
+                    options.Authority = _Configuration.GetConnectionString("IdentityUrl");
                     options.RequireHttpsMetadata = false;
                     options.ApiName = "api1";
 
@@ -105,7 +107,7 @@ namespace WebApplication1
                 app.UseDeveloperExceptionPage();
             } else
             {
-                app.UseExceptionHandler("/Error");
+               // app.UseExceptionHandler("~/Error");
             }
             //app.UseStatusCodePagesWithRedirects("/Error/{0}");
             //app.UseExceptionHandler("/Error");

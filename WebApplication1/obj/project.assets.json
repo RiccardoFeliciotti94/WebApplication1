@@ -68,15 +68,6 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Microsoft.AspNet.SignalR.Core/2.4.1": {
-        "type": "package",
-        "compile": {
-          "lib/net45/Microsoft.AspNet.SignalR.Core.dll": {}
-        },
-        "runtime": {
-          "lib/net45/Microsoft.AspNet.SignalR.Core.dll": {}
-        }
-      },
       "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -3590,20 +3581,6 @@
         "lib/netcoreapp3.0/IdentityServer4.AccessTokenValidation.dll",
         "lib/netcoreapp3.0/IdentityServer4.AccessTokenValidation.pdb",
         "lib/netcoreapp3.0/IdentityServer4.AccessTokenValidation.xml"
-      ]
-    },
-    "Microsoft.AspNet.SignalR.Core/2.4.1": {
-      "sha512": "da5vF7ERsXAfFz2RzyXIV2VZACxsw+NxWwKtwXuHde7xuApvI/njJhpzq+LkoYpOYfzPZ8BbccaZ1yOaw1AQ4w==",
-      "type": "package",
-      "path": "microsoft.aspnet.signalr.core/2.4.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net45/Microsoft.AspNet.SignalR.Core.dll",
-        "lib/net45/Microsoft.AspNet.SignalR.Core.pdb",
-        "lib/net45/Microsoft.AspNet.SignalR.Core.xml",
-        "microsoft.aspnet.signalr.core.2.4.1.nupkg.sha512",
-        "microsoft.aspnet.signalr.core.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
@@ -10540,12 +10517,10 @@
     ".NETCoreApp,Version=v3.1": [
       "IdentityModel >= 4.3.0",
       "IdentityServer4.AccessTokenValidation >= 3.0.1",
-      "Microsoft.AspNet.SignalR.Core >= 2.4.1",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 3.1.5",
       "Microsoft.AspNetCore.Authentication.OpenIdConnect >= 3.1.5",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 3.1.5",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 3.1.5",
-      "Microsoft.AspNetCore.SignalR >= 1.1.0",
       "Microsoft.EntityFrameworkCore.Sqlite >= 3.1.5",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.5",
       "Microsoft.IdentityModel.Tokens >= 6.6.0",
@@ -10608,10 +10583,6 @@
             "target": "Package",
             "version": "[3.0.1, )"
           },
-          "Microsoft.AspNet.SignalR.Core": {
-            "target": "Package",
-            "version": "[2.4.1, )"
-          },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[3.1.5, )"
@@ -10627,10 +10598,6 @@
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
             "target": "Package",
             "version": "[3.1.5, )"
-          },
-          "Microsoft.AspNetCore.SignalR": {
-            "target": "Package",
-            "version": "[1.1.0, )"
           },
           "Microsoft.EntityFrameworkCore.Sqlite": {
             "target": "Package",
@@ -10680,17 +10647,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Il pacchetto 'Microsoft.AspNet.SignalR.Core 2.4.1' è stato ripristinato mediante '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' e non mediante il framework di destinazione del progetto '.NETCoreApp,Version=v3.1'. Questo pacchetto potrebbe non essere completamente compatibile con il progetto.",
-      "libraryId": "Microsoft.AspNet.SignalR.Core",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    }
-  ]
+  }
 }

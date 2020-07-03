@@ -140,7 +140,8 @@ namespace WebApplication.IdentityServer.Provider
             {
                 new Claim("email", user.Email),
                 new Claim("pass", user.Password),
-                new Claim("ruolo", user.Ruolo.ToString())
+                new Claim("ruolo", user.Ruolo.ToString()),
+                new Claim("immagine", user.Img)
             };
 
             IList<Claim> IClaimList = claimList;
