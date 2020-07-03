@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApplication.DataAccess.SQL.DataModels;
 
+
 namespace WebApplication.DataAccess.SQL.Providers
 {
     public interface IMsgProvider

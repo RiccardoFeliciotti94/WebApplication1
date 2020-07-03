@@ -67,8 +67,6 @@ namespace WebApplication.IdentityServer
                 .AddProfileService<CustomProfileServices>()
                 .AddResourceOwnerValidator<CustomResourceOwnerPasswordValidator>()
                  .AddDeveloperSigningCredential();
-            //.AddSigningCredential(new X509Certificate2(Path.Combine(".", "certs", "IdentityServer4Auth.pfx")));
-            //.AddSigningCredential(new X509Certificate2(Path.Combine(".", "certs", "IdentityServer4Auth.pfx")));
 
             services.AddControllersWithViews();
 
