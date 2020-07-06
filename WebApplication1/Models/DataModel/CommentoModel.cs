@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace WebApplication.DataAccess.SQL.DataModels
+namespace WebApplication1.Models.DataModel
 {
     public class CommentoModel
     {

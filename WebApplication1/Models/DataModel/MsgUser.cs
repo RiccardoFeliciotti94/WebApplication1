@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Policy;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace WebApplication.DataAccess.SQL.DataModels
+namespace WebApplication1.Models.DataModel
 {
     public class MsgUser
     {
+       
+
         public string IDMessaggio { get; set; }
         public string Testo { get; set; }
         public string Nome { get; set; }

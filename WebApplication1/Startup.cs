@@ -20,6 +20,8 @@ using WebApplication1.Hubs;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using WebApplication1.Mappers;
+using WebApplication1.Helper;
 
 namespace WebApplication1
 {
@@ -45,7 +47,12 @@ namespace WebApplication1
             services.AddTransient<IUserProvider, UserProvider>();
             services.AddTransient<IMsgProvider, MsgProvider>();
             services.AddTransient<ICommentiProvider, CommentiProvider>();
+            services.AddTransient<IUtenteLikeMessaggioProvider, UtenteLikeMessaggioProvider>();
             services.AddSingleton<IApiCallService, ApiCallService>();
+
+            services.AddScoped<IMapper, Mapper>();
+            services.AddTransient<IProviderHelper, ProviderHelper>();
+
             
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
