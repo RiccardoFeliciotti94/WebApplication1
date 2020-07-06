@@ -8,24 +8,24 @@ using WebApplication1.Models.DataModel;
 
 namespace WebApplication1.Helper
 {
-    public interface IProviderHelper
+    public interface IMsgUserHelper
     {
         public List<MsgUser> GetMessaggi(string email);
     }
-    public class ProviderHelper : IProviderHelper
+    public class MsgUserHelper : IMsgUserHelper
     {
         private readonly IUserProvider _userProvider;
         private readonly IMsgProvider _msgProvider;
         private readonly ICommentiProvider _commentiProvider;
         private readonly IUtenteLikeMessaggioProvider _ulmProvider;
-        private readonly IMapper _mapper;
+        private readonly IMsgUserMapper _mapper;
 
-        public ProviderHelper (
+        public MsgUserHelper (
             IUserProvider userProvider, 
             IMsgProvider msgProvider , 
             ICommentiProvider commentiProvider,
             IUtenteLikeMessaggioProvider ulmProvider,
-            IMapper mapper)
+            IMsgUserMapper mapper)
         {
             _userProvider = userProvider;
             _msgProvider = msgProvider;
@@ -36,15 +36,13 @@ namespace WebApplication1.Helper
 
 
         public List<MsgUser> GetMessaggi(string email) 
-        {
-            var msg = _msgProvider.GetMsg();
-            var user = _userProvider.GetAllUser();
-            var ulm = _ulmProvider.GetAllUlm();
-            var com = _commentiProvider.GetAllCommento();
-
-           return _mapper.Map(user,msg,com,ulm,email);
-
-          
+        {            
+            return _mapper.Map(
+                _userProvider.GetAllUser(),
+                _msgProvider.GetMsg(),
+                _commentiProvider.GetAllCommento(),
+                _ulmProvider.GetAllUlm(),
+                email);          
         }
     }
 }

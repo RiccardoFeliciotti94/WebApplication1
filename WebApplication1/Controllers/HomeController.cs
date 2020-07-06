@@ -20,18 +20,18 @@ namespace WebApplication1.Controllers
         private readonly IMsgProvider _msgProvider;
         private readonly ICommentiProvider _commentiProvider;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IProviderHelper _helper;
+        private readonly IMsgUserHelper _msgUserHelper;
 
         public HomeController(
             IMsgProvider msgProvider, 
             IHttpContextAccessor httpContextAccessor, 
             ICommentiProvider commentiProvider,
-            IProviderHelper providerHelper)
+            IMsgUserHelper msgUserHelper)
         {
             _httpContextAccessor = httpContextAccessor;
             _msgProvider = msgProvider;
             _commentiProvider = commentiProvider;
-            _helper = providerHelper;
+            _msgUserHelper = msgUserHelper;
         }
 
 
@@ -55,12 +55,13 @@ namespace WebApplication1.Controllers
                 emailSession = emailClaim;
             }
 
-            /*
-            var listMsgUser = _msgProvider.GetAllMessage(emailSession);*/
-            var listMsgUser = _helper.GetMessaggi(emailSession);
-            ListaMessaggiModel model = new ListaMessaggiModel();
-            model.ListMessage = listMsgUser;
-            model.Email = emailSession;
+
+            var listMsgUser = _msgUserHelper.GetMessaggi(emailSession);
+            ListaMessaggiModel model = new ListaMessaggiModel
+            {
+                ListMessage = listMsgUser,
+                Email = emailSession
+            };
             return View(model);
         }
 

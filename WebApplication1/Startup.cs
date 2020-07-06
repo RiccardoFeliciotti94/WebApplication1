@@ -50,8 +50,8 @@ namespace WebApplication1
             services.AddTransient<IUtenteLikeMessaggioProvider, UtenteLikeMessaggioProvider>();
             services.AddSingleton<IApiCallService, ApiCallService>();
 
-            services.AddScoped<IMapper, Mapper>();
-            services.AddTransient<IProviderHelper, ProviderHelper>();
+            services.AddScoped<IMsgUserMapper, MsgUserMapper>();
+            services.AddTransient<IMsgUserHelper, MsgUserHelper>();
 
             
             services.AddControllersWithViews().AddRazorRuntimeCompilation();

@@ -7,7 +7,7 @@ using WebApplication1.Models.DataModel;
 
 namespace WebApplication1.Mappers
 {
-    public interface IMapper
+    public interface IMsgUserMapper
     {
         public List<MsgUser> Map(List<Utente> user,
             List<Messaggio> msg,
@@ -15,7 +15,7 @@ namespace WebApplication1.Mappers
             List<UtenteLikeMessaggio> ulm,string email);
       
     }
-    public class Mapper : IMapper
+    public class MsgUserMapper : IMsgUserMapper
     {
         public List<MsgUser> Map(List<Utente> user, List<Messaggio> msg, List<Commento> commenti, List<UtenteLikeMessaggio> ulm,string email)
         {

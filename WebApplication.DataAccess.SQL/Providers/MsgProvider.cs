@@ -14,7 +14,6 @@ namespace WebApplication.DataAccess.SQL.Providers
     {
         public bool AddMessage(string testo, string email);
         public List<Messaggio> GetMsg();
-       // public List<MsgUser> GetAllMessage(string name);
         public void AddLike(string id, string email);
         public void RemoveLike(string id, string email);
     }
@@ -52,53 +51,6 @@ namespace WebApplication.DataAccess.SQL.Providers
             var b = _DbContext.Messaggio.ToList();
             return b;
         }
-
-     /*   public List<MsgUser> GetAllMessage(string ut = null)
-        {
-
-            var comments = _DbContext.Commento.Where(x => x.IDComRef == null).Join(_DbContext.Utente,
-                          com => com.Email, u => u.Email,
-                          (com, u) => new CommentoModel
-                          {
-                              Email = com.Email,
-                              Nome = u.Nome,
-                              IDMessaggio = com.IDMessaggio,
-                              Img = u.Img,
-                              TestoCommento = com.TestoCommento,
-                              Data = com.Data
-                          }).OrderBy(x => x.Data);
-
-            var msgList = _DbContext.UtenteLikeMessaggio.Where(ulm => ulm.Email == ut).Join(_DbContext.Messaggio,
-                      ulm => ulm.IDMessaggio, m => m.IDMessaggio,
-                      (ulm, m) => new
-                      {
-                          IDMessaggio = ulm.IDMessaggio,
-                          SetLike = ulm.SetLike,
-                          Testo = m.Testo,
-                          Email = m.Email,
-                          Data = m.Data,
-                          Like = m.NLike
-                      }).Join(_DbContext.Utente,
-                      msg => msg.Email, u => u.Email,
-                      (msg, u) => new MsgUser
-                      {
-                          IDMessaggio = msg.IDMessaggio,
-                          SetLike = msg.SetLike,
-                          Testo = msg.Testo,
-                          Nome = u.Nome,
-                          Img = u.Img,
-                          Data = msg.Data,
-                          Like = msg.Like,
-                          Commenti = comments.Where(x => x.IDMessaggio == msg.IDMessaggio).ToList()
-
-                      }).OrderByDescending(s => s.Data).ToList();
-
-          
-
-
-            return msgList;
-
-        }*/
 
         public void AddLike(string id, string email)
         {
