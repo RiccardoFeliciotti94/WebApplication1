@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.DataAccess.SQL.Providers;
+using WebApplication1.Models.DataModel;
 using WebApplication1.Models.ListaMessaggi;
+using WebApplication1.Helper;
 
 namespace WebApplication1.Controllers
 {
@@ -17,12 +20,18 @@ namespace WebApplication1.Controllers
         private readonly IMsgProvider _msgProvider;
         private readonly ICommentiProvider _commentiProvider;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IMsgUserHelper _msgUserHelper;
 
-        public HomeController(IMsgProvider msgProvider, IHttpContextAccessor httpContextAccessor, ICommentiProvider commentiProvider)
+        public HomeController(
+            IMsgProvider msgProvider, 
+            IHttpContextAccessor httpContextAccessor, 
+            ICommentiProvider commentiProvider,
+            IMsgUserHelper msgUserHelper)
         {
             _httpContextAccessor = httpContextAccessor;
             _msgProvider = msgProvider;
             _commentiProvider = commentiProvider;
+            _msgUserHelper = msgUserHelper;
         }
 
 
@@ -46,10 +55,13 @@ namespace WebApplication1.Controllers
                 emailSession = emailClaim;
             }
 
-            var listMsgUser = _msgProvider.GetAllMessage(emailSession);
-            ListaMessaggiModel model = new ListaMessaggiModel();
-            model.ListMessage = listMsgUser;
-            model.Email = emailSession;
+
+            var listMsgUser = _msgUserHelper.GetMessaggi(emailSession);
+            ListaMessaggiModel model = new ListaMessaggiModel
+            {
+                ListMessage = listMsgUser,
+                Email = emailSession
+            };
             return View(model);
         }
 

@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <Folder Include="Api\Controller\" />
+    <Folder Include="Models\DataModel\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\img\profile-photos\" />
     <Folder Include="wwwroot\lib\bootstrap\css\" />
