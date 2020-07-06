@@ -26,6 +26,8 @@ namespace WebApplication.DataAccess.SQL
         public DbSet<UtenteLikeMessaggio> UtenteLikeMessaggio { get; set; }
         public DbSet<Ruolo> Ruolo { get; set; }
 
+        public DbSet<Commento> Commento { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
@@ -33,6 +35,7 @@ namespace WebApplication.DataAccess.SQL
             modelBuilder.Entity<Messaggio>().ToTable("Messaggio");
             modelBuilder.Entity<UtenteLikeMessaggio>().HasKey(c => new { c.Email, c.IDMessaggio });
             modelBuilder.Entity<Ruolo>().ToTable("user_rank");
+            modelBuilder.Entity<Commento>().ToTable("Commenti");
 
         }
 

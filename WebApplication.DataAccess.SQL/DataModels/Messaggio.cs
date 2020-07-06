@@ -14,7 +14,6 @@ namespace WebApplication.DataAccess.SQL.DataModels
         public string Testo { get; set; }
         public string Data { get; set; }
         public string Email { get; set; }
-
         public int NLike { get; set; }
 
     }

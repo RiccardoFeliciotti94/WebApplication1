@@ -1,4 +1,7 @@
+using System;
+using System.IO;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Builder;
@@ -63,7 +66,7 @@ namespace WebApplication.IdentityServer
                 .AddInMemoryClients(Config.GetClients())
                 .AddProfileService<CustomProfileServices>()
                 .AddResourceOwnerValidator<CustomResourceOwnerPasswordValidator>()
-                .AddDeveloperSigningCredential();
+                 .AddDeveloperSigningCredential();
 
             services.AddControllersWithViews();
 
