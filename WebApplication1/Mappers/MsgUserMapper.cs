@@ -12,13 +12,26 @@ namespace WebApplication1.Mappers
         public List<MsgUser> Map(List<Utente> user,
             List<Messaggio> msg,
             List<Commento> commenti,
-            List<UtenteLikeMessaggio> ulm,string email);
-      
+            List<UtenteLikeMessaggio> ulm, string email);
+
     }
     public class MsgUserMapper : IMsgUserMapper
     {
-        public List<MsgUser> Map(List<Utente> user, List<Messaggio> msg, List<Commento> commenti, List<UtenteLikeMessaggio> ulm,string email)
+        public List<MsgUser> Map(List<Utente> user, List<Messaggio> msg, List<Commento> commenti, List<UtenteLikeMessaggio> ulm, string email)
         {
+            var subcomment = commenti.Where(x => x.IDComRef != null).Join(user,
+                       com => com.Email, u => u.Email,
+                          (com, u) => new CommentoModel
+                          {
+                              Email = com.Email,
+                              Nome = u.Nome,
+                              IDMessaggio = com.IDComRef,
+                              IDCommento = com.IDCommento,
+                              Img = u.Img,
+                              TestoCommento = com.TestoCommento,
+                              Data = com.Data
+                          }).OrderBy(x => x.Data);
+
             var comments = commenti.Where(x => x.IDComRef == null).Join(user,
                           com => com.Email, u => u.Email,
                           (com, u) => new CommentoModel
@@ -26,14 +39,17 @@ namespace WebApplication1.Mappers
                               Email = com.Email,
                               Nome = u.Nome,
                               IDMessaggio = com.IDMessaggio,
+                              IDCommento = com.IDCommento,
                               Img = u.Img,
                               TestoCommento = com.TestoCommento,
-                              Data = com.Data
+                              Data = com.Data,
+                              SubCommenti = subcomment.Where(x => x.IDMessaggio == com.IDCommento).ToList()                              
+                              
                           }).OrderBy(x => x.Data);
 
             var msgList = ulm.Where(ulm => ulm.Email == email).Join(msg,
                       ulm => ulm.IDMessaggio, m => m.IDMessaggio,
-                      (ulm, m) => new 
+                      (ulm, m) => new
                       {
                           IDMessaggio = ulm.IDMessaggio,
                           SetLike = ulm.SetLike,

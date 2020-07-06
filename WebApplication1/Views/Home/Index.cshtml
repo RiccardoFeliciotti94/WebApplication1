@@ -34,24 +34,17 @@
                         <div class="demo-icon">
                             @if (a.SetLike == 0)
                             {
-                                <a class="btn btn-sm btn-default btn-labeled test" id="@a.IDMessaggio" name="@Model.Email">
-                                    <i class="icon-lg demo-pli-like"></i>
-                                    <p class="btn-label">@a.Like</p>
-                                    @lk
+                                <a class="btn btn-sm btn-default btn-labeled test" id="@a.IDMessaggio" name="@Model.Email" ltype="@lk">
+                                    <i class="icon-lg demo-pli-like">@a.Like</i>                                                                      
                                 </a>
                             }
                             else
                             {
-                                <a class="btn btn-sm btn-primary btn-labeled test" id="@a.IDMessaggio" name="@Model.Email">
-                                    <i class="icon-lg demo-pli-like"></i>
-                                    <p class="btn-label">@a.Like</p>
-                                    @lk
+                                <a class="btn btn-sm btn-primary btn-labeled test" id="@a.IDMessaggio" name="@Model.Email" lttype="@lk">
+                                    <i class="icon-lg demo-pli-like">@a.Like</i>                                                                       
                                 </a>
                             }
 
-
-
-                            <!--btn btn-info btn-rounded btn-labeled test <a class="btn btn-sm btn-default"><i class="icon-lg demo-pli-like"></i> Like </a>-->
                         </div>
                     </div>
                     <hr class="new-section-sm">
@@ -67,32 +60,40 @@
                                         <p class="text-muted text-sm">@com.Data</p>
                                     </div>
                                     <p>@com.TestoCommento</p>
-                                    <!--<a class="btn btn-sm btn-default"><i class="icon-lg demo-pli-like"></i> Like </a>
-                                    <a class="btn btn-sm btn-default"><i class="icon-lg demo-pli-right-4"></i> 3 Reply</a>-->
-                                    <!-- Comments -
+                                    <!--<a class="btn btn-sm btn-default"><i class="icon-lg demo-pli-like"></i> Like </a>-->
+                                    <a class="btn btn-sm btn-default hiden" name="@com.IDCommento"><i class="icon-lg demo-pli-right-4"></i>Commenta</a>
+                                    <form style="display: none;" id="@com.IDCommento" asp-controller="Home" asp-action="PostSubCommento" enctype="multipart/form-data" method="post" class="form-horizontal">
+                                        <input type="hidden" asp-for="IDMes" value="@a.IDMessaggio" />
+                                        <input type="hidden" asp-for="Email" value="@Model.Email" />
+                                        <input type="hidden" asp-for="ListMessage" value="@Model.ListMessage" />
+                                        <input type="hidden" asp-for="IDRefCom" value="@com.IDCommento" />
+                                        <div class="panel-body">
+                                            <textarea asp-for="Testo" placeholder="Message" rows="1" class="form-control"></textarea>
+                                            <span asp-validation-for="Testo" class="text-danger"></span>
+                                        </div>
+                                        <div class="panel-footer text-right">
+                                            <button class="btn btn-default" type="submit">Send message</button>
+                                        </div>
+                                    </form>
+                                    <!-- Comments -->
                                     <div class="comment-body">
-                                        <div class="comment-content media">
-                                            <a class="media-left" href="#"><img class="img-circle img-xs" alt="Profile Picture" src="~/img/profile-photos/1.png"></a>
-                                            <div class="media-body">
-                                                <div class="comment-header">
-                                                    <a href="#" class="text-main text-bold">Bobby Marz</a>
-                                                    <small class="text-muted">7 min ago</small>
+                                        @foreach (var sub in com.SubCommenti)
+                                        {
+                                            <div class="comment-content media">
+                                                <a class="media-left" href="#"><img class="img-circle img-xs" alt="Profile Picture" src="@sub.Img"></a>
+                                                <div class="media-body">
+                                                    <div class="comment-header">
+                                                        <a href="#" class="text-main text-bold">@sub.Nome</a>
+                                                        <small class="text-muted">@sub.Data</small>
+                                                    </div>
+                                                    @sub.TestoCommento
                                                 </div>
-                                                Sed diam nonummy nibh euismod.
                                             </div>
-                                        </div>
+                                        }
 
-                                        <div class="comment-content media">
-                                            <a class="media-left" href="#"><img class="img-circle img-xs" alt="Profile Picture" src="~/img/profile-photos/1.png"></a>
-                                            <div class="media-body">
-                                                <div class="comment-header">
-                                                    <a href="#" class="text-main text-bold">Lucy Moon</a>
-                                                    <small class="text-muted">2 Hours ago</small>
-                                                </div>
-                                                Duis autem vel eum iriure dolor in vulputate ?
-                                            </div>
-                                        </div>
-                                    </div>-->
+
+
+                                    </div>
                                 </div>
                             </div>
                         }
