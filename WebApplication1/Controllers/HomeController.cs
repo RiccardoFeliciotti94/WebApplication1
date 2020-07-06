@@ -76,6 +76,12 @@ namespace WebApplication1.Controllers
             _commentiProvider.AddCommento(model.Testo,model.Email,model.IDMes);
             return RedirectToAction("Index", "Home");
         }
+
+        public IActionResult PostSubCommento (ListaMessaggiModel model)
+        {
+            _commentiProvider.AddCommento(model.Testo, model.Email, model.IDMes,model.IDRefCom);
+            return RedirectToAction("Index", "Home");
+        }
         
     }
 }

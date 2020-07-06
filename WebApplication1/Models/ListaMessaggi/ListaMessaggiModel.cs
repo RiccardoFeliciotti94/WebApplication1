@@ -15,5 +15,6 @@ namespace WebApplication1.Models.ListaMessaggi
         public string Testo { get; set; }
         public string IDMes { get; set; }
 
+        public string IDRefCom { get; set; }
     }
 }
