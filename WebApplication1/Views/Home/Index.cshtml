@@ -1,5 +1,9 @@
 ﻿@model WebApplication1.Models.ListaMessaggi.ListaMessaggiModel
+@using Newtonsoft.Json
 
+    <script>
+    var myModel = @Html.Raw(JsonConvert.SerializeObject(this.Model));;
+    </script>
 <div id="page-head">
     <div class="pad-all text-center">
         <h3>Welcome to PostMessage Web!!!</h3>
@@ -7,6 +11,7 @@
 </div>
 <div id="page-content">
     <div class="col-xs-12">
+
 
         @foreach (var a in Model.ListMessage)
         {
@@ -35,13 +40,13 @@
                             @if (a.SetLike == 0)
                             {
                                 <a class="btn btn-sm btn-default btn-labeled test" id="@a.IDMessaggio" name="@Model.Email" ltype="@lk">
-                                    <i class="icon-lg demo-pli-like">@a.Like</i>                                                                      
+                                    <i class="icon-lg demo-pli-like">@a.Like</i>
                                 </a>
                             }
                             else
                             {
                                 <a class="btn btn-sm btn-primary btn-labeled test" id="@a.IDMessaggio" name="@Model.Email" lttype="@lk">
-                                    <i class="icon-lg demo-pli-like">@a.Like</i>                                                                       
+                                    <i class="icon-lg demo-pli-like">@a.Like</i>
                                 </a>
                             }
 
@@ -77,20 +82,25 @@
                                     </form>
                                     <!-- Comments -->
                                     <div class="comment-body">
-                                        @foreach (var sub in com.SubCommenti)
-                                        {
-                                            <div class="comment-content media">
-                                                <a class="media-left" href="#"><img class="img-circle img-xs" alt="Profile Picture" src="@sub.Img"></a>
-                                                <div class="media-body">
-                                                    <div class="comment-header">
-                                                        <a href="#" class="text-main text-bold">@sub.Nome</a>
-                                                        <small class="text-muted">@sub.Data</small>
+                                        <ul id="SubCommentList @com.IDCommento">
+                                            @foreach (var sub in com.SubCommenti)
+                                            {
+                                                <li>
+                                                    <div class="comment-content media">
+                                                        <a class="media-left" href="#">
+                                                            <img class="img-circle img-xs" alt="Profile Picture" src="@sub.Img">
+                                                        </a>
+                                                        <div class="media-body">
+                                                            <div class="comment-header">
+                                                                <a href="#" class="text-main text-bold">@sub.Nome</a>
+                                                                <small class="text-muted">@sub.Data</small>
+                                                            </div>
+                                                            @sub.TestoCommento
+                                                        </div>
                                                     </div>
-                                                    @sub.TestoCommento
-                                                </div>
-                                            </div>
-                                        }
-
+                                                </li>
+                                            }
+                                        </ul>
 
 
                                     </div>

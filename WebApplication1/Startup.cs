@@ -133,6 +133,7 @@ namespace WebApplication1
                     pattern: "{controller=Home}/{action=Index}/{id?}"
                  ).RequireAuthorization();
                 endpoints.MapHub<LikeHub>("/likeHub");
+                endpoints.MapHub<CommentoHub>("/commentoHub");
             });
             
         }
