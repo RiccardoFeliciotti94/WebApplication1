@@ -91,7 +91,6 @@ namespace WebApplication1.Controllers
                 model.Testo, 
                 _httpContextAccessor.HttpContext.Session.GetString("immagine"),
                 model.IDRefCom);
-            // await _hubContext.Clients.AllExcept
             return RedirectToAction("Index", "Home");
         }
         

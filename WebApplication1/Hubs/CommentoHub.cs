@@ -16,11 +16,11 @@ namespace WebApplication1.Hubs
             _commentiProvider = commentiProvider;
         }
 
-        public async Task SendCommento(string id, string email,string testo ,string idMes, string idRef)
+        public async Task SendCommento(string email,string testo ,string idMes, string idRef)
 
         {
             _commentiProvider.AddCommento(testo, email, idMes, idRef);
-            await Clients.All.SendAsync("SendCommento", "","","","");
+            await Clients.All.SendAsync("SendCommento","", "","","","");
             
         }
 
