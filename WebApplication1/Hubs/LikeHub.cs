@@ -19,13 +19,13 @@ namespace WebApplication1.Hubs
 
         {
             _msgProvider.AddLike(id,email);
-            await Clients.All.SendAsync("SendLike",id);
+            await Clients.All.SendAsync("SendLike",id,email);
         }
 
         public async Task DisLike(string id,string email)
         {
             _msgProvider.RemoveLike(id,email);
-            await Clients.All.SendAsync("DisLike", id);
+            await Clients.All.SendAsync("DisLike", id,email);
         }
     }
 }

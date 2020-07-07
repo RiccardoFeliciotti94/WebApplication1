@@ -4,23 +4,23 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/likeHub").build();
 
 
 
-connection.on("SendLike", function (val) {
+connection.on("SendLike", function (val,email) {
     
     var z = document.getElementById(val).children.item(0).textContent;
     var num = parseInt(z);
     num++;
 
     document.getElementById(val).children.item(0).textContent = num;
-    document.getElementById(val).setAttribute("class", "btn btn-sm btn-primary btn-labeled test");
+    if (myModel.Email == email) document.getElementById(val).setAttribute("class", "btn btn-sm btn-primary btn-labeled test");
     
 });
 
-connection.on("DisLike", function (val) {
+connection.on("DisLike", function (val,email) {
     var z = document.getElementById(val).children.item(0).textContent;
     var num = parseInt(z);
     num--;
-    document.getElementById(val).children.item(0).textContent = num
-    document.getElementById(val).setAttribute("class", "btn btn-sm btn-default btn-labeled test");
+    document.getElementById(val).children.item(0).textContent = num;
+    if(myModel.Email == email) document.getElementById(val).setAttribute("class", "btn btn-sm btn-default btn-labeled test");
 });
 
 connection.start().then(function () {
@@ -31,10 +31,11 @@ connection.start().then(function () {
 var buttons = document.getElementsByClassName("btn btn-sm btn-default btn-labeled test");
 for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener("click", function (event) {
-        var user = event.target.id;
-        var email = event.target.name;
+        var user = event.currentTarget.id
 
-        var type = event.target.getAttribute('ltype');
+        var email = event.currentTarget.name;
+
+        var type = event.currentTarget.getAttribute('ltype');
         console.log(type);
         if (type == "Like") {
             connection.invoke("SendLike", user, email).catch(function (err) {
@@ -56,10 +57,11 @@ for (var i = 0; i < buttons.length; i++) {
 var buttonclicked = document.getElementsByClassName("btn btn-sm btn-primary btn-labeled test");
 for (var i = 0; i < buttonclicked.length; i++) {
     buttonclicked[i].addEventListener("click", function (event) {
-        var user = event.target.id;
-        var email = event.target.name;
+        var user = event.currentTarget.id     
+        
+        var email = event.currentTarget.name;
 
-        var type = event.target.getAttribute('ltype');
+        var type = event.currentTarget.getAttribute('ltype');
         if (type == "Like") {
             connection.invoke("SendLike", user, email).catch(function (err) {
                 return console.error(err.toString());

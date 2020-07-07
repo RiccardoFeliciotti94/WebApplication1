@@ -10,6 +10,8 @@ using WebApplication.DataAccess.SQL.Providers;
 using WebApplication1.Models.DataModel;
 using WebApplication1.Models.ListaMessaggi;
 using WebApplication1.Helper;
+using Microsoft.AspNetCore.SignalR;
+using WebApplication1.Hubs;
 
 namespace WebApplication1.Controllers
 {
@@ -21,17 +23,20 @@ namespace WebApplication1.Controllers
         private readonly ICommentiProvider _commentiProvider;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMsgUserHelper _msgUserHelper;
+        private readonly IHubContext<CommentoHub> _hubContext;
 
         public HomeController(
             IMsgProvider msgProvider, 
             IHttpContextAccessor httpContextAccessor, 
             ICommentiProvider commentiProvider,
-            IMsgUserHelper msgUserHelper)
+            IMsgUserHelper msgUserHelper,
+            IHubContext<CommentoHub> hubContext)
         {
             _httpContextAccessor = httpContextAccessor;
             _msgProvider = msgProvider;
             _commentiProvider = commentiProvider;
             _msgUserHelper = msgUserHelper;
+            _hubContext = hubContext;
         }
 
 
@@ -77,9 +82,16 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult PostSubCommento (ListaMessaggiModel model)
+        public async Task<IActionResult> PostSubCommento (ListaMessaggiModel model)
         {
             _commentiProvider.AddCommento(model.Testo, model.Email, model.IDMes,model.IDRefCom);
+            await _hubContext.Clients.All.SendAsync("SendCommento", 
+                DateTime.Now.ToString("dd/MM/yyyy hh:mm"),
+                _httpContextAccessor.HttpContext.Session.GetString("nome"),
+                model.Testo, 
+                _httpContextAccessor.HttpContext.Session.GetString("immagine"),
+                model.IDRefCom);
+            // await _hubContext.Clients.AllExcept
             return RedirectToAction("Index", "Home");
         }
         
