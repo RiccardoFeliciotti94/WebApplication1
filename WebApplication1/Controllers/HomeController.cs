@@ -12,31 +12,23 @@ using WebApplication1.Models.ListaMessaggi;
 using WebApplication1.Helper;
 using Microsoft.AspNetCore.SignalR;
 using WebApplication1.Hubs;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace WebApplication1.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-       
-        private readonly IMsgProvider _msgProvider;
-        private readonly ICommentiProvider _commentiProvider;
+
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMsgUserHelper _msgUserHelper;
-        private readonly IHubContext<CommentoHub> _hubContext;
 
         public HomeController(
-            IMsgProvider msgProvider, 
-            IHttpContextAccessor httpContextAccessor, 
-            ICommentiProvider commentiProvider,
-            IMsgUserHelper msgUserHelper,
-            IHubContext<CommentoHub> hubContext)
+            IHttpContextAccessor httpContextAccessor,
+            IMsgUserHelper msgUserHelper)
         {
             _httpContextAccessor = httpContextAccessor;
-            _msgProvider = msgProvider;
-            _commentiProvider = commentiProvider;
             _msgUserHelper = msgUserHelper;
-            _hubContext = hubContext;
         }
 
 
@@ -59,8 +51,6 @@ namespace WebApplication1.Controllers
 
                 emailSession = emailClaim;
             }
-
-
             var listMsgUser = _msgUserHelper.GetMessaggi(emailSession);
             ListaMessaggiModel model = new ListaMessaggiModel
             {
@@ -70,29 +60,11 @@ namespace WebApplication1.Controllers
             return View(model);
         }
 
-        public IActionResult Logout ()
+        public IActionResult Logout()
         {
             _httpContextAccessor.HttpContext.Session.Clear();
             return SignOut("Cookies", "oidc");
         }
 
-        public IActionResult PostCommento (ListaMessaggiModel model)
-        {
-            _commentiProvider.AddCommento(model.Testo,model.Email,model.IDMes);
-            return RedirectToAction("Index", "Home");
-        }
-
-        public async Task<IActionResult> PostSubCommento (ListaMessaggiModel model)
-        {
-            _commentiProvider.AddCommento(model.Testo, model.Email, model.IDMes,model.IDRefCom);
-            await _hubContext.Clients.All.SendAsync("SendCommento", 
-                DateTime.Now.ToString("dd/MM/yyyy hh:mm"),
-                _httpContextAccessor.HttpContext.Session.GetString("nome"),
-                model.Testo, 
-                _httpContextAccessor.HttpContext.Session.GetString("immagine"),
-                model.IDRefCom);
-            return RedirectToAction("Index", "Home");
-        }
-        
     }
 }

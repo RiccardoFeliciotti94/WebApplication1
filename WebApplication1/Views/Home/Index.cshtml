@@ -1,9 +1,6 @@
 ﻿@model WebApplication1.Models.ListaMessaggi.ListaMessaggiModel
 @using Newtonsoft.Json
 
-    <script>
-    var myModel = @Html.Raw(JsonConvert.SerializeObject(this.Model));;
-    </script>
 <div id="page-head">
     <div class="pad-all text-center">
         <h3>Welcome to PostMessage Web!!!</h3>
@@ -12,7 +9,7 @@
 <div id="page-content">
     <div class="col-xs-12">
 
-
+        
         @foreach (var a in Model.ListMessage)
         {
             var lk = (a.SetLike == 0) ? "Like" : "Dislike";
@@ -45,82 +42,88 @@
                             }
                             else
                             {
-                                <a class="btn btn-sm btn-primary btn-labeled test" id="@a.IDMessaggio" name="@Model.Email" lttype="@lk">
+                                <a class="btn btn-sm btn-primary btn-labeled test" id="@a.IDMessaggio" name="@Model.Email" ltype="@lk">
                                     <i class="icon-lg demo-pli-like">@a.Like</i>
                                 </a>
                             }
-
                         </div>
                     </div>
                     <hr class="new-section-sm">
                     <div class="panel panel-trans ">
                         <!---->
-                        @foreach (var com in a.Commenti)
-                        {
-                            <div class="comments media-block">
-                                <a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src=@com.Img></a>
-                                <div class="media-body">
-                                    <div class="comment-header">
-                                        <div><a href="#" class="media-heading box-inline text-main text-bold">@com.Nome</a></div>
-                                        <p class="text-muted text-sm">@com.Data</p>
-                                    </div>
-                                    <p>@com.TestoCommento</p>
-                                    <!--<a class="btn btn-sm btn-default"><i class="icon-lg demo-pli-like"></i> Like </a>-->
-                                    <a class="btn btn-sm btn-default hiden" name="@com.IDCommento"><i class="icon-lg demo-pli-right-4"></i>Commenta</a>
-                                    <form style="display: none;" id="@com.IDCommento" asp-controller="Home" asp-action="PostSubCommento" enctype="multipart/form-data" method="post" class="form-horizontal">
-                                        <input type="hidden" asp-for="IDMes" value="@a.IDMessaggio" />
-                                        <input type="hidden" asp-for="Email" value="@Model.Email" />
-                                        <input type="hidden" asp-for="ListMessage" value="@Model.ListMessage" />
-                                        <input type="hidden" asp-for="IDRefCom" value="@com.IDCommento" />
-                                        <div class="panel-body">
-                                            <textarea asp-for="Testo" placeholder="Message" rows="1" class="form-control"></textarea>
-                                            <span asp-validation-for="Testo" class="text-danger"></span>
-                                        </div>
-                                        <div class="panel-footer text-right">
-                                            <button class="btn btn-default" type="submit">Send message</button>
-                                        </div>
-                                    </form>
-                                    <!-- Comments -->
-                                    <div class="comment-body">
-                                        <ul id="SubCommentList @com.IDCommento">
-                                            @foreach (var sub in com.SubCommenti)
-                                            {
-                                                <li>
-                                                    <div class="comment-content media">
-                                                        <a class="media-left" href="#">
-                                                            <img class="img-circle img-xs" alt="Profile Picture" src="@sub.Img">
-                                                        </a>
-                                                        <div class="media-body">
-                                                            <div class="comment-header">
-                                                                <a href="#" class="text-main text-bold">@sub.Nome</a>
-                                                                <small class="text-muted">@sub.Data</small>
-                                                            </div>
-                                                            @sub.TestoCommento
-                                                        </div>
+                        <ul id="CommentoList @a.IDMessaggio" style="list-style: none;">
+                            @if (a.Commenti != null)
+                            {
+                                @foreach (var com in a.Commenti)
+                                {
+                                    <li>
+                                        <div class="comments media-block">
+                                            <a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src=@com.Img></a>
+                                            <div class="media-body">
+                                                <div class="comment-header">
+                                                    <p class="media-heading box-inline text-main text-bold">@com.Nome</p>
+                                                    <p class="text-muted text-sm">@com.Data</p>
+                                                </div>
+                                                <p>@com.TestoCommento</p>
+                                                <!--<a class="btn btn-sm btn-default"><i class="icon-lg demo-pli-like"></i> Like </a>-->
+                                                <a class="btn btn-sm btn-default hiden" name="@com.IDCommento"><i class="icon-lg demo-pli-right-4"></i>Commenta</a>
+
+                                                <form style="display: none;" id="@com.IDCommento" enctype="multipart/form-data" method="post" class="form-horizontal postsubcommento">
+                                                    <input type="hidden" value="@a.IDMessaggio" />
+                                                    <input type="hidden" value="@Model.Email" />
+                                                    <input type="hidden" value="@com.IDCommento" />
+                                                    <div class="panel-body">
+                                                        <textarea placeholder="Message" rows="1" class="form-control"></textarea>
+
                                                     </div>
-                                                </li>
-                                            }
-                                        </ul>
+                                                    <div class="panel-footer text-right">
+                                                        <button class="btn btn-default" type="button">Send message</button>
+                                                    </div>
+                                                </form>
+                                                <!-- Comments -->
+                                                <div class="comment-body">
+                                                    <ul id="SubCommentList @com.IDCommento" style="list-style: none;">
+                                                        @if (com.SubCommenti != null)
+                                                        {
+                                                            @foreach (var sub in com.SubCommenti)
+                                                            {
+                                                                <li>
+                                                                    <div class="comment-content media">
+                                                                        <a class="media-left" href="#">
+                                                                            <img class="img-circle img-xs" alt="Profile Picture" src="@sub.Img">
+                                                                        </a>
+                                                                        <div class="media-body">
+                                                                            <div class="comment-header">
+                                                                                <a href="#" class="text-main text-bold">@sub.Nome</a>
+                                                                                <small class="text-muted">@sub.Data</small>
+                                                                            </div>
+                                                                            @sub.TestoCommento
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            }
+                                                        }
+                                                    </ul>
 
 
-                                    </div>
-                                </div>
-                            </div>
-                        }
-
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        </ul>
                     </div>
                     <div class="panel panel-trans bord-btm">
 
-                        <form asp-controller="Home" asp-action="PostCommento" enctype="multipart/form-data" method="post" class="form-horizontal">
-                            <input type="hidden" asp-for="IDMes" value="@a.IDMessaggio" />
-                            <input type="hidden" asp-for="Email" value="@Model.Email" />
-                            <input type="hidden" asp-for="ListMessage" value="@Model.ListMessage" />
+                        <form enctype="multipart/form-data" method="post" class="form-horizontal postcommento">
+                            <input type="hidden" value="@a.IDMessaggio" />
+                            <input type="hidden" value="@Model.Email" />
                             <div class="panel-body">
-                                <textarea asp-for="Testo" placeholder="Message" rows="1" class="form-control"></textarea>
-                                <span asp-validation-for="Testo" class="text-danger"></span>
+                                <textarea placeholder="Message" rows="1" class="form-control"></textarea>
                             </div>
                             <div class="panel-footer text-right">
-                                <button class="btn btn-default" type="submit">Send message</button>
+                                <button class="btn btn-default" type="button">Send message</button>
                             </div>
                         </form>
 

@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using WebApplication.DataAccess.SQL.DataModels;
 
 namespace WebApplication.DataAccess.SQL.Providers
 {
     public interface ICommentiProvider
     {
-        public bool AddCommento(string testo, string email, string idmessaggio, string idRefCom = null);
+        public Task<string> AddCommentoAsync(string testo, string email, string idmessaggio, string idRefCom = null);
+        public string AddCommento(string testo, string email, string idmessaggio, string idRefCom = null);
 
         public bool RemoveCommento(string id);
 
@@ -26,7 +28,7 @@ namespace WebApplication.DataAccess.SQL.Providers
         {
             _DbContext = DbContext;
         }
-        public bool AddCommento(string testo,string email,string idmessaggio, string idRefCom = null)
+        public async Task<string> AddCommentoAsync(string testo,string email,string idmessaggio, string idRefCom = null)
         {
             //string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             Commento com = new Commento { 
@@ -37,15 +39,39 @@ namespace WebApplication.DataAccess.SQL.Providers
             _DbContext.Add(com);
             try
             {
+                await _DbContext.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+
+            return com.IDCommento;
+        }
+
+        public string AddCommento(string testo, string email, string idmessaggio, string idRefCom = null)
+        {
+            Commento com = new Commento
+            {
+                Email = email,
+                Data = DateTime.Now,
+                IDComRef = idRefCom,
+                TestoCommento = testo,
+                IDMessaggio = idmessaggio,
+                IDCommento = Guid.NewGuid().ToString()
+            };
+            _DbContext.Add(com);
+            try
+            {
                 _DbContext.SaveChanges();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return false;
+                return null;
             }
-
-            return true;
+            return com.IDCommento;
         }
 
         public List<Commento> GetAllCommento()
@@ -55,7 +81,7 @@ namespace WebApplication.DataAccess.SQL.Providers
 
         public Commento GetSingleCommnto(string id)
         {
-            throw new NotImplementedException();
+            return _DbContext.Commento.FirstOrDefault(x => x.IDCommento == id);
         }
 
         public bool RemoveCommento(string id)

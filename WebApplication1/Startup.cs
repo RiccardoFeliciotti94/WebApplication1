@@ -51,9 +51,11 @@ namespace WebApplication1
             services.AddSingleton<IApiCallService, ApiCallService>();
 
             services.AddScoped<IMsgUserMapper, MsgUserMapper>();
+            services.AddScoped<ICommentoModelMapper, CommentoModelMapper>();
             services.AddTransient<IMsgUserHelper, MsgUserHelper>();
+            services.AddTransient<ICommentoModelHelper, CommentoModelHelper>();
 
-            
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
@@ -96,7 +98,7 @@ namespace WebApplication1
                     options.ApiName = "api1";
 
                 });
-            //
+            
             services.AddSingleton<IJwtService, JwtService>();
             services.AddAuthorization(options =>
             {
