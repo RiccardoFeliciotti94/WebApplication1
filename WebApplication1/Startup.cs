@@ -54,6 +54,7 @@ namespace WebApplication1
             services.AddScoped<ICommentoModelMapper, CommentoModelMapper>();
             services.AddTransient<IMsgUserHelper, MsgUserHelper>();
             services.AddTransient<ICommentoModelHelper, CommentoModelHelper>();
+            services.AddTransient<ITimeHelper, TimeHelper>();
 
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
