@@ -1,9 +1,6 @@
 ﻿@model WebApplication1.Models.ListaMessaggi.ListaMessaggiModel
 @using Newtonsoft.Json
 
-<script>
-    var myModel = @Html.Raw(JsonConvert.SerializeObject(this.Model));
-</script>
 <div id="page-head">
     <div class="pad-all text-center">
         <h3>Welcome to PostMessage Web!!!</h3>
@@ -12,7 +9,7 @@
 <div id="page-content">
     <div class="col-xs-12">
 
-
+        
         @foreach (var a in Model.ListMessage)
         {
             var lk = (a.SetLike == 0) ? "Like" : "Dislike";

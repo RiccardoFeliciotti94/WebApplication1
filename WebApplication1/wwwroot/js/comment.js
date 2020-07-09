@@ -4,7 +4,7 @@ var connectionComment = new signalR.HubConnectionBuilder().withUrl("/commentoHub
 
 //Big malloppone
 connectionComment.on("SendCommento", function (idCom, idMes, data, nome, email, testo, imgg) {
-    console.log("here");
+    
     var li = document.createElement("li");
 
     var div1lv1 = document.createElement("div");
