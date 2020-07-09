@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <Compile Remove="Nuova cartella1\**" />
-    <Content Remove="Nuova cartella1\**" />
     <EmbeddedResource Remove="Nuova cartella1\**" />
     <None Remove="Nuova cartella1\**" />
   </ItemGroup>

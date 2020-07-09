@@ -3,7 +3,6 @@
 var connection = new signalR.HubConnectionBuilder().withUrl("/likeHub").build();
 
 
-
 connection.on("SendLike", function (val,email) {
     
     var z = document.getElementById(val).children.item(0).textContent;
