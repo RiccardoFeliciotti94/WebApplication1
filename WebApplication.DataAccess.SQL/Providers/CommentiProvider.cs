@@ -76,7 +76,7 @@ namespace WebApplication.DataAccess.SQL.Providers
 
         public List<Commento> GetAllCommento()
         {
-            return _DbContext.Commento.OrderByDescending(s => s.Data).ToList();
+            return _DbContext.Commento.OrderBy(s => s.Data).ToList();
         }
 
         public Commento GetSingleCommnto(string id)

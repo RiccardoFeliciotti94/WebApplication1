@@ -28,7 +28,7 @@ namespace WebApplication.DataAccess.SQL.Providers
         }
         public bool AddMessage(string testo, string email)
         {
-            string time = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            string time = DateTime.Now.ToString("yyy-MM-dd HH:mm:ss");
             Messaggio msg = new Messaggio { IDMessaggio = Guid.NewGuid().ToString(), Testo = testo, Data = time, Email = email };
             _DbContext.Add(msg);
             var nUser = _DbContext.Utente.Select(o => o.Email).ToList();

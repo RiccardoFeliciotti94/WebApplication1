@@ -11,6 +11,7 @@ namespace WebApplication1.Helper
     public interface IMsgUserHelper
     {
         public List<MsgUser> GetMessaggi(string email);
+        public List<MsgUser> GetMessaggiOneUser(string email, string emailPanel);
     }
     public class MsgUserHelper : IMsgUserHelper
     {
@@ -42,7 +43,18 @@ namespace WebApplication1.Helper
                 _msgProvider.GetMsg(),
                 _commentiProvider.GetAllCommento(),
                 _ulmProvider.GetAllUlm(),
-                email);          
-        }        
+                email);      
+        }
+
+        public List<MsgUser> GetMessaggiOneUser(string email,string emailPanel)
+        {
+            return _mapper.MapSingle(
+                _userProvider.GetAllUser(),
+                _msgProvider.GetMsg(),
+                _commentiProvider.GetAllCommento(),
+                _ulmProvider.GetAllUlm(),
+                email,emailPanel);
+        }
+
     }
 }

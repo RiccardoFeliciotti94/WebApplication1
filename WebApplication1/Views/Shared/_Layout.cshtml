@@ -63,7 +63,7 @@
                             <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right panel-default">
                                 <ul class="head-list">
                                     <li>
-                                        <a href="/Home/Logout" class="demo-pli-unlock">Logout</a>
+                                        <a asp-controller="Home" asp-action="Logout" class="demo-pli-unlock">Logout</a>
                                     </li>
                                 </ul>
                             </div>
@@ -98,11 +98,6 @@
                                             <span id="emailUtenteCon" class="mnp-desc">@user.Email</span>
                                         </a>
                                     </div>
-                                    <div class="list-group bg-trans" aria-expanded="true">
-                                        <a asp-controller="Home" asp-action="Logout" class="list-group-item">
-                                            <i class="demo-pli-unlock"></i> Logout
-                                        </a>
-                                    </div>
                                 </div>
 
 
@@ -131,6 +126,11 @@
                                             </a>
                                         </li>
                                     }
+                                    <li>
+                                        <a href="~/userpanel/@user.Email"><span class="menu-title">UserPanel</span></a>
+                                    </li>
+                                        
+                                      
 
 
 
