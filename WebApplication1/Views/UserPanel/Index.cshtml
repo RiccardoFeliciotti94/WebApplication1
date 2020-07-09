@@ -1,6 +1,7 @@
 ﻿@model WebApplication1.Models.UtentePanel.UtentePanelModel;
 
 
+
 <div id="page-content">
     <div class="panel">
         <div class="panel-body">
@@ -29,21 +30,25 @@
                     <hr>
                 </div>
                 <div class="fluid">
-                    <div class="text-right">
-                        <button class="btn btn-sm btn-primary">Edit Profile</button>
-                    </div>
+                    @if (Model.Email == Model.Host)
+                    {
+                        <div class="text-right">
+                            <button class="btn btn-sm btn-primary">Edit Profile</button>
+                        </div>
+                    }
+
 
                     <!--  <hr class="new-section-md bord-no">
 
-    <div class="pad-btm">
-          <textarea class="form-control" rows="4" placeholder="What are you thinking?"></textarea>
-          <div class="mar-top clearfix">
-              <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="demo-psi-right-4 icon-fw"></i> Share</button>
-              <a class="btn btn-icon demo-pli-video icon-lg add-tooltip" href="#" data-original-title="Add Video" data-toggle="tooltip"></a>
-              <a class="btn btn-icon demo-pli-camera-2 icon-lg add-tooltip" href="#" data-original-title="Add Photo" data-toggle="tooltip"></a>
-              <a class="btn btn-icon demo-pli-file icon-lg add-tooltip" href="#" data-original-title="Add File" data-toggle="tooltip"></a>
-          </div>
-      </div>-->
+                    <div class="pad-btm">
+                          <textarea class="form-control" rows="4" placeholder="What are you thinking?"></textarea>
+                          <div class="mar-top clearfix">
+                              <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="demo-psi-right-4 icon-fw"></i> Share</button>
+                              <a class="btn btn-icon demo-pli-video icon-lg add-tooltip" href="#" data-original-title="Add Video" data-toggle="tooltip"></a>
+                              <a class="btn btn-icon demo-pli-camera-2 icon-lg add-tooltip" href="#" data-original-title="Add Photo" data-toggle="tooltip"></a>
+                              <a class="btn btn-icon demo-pli-file icon-lg add-tooltip" href="#" data-original-title="Add File" data-toggle="tooltip"></a>
+                          </div>
+                      </div>-->
 
                     <hr>
 

@@ -10,6 +10,7 @@ namespace WebApplication1.Models.UtentePanel
     {
         public string Nome { get; set; }
         public string Email { get; set; }
+        public string Host { get; set; }
         public string Img { get; set; }
         public List<MsgUser> Messaggi { get; set; }
     }

@@ -38,6 +38,7 @@ namespace WebApplication1.Controllers
                 UtentePanelModel upm = new UtentePanelModel
                 {
                     Email = email,
+                    Host = email,
                     Img = _httpContextAccessor.HttpContext.Session.GetString("immagine"),
                     Nome = _httpContextAccessor.HttpContext.Session.GetString("nome"),
                     Messaggi = _msgUserHelper.GetMessaggiOneUser(email, email)
@@ -51,6 +52,7 @@ namespace WebApplication1.Controllers
                 UtentePanelModel upm = new UtentePanelModel
                 {
                     Email = id,
+                    Host = email,
                     Img = ut.Img,
                     Nome = ut.Nome,
                     Messaggi = _msgUserHelper.GetMessaggiOneUser(email, id)
