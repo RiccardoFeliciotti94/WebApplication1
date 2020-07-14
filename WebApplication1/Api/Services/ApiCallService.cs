@@ -1,5 +1,6 @@
 ﻿using IdentityModel;
 using IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.Extensions.Configuration;
@@ -30,14 +31,13 @@ namespace WebApplication1.Api.Services
     }
     public class ApiCallService : IApiCallService
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IHttpClientFactory _clientFactory;
-        private readonly IConfiguration _Configuration;
-        private string Token;
 
-        public ApiCallService(IHttpClientFactory clientFactory, IConfiguration configuration)
+        public ApiCallService(IHttpClientFactory clientFactory, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _clientFactory = clientFactory;
-            _Configuration = configuration;
         }
 
         private async Task<HttpResponseModel> CallHttpRequest(string name, HttpMethod method,string param, string body = null)
@@ -45,9 +45,10 @@ namespace WebApplication1.Api.Services
             var url = "https://localhost:44330/api/" + name+param;
             var request = new HttpRequestMessage(method,
                  url);
+            var token = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
             request.Headers.Add("Accept", "*/*");
             request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
-            if (name != "token") request.Headers.Add("Authorization", "Bearer " + Token);
+            request.Headers.Add("Authorization", "Bearer " + token);
             if(body!= null) request.Content = new StringContent(body, Encoding.UTF8, "application/json");
             var client = _clientFactory.CreateClient();
             var response = await client.SendAsync(request);            
@@ -62,32 +63,27 @@ namespace WebApplication1.Api.Services
 
         public async Task<HttpResponseModel> GetAllUser()
         {
-            await SetToken();
             var md = await CallHttpRequest("Utente", HttpMethod.Get,"");
             return md;
         }
         public async Task<HttpResponseModel> GetSingleUser(string email)
         {
-            await SetToken();
             var md = await CallHttpRequest("Utente/"+email, HttpMethod.Get, "");
             return md;
         }
         public async Task<HttpResponseModel> GetAllMessage()
         {
-            await SetToken();
             var md = await CallHttpRequest("Messaggio", HttpMethod.Get,"");
             return md;
         }
 
         public async Task<HttpResponseModel> GetSingleMessage(string id)
         {
-            await SetToken();
             var md = await CallHttpRequest("Messaggio/"+id, HttpMethod.Get, "");
             return md;
         }
         public async Task<HttpResponseModel> DeleteMessage(string id)
         {
-            await SetToken();
             await CallHttpRequest("Messaggio/" + id, HttpMethod.Delete, "");
             var md2 = await CallHttpRequest("Messaggio", HttpMethod.Get, "");
             return md2;
@@ -95,25 +91,20 @@ namespace WebApplication1.Api.Services
 
         public async Task<HttpResponseModel> PutMessage(string id,string mes)
         {
-            await SetToken();
-            var md = await CallHttpRequest("Messaggio/" + id, HttpMethod.Put, "?testo=" + mes);
-            
+            var md = await CallHttpRequest("Messaggio/" + id, HttpMethod.Put, "?testo=" + mes);            
             return md;
         }
 
         public async Task<HttpResponseModel> PutUtente(string id, string mes)
         {
-            await SetToken();
             Utente newU = new Utente { Email = id, Nome = mes, Password = "", Ruolo = 1 };
             string body =Newtonsoft.Json.JsonConvert.SerializeObject(newU);
             var md = await CallHttpRequest("Utente/" + id, HttpMethod.Put, "",body);
-
             return md;
         }
 
         public async Task<HttpResponseModel> PostUtente(Utente us)
         {
-            await SetToken();
             string body = Newtonsoft.Json.JsonConvert.SerializeObject(us);
             var md = await CallHttpRequest("Utente",HttpMethod.Post,"",body);
             return md;
@@ -121,44 +112,9 @@ namespace WebApplication1.Api.Services
 
         public async Task<HttpResponseModel> PostMessaggio(Messaggio msg)
         {
-            await SetToken();
             string body = Newtonsoft.Json.JsonConvert.SerializeObject(msg);
             var md = await CallHttpRequest("Messaggio", HttpMethod.Post, "", body);
             return md;
-        }
-
-        private async Task<bool> SetToken()
-        {
-         
-            var client = new HttpClient();            
-            var disco = await client.GetDiscoveryDocumentAsync(_Configuration.GetConnectionString("IdentityUrl"));
-            if (disco.IsError)
-            {
-                Console.WriteLine(disco.Error);
-                return false;
-            }
-            
-            var tokenResponse = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
-            {
-                Address = disco.TokenEndpoint,
-
-                ClientId = "ro.client",
-                ClientSecret = "secret",
-                Scope = "api1.get",
-
-                UserName = "gino@gino.it",
-                Password = "Abc123456789!"
-            });
-            
-            if (tokenResponse.IsError)
-            {
-                Console.WriteLine(tokenResponse.Error);
-                return false;
-            }
-            Console.WriteLine(tokenResponse.Json);
-            Console.WriteLine("\n\n");
-            Token = tokenResponse.AccessToken;
-            return true;
         }
     }
 }

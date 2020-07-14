@@ -13,6 +13,7 @@ using WebApplication1.Helper;
 using Microsoft.AspNetCore.SignalR;
 using WebApplication1.Hubs;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Authentication;
 
 namespace WebApplication1.Controllers
 {
@@ -31,10 +32,9 @@ namespace WebApplication1.Controllers
             _msgUserHelper = msgUserHelper;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
             var emailSession = _httpContextAccessor.HttpContext.Session.GetString("email");
-
             if (emailSession == null)
             {
                 try
@@ -52,7 +52,7 @@ namespace WebApplication1.Controllers
                     _httpContextAccessor.HttpContext.Session.SetString("immagine", imgClaim);
                     _httpContextAccessor.HttpContext.Session.SetString("info", infoClaim);
                     emailSession = emailClaim;
-                } catch (Exception e)
+                } catch (Exception)
                 {
                     return SignOut("Cookies", "oidc");
                 }

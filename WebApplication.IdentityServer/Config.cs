@@ -33,7 +33,6 @@ namespace WebApplication.IdentityServer
             };
         }
 
-
         public static IEnumerable<ApiResource> GetApiResources()
         {
             return new List<ApiResource>
@@ -49,12 +48,6 @@ namespace WebApplication.IdentityServer
 
            };
         }
-
-     /*   public static IEnumerable<ApiResource> Apis()
-        {
-            return new List<ApiResource> { new ApiResource(IdentityServerConstants.LocalApi.ScopeName) };
-        }*/
-
         public static IEnumerable<Client> GetClients()
         {
             return new List<Client>
@@ -83,23 +76,25 @@ namespace WebApplication.IdentityServer
                   AllowedScopes = { "api1.get","profile", IdentityServerConstants.LocalApi.ScopeName }
                },
                new Client
-        {
-            ClientId = "mvc",
-            ClientSecrets = { new Secret("secret".Sha256()) },
+               {
+                   ClientId = "mvc",
+                   ClientSecrets = { new Secret("secret".Sha256()) },
+                   AllowedGrantTypes = GrantTypes.Code,
+                   RequireConsent = false,
 
-            AllowedGrantTypes = GrantTypes.Code,
-            RequireConsent = false,
+                   RedirectUris = { "https://localhost:44330/signin-oidc" },
 
-            RedirectUris = { "https://localhost:44330/signin-oidc" },
-            //RedirectUris = { "http://localhost/WEBTest/signin-oidc" },
+                   PostLogoutRedirectUris = { "https://localhost:44330/Home/Index" },
 
-            PostLogoutRedirectUris = { "https://localhost:44330/Home/Index" },
-            //PostLogoutRedirectUris = { "http://localhost/WEBTest/Home/Index" },
+                   AllowedScopes = {
+                       "api1.get",
+                       "profile",
+                       IdentityServerConstants.StandardScopes.OpenId,
+                       IdentityServerConstants.LocalApi.ScopeName
+                   }
+               }
 
-            AllowedScopes = { "api1.get","profile", IdentityServerConstants.StandardScopes.OpenId }
-        }
-
-            };
+    };
         }
 
     }

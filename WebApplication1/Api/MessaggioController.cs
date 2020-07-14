@@ -13,7 +13,7 @@ namespace WebApplication1.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class MessaggioController : ControllerBase
     {
         private readonly ApplicationDbContext _context;

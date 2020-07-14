@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -71,6 +72,7 @@ namespace WebApplication1.Controllers
             user.Img = model.Img;
             if (_userProvider.Update(_httpContextAccessor.HttpContext.Session.GetString("email"), user))
             {
+             
                 _httpContextAccessor.HttpContext.Session.SetString("immagine", model.Img);
                 return RedirectToAction("Index");
             }
@@ -85,48 +87,18 @@ namespace WebApplication1.Controllers
             if (model.NewPassword != model.NewPasswordAgain) return View();
 
             var email = _httpContextAccessor.HttpContext.Session.GetString("email");
-            //var user = _userProvider.GetUserMail(email);
-
-            var client = new HttpClient();
-            var disco = await client.GetDiscoveryDocumentAsync(_Configuration.GetConnectionString("IdentityUrl"));
-            if (disco.IsError)
-            {
-                Console.WriteLine(disco.Error);
-                return View();
-            }
-
-            var tokenResponse = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
-            {
-                Address = disco.TokenEndpoint,
-
-                ClientId = "ro.client",
-                ClientSecret = "secret",
-                Scope = "IdentityServerApi",
-
-                UserName = email,
-                Password = model.OldPassword
-            });
-
-            if (tokenResponse.IsError)
-            {
-                Console.WriteLine(tokenResponse.Error);
-                return View();
-            }
-
-            ///
 
             var url = "https://localhost:5001/localapi/" + email + "?newPassword=" + model.NewPassword;
             var request = new HttpRequestMessage(HttpMethod.Put,
                  url);
+            var token = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
             request.Headers.Add("Accept", "*/*");
             request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
-            request.Headers.Add("Authorization", "Bearer " + tokenResponse.AccessToken);
+            request.Headers.Add("Authorization", "Bearer " + token);
 
             var client2 = _clientFactory.CreateClient();
             var response = await client2.SendAsync(request);
 
-
-            ////
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

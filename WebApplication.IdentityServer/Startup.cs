@@ -17,6 +17,7 @@ using WebApplication.DataAccess.SQL;
 using WebApplication.DataAccess.SQL.DataModels;
 using WebApplication.DataAccess.SQL.Providers;
 using WebApplication.IdentityServer.Provider;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace WebApplication.IdentityServer
 {
@@ -41,7 +42,8 @@ namespace WebApplication.IdentityServer
             services.AddTransient<IUserProvider, UserProvider>();
 
             services.AddLocalApiAuthentication();
-            
+
+
             services.AddIdentity<Utente, Ruolo>(config =>
             {
                 config.Password.RequiredLength = 4;
@@ -52,8 +54,8 @@ namespace WebApplication.IdentityServer
             .AddDefaultTokenProviders();
 
             services.AddTransient<IUserStore<Utente>, UserStore>();
-            services.AddTransient<IRoleStore<Ruolo>, RoleStore>();     
-            
+            services.AddTransient<IRoleStore<Ruolo>, RoleStore>();
+
             services.AddAuthorization();
 
             services.ConfigureApplicationCookie(config =>
@@ -63,8 +65,11 @@ namespace WebApplication.IdentityServer
                 config.LogoutPath = "/Account/Logout";
             });
 
-            services.AddIdentityServer(options =>
-              options.Discovery.CustomEntries.Add("local_api", "~/localapi")
+            services.AddIdentityServer(options => { 
+              options.Discovery.CustomEntries.Add("local_api", "~/localapi");
+            options.Events.RaiseSuccessEvents = true;
+            options.Events.RaiseFailureEvents = true;
+            options.Events.RaiseErrorEvents = true; }
               )
                 .AddAspNetIdentity<Utente>()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
@@ -93,7 +98,10 @@ namespace WebApplication.IdentityServer
             }
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
             app.UseIdentityServer();
 
 
