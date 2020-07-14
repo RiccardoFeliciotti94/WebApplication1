@@ -44,6 +44,7 @@ namespace WebApplication1
             services.AddSignalR();
             services.AddDbContext<ApplicationDbContext>(options =>
                          options.UseSqlServer(_Configuration.GetConnectionString("SqlLocal")));
+
             services.AddTransient<IUserProvider, UserProvider>();
             services.AddTransient<IMsgProvider, MsgProvider>();
             services.AddTransient<ICommentiProvider, CommentiProvider>();
@@ -78,20 +79,24 @@ namespace WebApplication1
                     options.SaveTokens = true;
 
                     options.SignedOutCallbackPath = "/Home/Index";
-
+                    
                     options.Scope.Add("api1.get");
                     options.Scope.Add("profile");
                     options.Scope.Add("openid");
+                    options.Scope.Add("IdentityServerApi");
 
                     //claims handle
                     options.GetClaimsFromUserInfoEndpoint = true;
-                    options.ClaimActions.MapAll();
+                    options.ClaimActions.MapAll();                    
+                    options.UsePkce = true;
 
                 }).AddIdentityServerAuthentication(options =>
                 {
+                    
                     options.Authority = _Configuration.GetConnectionString("IdentityUrl");
                     options.RequireHttpsMetadata = false;
                     options.ApiName = "api1";
+                    
 
                 });
             
@@ -132,10 +137,7 @@ namespace WebApplication1
                  ).RequireAuthorization();
                 endpoints.MapHub<LikeHub>("/likeHub");
                 endpoints.MapHub<CommentoHub>("/commentoHub");
-            });
-            
-        }
-
-        
+            });            
+        }        
     }
 }

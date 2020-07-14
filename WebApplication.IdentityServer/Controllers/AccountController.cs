@@ -19,7 +19,6 @@ using WebApplication.IdentityServer.Models;
 
 namespace WebApplication1.Controllers
 {
-
     public class AccountController : Controller
     {
         private readonly UserManager<Utente> _userManager;
@@ -27,7 +26,6 @@ namespace WebApplication1.Controllers
         private readonly IEventService _events;
         private readonly IIdentityServerInteractionService _interactionService;
         private readonly IdentityServerTools _tools;
-
 
         public AccountController(
             UserManager<Utente> userManager,
@@ -65,7 +63,7 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email,model.Password, false, false);
-
+            
            
             if (result.Succeeded)
             {
