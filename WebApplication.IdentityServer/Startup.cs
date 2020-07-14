@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
+using IdentityServer4;
+using Microsoft.AspNetCore.Authentication;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Builder;
@@ -38,6 +40,8 @@ namespace WebApplication.IdentityServer
             services.AddScoped<IResourceOwnerPasswordValidator, CustomResourceOwnerPasswordValidator>();
             services.AddTransient<IUserProvider, UserProvider>();
 
+            services.AddLocalApiAuthentication();
+            
             services.AddIdentity<Utente, Ruolo>(config =>
             {
                 config.Password.RequiredLength = 4;
@@ -48,7 +52,9 @@ namespace WebApplication.IdentityServer
             .AddDefaultTokenProviders();
 
             services.AddTransient<IUserStore<Utente>, UserStore>();
-            services.AddTransient<IRoleStore<Ruolo>, RoleStore>();
+            services.AddTransient<IRoleStore<Ruolo>, RoleStore>();     
+            
+            services.AddAuthorization();
 
             services.ConfigureApplicationCookie(config =>
             {
@@ -57,8 +63,9 @@ namespace WebApplication.IdentityServer
                 config.LogoutPath = "/Account/Logout";
             });
 
-            services.AddIdentityServer()
-
+            services.AddIdentityServer(options =>
+              options.Discovery.CustomEntries.Add("local_api", "~/localapi")
+              )
                 .AddAspNetIdentity<Utente>()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiScopes(Config.GetApiScopes())
@@ -86,6 +93,7 @@ namespace WebApplication.IdentityServer
             }
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthorization();
             app.UseIdentityServer();
 
 

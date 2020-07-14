@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Events;
+﻿using IdentityServer4;
+using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
@@ -25,18 +26,21 @@ namespace WebApplication1.Controllers
         private readonly SignInManager<Utente> _signInManager;
         private readonly IEventService _events;
         private readonly IIdentityServerInteractionService _interactionService;
+        private readonly IdentityServerTools _tools;
 
 
         public AccountController(
             UserManager<Utente> userManager,
             SignInManager<Utente> signInManager,
             IEventService events,
-            IIdentityServerInteractionService interactionService)
+            IIdentityServerInteractionService interactionService,
+            IdentityServerTools tools)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _events = events;
             _interactionService = interactionService;
+            _tools = tools;
         }
 
         [HttpGet]
@@ -61,10 +65,12 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email,model.Password, false, false);
+
            
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 await _events.RaiseAsync(new UserLoginSuccessEvent(model.Email, model.Email, model.Email, clientId: "mvc"));
+            
                 return Redirect(model.ReturnUrl);
             }
             ModelState.AddModelError("CustomErrorInputNotCorrect", "Password o Email non corretta");
@@ -88,6 +94,7 @@ namespace WebApplication1.Controllers
             }
             Utente user = new Utente { Email = model.Email, Password = model.Password, Nome = model.Username, Ruolo = 1 };
             var z = await _userManager.CreateAsync(user, user.Password);
+            
             if( z.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
@@ -97,5 +104,8 @@ namespace WebApplication1.Controllers
             return View(model);
 
         }
+
+       
+       
     }
 }

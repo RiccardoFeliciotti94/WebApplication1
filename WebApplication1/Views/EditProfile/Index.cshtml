@@ -1,0 +1,144 @@
+﻿@model WebApplication1.Models.ProfileInfo.ProfileInfoModel
+
+<div id="page-content">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Edit Profile</h3>
+                </div>
+
+                <form asp-controller="EditProfile" asp-action="EditName" class="form-horizontal">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="demo-is-inputnormal" class="col-sm-3 control-label">Name</label>
+                            <div class="col-sm-6">
+                                <input asp-for="Name" type="text" placeholder="Name" class="form-control" id="demo-is-inputnormal">
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button class="btn btn-mint" type="submit">Change</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Edit Profile</h3>
+                </div>
+
+                <form asp-controller="EditProfile" asp-action="EditPassword" class="form-horizontal">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="demo-is-inputnormal" class="col-sm-3 control-label">Old Password</label>
+                            <div class="col-sm-6">
+                                <input asp-for="OldPassword" type="hidden" placeholder="Old Password" class="form-control" id="demo-is-inputnormal">
+                                <span asp-validation-for="OldPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="demo-is-inputnormal" class="col-sm-3 control-label">New Password</label>
+                            <div class="col-sm-6">
+                                <input asp-for="NewPassword" type="hidden" placeholder="New Password" class="form-control" id="demo-is-inputnormal">
+                                <span asp-validation-for="NewPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="demo-is-inputnormal" class="col-sm-3 control-label">Confirm Password</label>
+                            <div class="col-sm-6">
+                                <input asp-for="NewPasswordAgain" type="hidden" placeholder="Confirm Password" class="form-control" id="demo-is-inputnormal">
+                                <span asp-validation-for="NewPasswordAgain" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button class="btn btn-mint" type="submit">Change</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Edit Info</h3>
+                </div>
+
+                <form asp-controller="EditProfile" asp-action="EditInfo" class="form-horizontal">
+                    <div class="panel-body">
+                        <textarea asp-for="Info" rows="13" class="form-control"></textarea>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button class="btn btn-mint" type="submit">Change</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Edit Img</h3>
+                </div>
+
+                <form asp-controller="EditProfile" asp-action="EditImg" class="form-horizontal">
+                    <div class="panel-body">
+
+                        <div class="btn-group bootstrap-select">
+                   
+                            <select asp-for="Img" class="selectpicker" id="select-img" tabindex="-98">
+                                <option value="/img/profile-photos/1.png">IMG 1</option>
+                                <option value="/img/profile-photos/2.png">IMG 2</option>
+                                <option value="/img/profile-photos/3.png">IMG 3</option>
+                                <option value="/img/profile-photos/4.png">IMG 4</option>
+                                <option value="/img/profile-photos/5.png">IMG 5</option>
+                                <option value="/img/profile-photos/6.png">IMG 6</option>
+                                <option value="/img/profile-photos/7.png">IMG 7</option>
+                                <option value="/img/profile-photos/8.png">IMG 8</option>
+                                <option value="/img/profile-photos/9.png">IMG 9</option>
+                                <option value="/img/profile-photos/10.png">IMG 10</option>
+                            </select>
+                            <script>
+                                var dropdown = document.getElementById("select-img").addEventListener("change", function (event) {
+                                    var result = document.getElementById("img-selected");
+                                    result.setAttribute("src", event.target.value);
+                                });
+                            </script>
+                            <hr />
+                            <div class="pad-btm">                               
+                                 <img id ="img-selected" class="img-circle img-md" src="@Model.Img" alt="Profile Picture">                        
+ 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button class="btn btn-mint" type="submit">Change</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

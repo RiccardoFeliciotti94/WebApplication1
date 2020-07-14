@@ -85,12 +85,7 @@ namespace WebApplication1
 
                     //claims handle
                     options.GetClaimsFromUserInfoEndpoint = true;
-                    options.ClaimActions.DeleteClaim("sid");
-                    options.ClaimActions.DeleteClaim("idp");
-                    options.ClaimActions.MapJsonKey("email", "email");
-                    options.ClaimActions.MapJsonKey("nome", "nome");
-                    options.ClaimActions.MapJsonKey("ruolo", "ruolo");
-                    options.ClaimActions.MapJsonKey("immagine", "immagine");
+                    options.ClaimActions.MapAll();
 
                 }).AddIdentityServerAuthentication(options =>
                 {

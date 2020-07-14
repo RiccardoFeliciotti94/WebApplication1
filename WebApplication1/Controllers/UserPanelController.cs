@@ -41,7 +41,8 @@ namespace WebApplication1.Controllers
                     Host = email,
                     Img = _httpContextAccessor.HttpContext.Session.GetString("immagine"),
                     Nome = _httpContextAccessor.HttpContext.Session.GetString("nome"),
-                    Messaggi = _msgUserHelper.GetMessaggiOneUser(email, email)
+                    Messaggi = _msgUserHelper.GetMessaggiOneUser(email, email),
+                    Info = _httpContextAccessor.HttpContext.Session.GetString("info")
                 };
 
                 return View(upm);
@@ -55,6 +56,7 @@ namespace WebApplication1.Controllers
                     Host = email,
                     Img = ut.Img,
                     Nome = ut.Nome,
+                    Info = ut.Info,
                     Messaggi = _msgUserHelper.GetMessaggiOneUser(email, id)
                 };
                 return View(upm);
