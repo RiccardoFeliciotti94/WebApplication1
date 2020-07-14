@@ -54,7 +54,6 @@ namespace WebApplication1.Controllers
                     emailSession = emailClaim;
                 } catch (Exception e)
                 {
-                    Console.WriteLine(e);
                     return SignOut("Cookies", "oidc");
                 }
             }
