@@ -13,10 +13,5 @@ namespace WebApplication1.Models.ListaMessaggi
         public List<MsgUser> ListMessage {get; set;}
         [Required]
         public string Email { get; set; }
-
-        public string Testo { get; set; }
-        public string IDMes { get; set; }
-
-        public string IDRefCom { get; set; }
     }
 }

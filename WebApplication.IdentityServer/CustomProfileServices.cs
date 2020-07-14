@@ -34,7 +34,8 @@ namespace WebApplication.IdentityServer
                             new Claim("email", user.Email),
                             new Claim("nome", user.Nome),
                             new Claim("ruolo", user.Ruolo.ToString()),
-                            new Claim("immagine",user.Img)
+                            new Claim("immagine",user.Img),
+                            new Claim("info",user.Info)
                     });
                 }
                

@@ -12,6 +12,7 @@ namespace WebApplication1.Models.DataModel
         public string IDMessaggio { get; set; }
         public string Testo { get; set; }
         public string Nome { get; set; }
+        public string Email { get; set; }
         public string Img { get; set; }
         public string Data { get; set; }
         public int Like { get; set; }

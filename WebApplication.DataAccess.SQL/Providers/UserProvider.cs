@@ -15,8 +15,13 @@ namespace WebApplication.DataAccess.SQL.Providers
         public List<Utente> GetAllUser();
         public bool AddUser(Utente model);
         public Utente GetUserMail(string Email);
-        public Utente GetUtenteWithMailandPassword(string Email, string pass);
-        public Task<bool> ConnectWithPassword(string email, string password);
+
+        public bool EditName(string Email,string Name);
+        public bool EditInfo(string Email, string Info);
+
+        public bool Update(string Email, Utente user);
+
+        public bool EditPassword(string Email, string Name);
     }
     public class UserProvider : IUserProvider 
     {
@@ -53,24 +58,77 @@ namespace WebApplication.DataAccess.SQL.Providers
             return user;
         }
 
-        public Utente GetUtenteWithMailandPassword(string Email, string pass)
+        public bool EditName(string Email,string Name)
         {
-            var user = _DbContext.Utente.FirstOrDefault(utente => utente.Email == Email);
-            var z = Convert.FromBase64String(user.Password);
-            string passEncoded = Encoding.ASCII.GetString(z);
-            if (passEncoded == pass) return user;
-            else return null;
+            if (Name == null || Name == "") return false;
+            var user = _DbContext.Utente.FirstOrDefault(u => u.Email == Email);
+            if (user == null) return false;
+            user.Nome = Name;
+            try
+            {
+                _DbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            return true;
         }
 
-        public Task<bool> ConnectWithPassword (string email, string password)
+        public bool EditPassword(string Email, string Pass)
         {
-            var user = _DbContext.Utente.FirstOrDefault(utente => utente.Email == email);
-            if (user == null) return Task.FromResult(false);
-            var z = Convert.FromBase64String(user.Password);
-            string passEncoded = Encoding.ASCII.GetString(z);
-            if (passEncoded != password) return Task.FromResult(false);
-            return Task.FromResult(true);
+        
+            var user = _DbContext.Utente.FirstOrDefault(u => u.Email == Email);
+            if (user == null) return false;
+            user.Password = Pass;
+            try
+            {
+                _DbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            return true;
         }
 
+        public bool EditInfo(string Email, string Info)
+        {
+            if (Info == null ) return false;
+            var user = _DbContext.Utente.FirstOrDefault(u => u.Email == Email);
+            if (user == null) return false;
+            user.Info = Info;
+            try
+            {
+                _DbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            return true;
+        }
+
+        public bool Update(string Email, Utente user)
+        {
+            if (user == null) return false;
+            var oldUser = _DbContext.Utente.FirstOrDefault(u => u.Email == Email);
+            if (oldUser == null) return false;
+            oldUser = user;
+            try
+            {
+                _DbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            return true;
+
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace WebApplication1.Models.DataModel
 
         public string TestoCommento { get; set; }
 
-        public DateTime Data { get; set; }
+        public string Data { get; set; }
 
         public List<CommentoModel> SubCommenti { get; set; }
     }

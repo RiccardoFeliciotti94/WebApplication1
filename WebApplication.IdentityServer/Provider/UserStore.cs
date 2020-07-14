@@ -14,7 +14,7 @@ using WebApplication.DataAccess.SQL.DataModels;
 namespace WebApplication.IdentityServer.Provider
 {
 
-    public class UserStore : IUserStore<Utente>, IUserPasswordStore<Utente> , IUserClaimStore<Utente>
+    public class UserStore : IUserStore<Utente>, IUserPasswordStore<Utente>, IUserClaimStore<Utente>
     {
 
         private readonly ApplicationDbContext _DbContext;
@@ -31,9 +31,9 @@ namespace WebApplication.IdentityServer.Provider
 
         public async Task<IdentityResult> CreateAsync(Utente user, CancellationToken cancellationToken)
         {
-            var msgList=_DbContext.Messaggio.Select(x => x.IDMessaggio).ToList();
-            _DbContext.Add(user);            
-            foreach( var mes in msgList)
+            var msgList = _DbContext.Messaggio.Select(x => x.IDMessaggio).ToList();
+            _DbContext.Add(user);
+            foreach (var mes in msgList)
             {
                 UtenteLikeMessaggio ulm = new UtenteLikeMessaggio { Email = user.Email, IDMessaggio = mes, SetLike = 0 };
                 _DbContext.UtenteLikeMessaggio.Add(ulm);
@@ -129,9 +129,15 @@ namespace WebApplication.IdentityServer.Provider
             throw new NotImplementedException();
         }
 
-        public Task<IdentityResult> UpdateAsync(Utente user, CancellationToken cancellationToken)
+        public async Task<IdentityResult> UpdateAsync(Utente user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var utente = await _DbContext.Utente.FirstOrDefaultAsync(op => op.Email == user.Email);
+            if(utente!=null)
+            {
+                utente = user;
+                await _DbContext.SaveChangesAsync(cancellationToken);
+            }
+            return await Task.FromResult(IdentityResult.Success);
         }
 
         public Task<IList<Claim>> GetClaimsAsync(Utente user, CancellationToken cancellationToken)
@@ -141,7 +147,8 @@ namespace WebApplication.IdentityServer.Provider
                 new Claim("email", user.Email),
                 new Claim("pass", user.Password),
                 new Claim("ruolo", user.Ruolo.ToString()),
-                new Claim("immagine", user.Img)
+                new Claim("immagine", user.Img),
+                new Claim("info",user.Info)
             };
 
             IList<Claim> IClaimList = claimList;
@@ -167,5 +174,6 @@ namespace WebApplication.IdentityServer.Provider
         {
             throw new NotImplementedException();
         }
+
     }
 }

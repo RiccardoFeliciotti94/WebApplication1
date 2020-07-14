@@ -31,26 +31,33 @@ namespace WebApplication1.Controllers
             _msgUserHelper = msgUserHelper;
         }
 
-
         public IActionResult Index()
         {
             var emailSession = _httpContextAccessor.HttpContext.Session.GetString("email");
 
             if (emailSession == null)
             {
-                var emailClaim = User.Claims.Where(x => x.Type == "email").Select(k => k.Value).First();
-                var nameClaim = User.Claims.Where(x => x.Type == "nome").Select(k => k.Value).First();
-                var roleClaim = User.Claims.Where(x => x.Type == "ruolo").Select(k => k.Value).First();
-                roleClaim = (roleClaim == "1") ? "Guest" : "Admin";
-                var imgClaim = User.Claims.Where(x => x.Type == "immagine").Select(k => k.Value).First();
-                _httpContextAccessor.HttpContext.Session.SetString("nome", nameClaim);
-                _httpContextAccessor.HttpContext.Session.SetString("email", emailClaim);
-                _httpContextAccessor.HttpContext.Session.SetString("ruolo", roleClaim);
-                _httpContextAccessor.HttpContext.Session.SetString("immagine", imgClaim);
+                try
+                {
+                    var emailClaim = User.Claims.Where(x => x.Type == "email").Select(k => k.Value).First();
+                    var nameClaim = User.Claims.Where(x => x.Type == "nome").Select(k => k.Value).First();
+                    var roleClaim = User.Claims.Where(x => x.Type == "ruolo").Select(k => k.Value).First();
+                    roleClaim = (roleClaim == "1") ? "Guest" : "Admin";
+                    var imgClaim = User.Claims.Where(x => x.Type == "immagine").Select(k => k.Value).First();
+                    var infoClaim = User.Claims.Where(x => x.Type == "info").Select(k => k.Value).First();
 
-
-                emailSession = emailClaim;
+                    _httpContextAccessor.HttpContext.Session.SetString("nome", nameClaim);
+                    _httpContextAccessor.HttpContext.Session.SetString("email", emailClaim);
+                    _httpContextAccessor.HttpContext.Session.SetString("ruolo", roleClaim);
+                    _httpContextAccessor.HttpContext.Session.SetString("immagine", imgClaim);
+                    _httpContextAccessor.HttpContext.Session.SetString("info", infoClaim);
+                    emailSession = emailClaim;
+                } catch (Exception e)
+                {
+                    return SignOut("Cookies", "oidc");
+                }
             }
+            
             var listMsgUser = _msgUserHelper.GetMessaggi(emailSession);
             ListaMessaggiModel model = new ListaMessaggiModel
             {

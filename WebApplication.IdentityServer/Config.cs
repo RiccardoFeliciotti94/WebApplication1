@@ -19,7 +19,7 @@ namespace WebApplication.IdentityServer
                new IdentityResource(
                      name: "profile",
                      displayName: "Your profile data",
-                     userClaims: new[] { "email", "nome" , "ruolo", "immagine"}
+                     userClaims: new[] { "email", "nome" , "ruolo", "immagine","info"}
                      )
             };
         }
@@ -29,6 +29,7 @@ namespace WebApplication.IdentityServer
             return new List<ApiScope>
             {
                  new ApiScope(name: "api1.get",   displayName: "my api scope"),
+                 new ApiScope(name: "IdentityServerApi" , displayName: "idpersonal scope")
             };
         }
 
@@ -40,9 +41,19 @@ namespace WebApplication.IdentityServer
               new ApiResource("api1", "My api")
               {
                     Scopes = { "api1.get"}
-              }
+              },
+               new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
+               {
+                   Scopes = { "IdentityServerApi"}
+               }
+
            };
         }
+
+     /*   public static IEnumerable<ApiResource> Apis()
+        {
+            return new List<ApiResource> { new ApiResource(IdentityServerConstants.LocalApi.ScopeName) };
+        }*/
 
         public static IEnumerable<Client> GetClients()
         {
@@ -57,7 +68,7 @@ namespace WebApplication.IdentityServer
                   {
                      new Secret("secret".Sha256())
                   },
-                  AllowedScopes = { "api1.get","profile" },
+                  AllowedScopes = { "api1.get","profile", IdentityServerConstants.LocalApi.ScopeName },
 
                },
                new Client
@@ -69,7 +80,7 @@ namespace WebApplication.IdentityServer
                    {
                       new Secret("secret".Sha256())
                    },
-                  AllowedScopes = { "api1.get","profile" }
+                  AllowedScopes = { "api1.get","profile", IdentityServerConstants.LocalApi.ScopeName }
                },
                new Client
         {

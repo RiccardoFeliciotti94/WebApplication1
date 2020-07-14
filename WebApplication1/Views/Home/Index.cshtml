@@ -1,5 +1,10 @@
 ﻿@model WebApplication1.Models.ListaMessaggi.ListaMessaggiModel
 @using Newtonsoft.Json
+<script>
+   var myModel = @Html.Raw(JsonConvert.SerializeObject(this.Model));
+</script>
+
+
 
 <div id="page-head">
     <div class="pad-all text-center">
@@ -9,7 +14,7 @@
 <div id="page-content">
     <div class="col-xs-12">
 
-        
+
         @foreach (var a in Model.ListMessage)
         {
             var lk = (a.SetLike == 0) ? "Like" : "Dislike";
@@ -20,7 +25,7 @@
                     <div class="panel panel-trans">
                         <div class="pad-all">
                             <div class="media mar-btm">
-                                <a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src=@a.Img></a>
+                                <a class="media-left" href="~/userpanel/@a.Email"><img class="img-circle img-sm" alt="Profile Picture" src=@a.Img></a>
                                 <div class="media-body">
 
                                     <p class="text-lg text-main text-semibold mar-no">@a.Nome</p>
@@ -58,7 +63,7 @@
                                 {
                                     <li>
                                         <div class="comments media-block">
-                                            <a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src=@com.Img></a>
+                                            <a class="media-left" href="~/userpanel/@com.Email"><img class="img-circle img-sm" alt="Profile Picture" src=@com.Img></a>
                                             <div class="media-body">
                                                 <div class="comment-header">
                                                     <p class="media-heading box-inline text-main text-bold">@com.Nome</p>

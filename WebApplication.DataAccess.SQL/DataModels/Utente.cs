@@ -19,5 +19,7 @@ namespace WebApplication.DataAccess.SQL.DataModels
 
         [DefaultValue("~/img/profile-photos/1.png")]
         public string Img { get; set; }
+        [DefaultValue("Hello")]
+        public string Info { get; set; }
     }
 }
